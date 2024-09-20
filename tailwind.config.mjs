@@ -53,6 +53,22 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+		'poppy': {
+			DEFAULT: '#E23135',
+			50: '#F9D2D3',
+			100: '#F6C0C1',
+			200: '#F19C9E',
+			300: '#EC797B',
+			400: '#E75558',
+			500: '#E23135',
+			600: '#C01B1F',
+			700: '#8F1417',
+			800: '#5E0D0F',
+			900: '#2C0607',
+			950: '#140303'
+		  },
+		  'ronchi': {  DEFAULT: '#EFD550',  50: '#FEFDF8',  100: '#FDF9E6',  200: '#F9F0C0',  300: '#F6E79B',  400: '#F2DE75',  500: '#EFD550',  600: '#EAC91D',  700: '#BDA111',  800: '#8A760D',  900: '#574A08',  950: '#3D3406'},
+		  'persian-blue': {  DEFAULT: '#173DEB',  50: '#C0CAFA',  100: '#ADBBF8',  200: '#889BF5',  300: '#627CF1',  400: '#3D5CEE',  500: '#173DEB',  600: '#102EBA',  700: '#0C2286',  800: '#071553',  900: '#03081F',  950: '#000105'},
       },
       borderRadius: {
       	xl: "calc(var(--radius) + 4px)",
@@ -84,6 +100,9 @@ export default {
         "collapsible-down": "collapsible-down 0.2s ease-in-out",
         "collapsible-up": "collapsible-up 0.2s ease-in-out",
       },
+	  fontFamily:{
+		'sans': ["Fredoka", 'sans-serif'],
+	  }
     },
   },
   plugins: [animate],
