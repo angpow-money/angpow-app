@@ -13,14 +13,32 @@
 
     </div> -->
 
-    <div :class="[ pan_up?'translate-y-[-30%]':'', pan_down?'translate-y-[20%]':'', pan_up_palette?'translate-y-[-15%]':'']" class="w-[90vw] max-w-[500px] aspect-[2/3] flex justify-center items-start relative duration-300 transition-all pointer-events-none">
+    <div :class="[ pan_up?'translate-y-[-30%]':'', pan_down?'translate-y-[20%]':'', pan_down_open?'translate-y-[50%]':'', pan_up_palette?'translate-y-[-15%]':'']" class="w-[90vw] max-w-[500px] aspect-[2/3] flex justify-center items-start relative duration-300 transition-all pointer-events-none">
         <div :class="[zoom_close ? 'scale-75' : '', zoom_far ? 'scale-50' : 'scale-100', flip_angpao ? '-translate-y-[0vh]' : '']" class="flex justify-center items-start relative duration-500 transition-all w-full h-full">
-      <div :class="[!flip_angpao ? '' : '[transform:rotateY(-180deg)]', selectedColorClass]" class="absolute w-full h-full transition-all duration-300 shadow-2xl rounded-3xl" style="-webkit-backface-visibility: hidden; backface-visibility: hidden"></div>
+      <div :class="[!flip_angpao ? '' : '[transform:rotateY(-180deg)]', selectedColorClass]" class="absolute w-full h-full transition-all duration-500 shadow-2xl rounded-3xl" style="-webkit-backface-visibility: hidden; backface-visibility: hidden"></div>
 
-      <div :class="[!flip_angpao ? 'rounded-xl [transform:rotateY(180deg)]' : 'rounded-xl rounded-t-none [transform:rotateY(0deg)]']" class="absolute w-full h-full bg-red-500 transition-all duration-300" style="-webkit-backface-visibility: hidden; backface-visibility: hidden">
-        <div :class="[!flip_angpao ? '[transform:rotateY(180deg)] opacity-0' : '']" class="w-full aspect-square z-50 flex justify-center items-center transition-all duration-300 rounded-xl pointer-events-none">
-          <div id="envelopeCover" class="aspect-square w-full overflow-hidden origin-top z-50">
-            <div class="bg-blue-500/50 w-full h-full rotate-45 translate-y-[-70%] rounded-3xl"></div>
+      <div :class="[!flip_angpao ? 'rounded-xl [transform:rotateY(180deg)]' : 'rounded-xl rounded-t-none [transform:rotateY(0deg)]']" class="absolute w-full h-full bg-red-500 transition-all duration-500" style="-webkit-backface-visibility: hidden; backface-visibility: hidden">
+        <div :class="[!flip_angpao ? '[transform:rotateY(180deg)] opacity-0' : '']" class="w-full aspect-square z-50 flex justify-center items-center transition-all duration-500 rounded-xl pointer-events-none relative">
+
+          <div class="w-full aspect-square absolute flex justify-center items-center z-50 bg-red-500">
+
+          </div>
+
+          <div :class="[token_up?'translate-y-[-100%]':'translate-y-[50%] opacity-0']" class="w-full aspect-square absolute flex justify-center items-center z-30 duration-1000 transition-all ">
+            <!-- <div class="bg-red-500 w-full h-[300px] mt-[100%]">
+
+            </div> -->
+            <div class="absolute flex justify-center items-center w-full max-w-[13rem]">
+              <div class=" bg-black rounded-full aspect-square w-full "></div>
+              <div class="absolute bottom-0 right-[-1rem] bg-white p-2 px-2 rounded-full text-lg shadow-xl border border-black/20">0.001 ETH</div>
+            </div>
+
+
+            
+          </div>
+
+          <div id="envelopeCover" class="aspect-square w-full overflow-hidden origin-top z-20">
+            <div class="bg-blue-500 w-full h-full rotate-45 translate-y-[-70%] rounded-3xl"></div>
           </div>
         </div>
       </div>
@@ -68,7 +86,7 @@ import { watch } from "vue";
 import { computed } from "vue";
 
 import { useStore } from "@nanostores/vue";
-import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $selectedColorClass } from "@/stores/angpao";
+import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $selectedColorClass, $token_up } from "@/stores/angpao";
 
 const state = useStore($state);
 const show_palette = useStore($show_palette);
@@ -79,6 +97,8 @@ const open_angpao = useStore($open_angpao);
 const pan_up = useStore($pan_up);
 const pan_down = useStore($pan_down);
 const pan_up_palette = useStore($pan_up_palette);
+const pan_down_open = useStore($pan_down_open);
+const token_up = useStore($token_up);
 
 
 //// FORM
