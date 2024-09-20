@@ -1,15 +1,17 @@
-
 <template>
+    
+    <div class="w-full" @click="openModal()">
+        <slot>
 
-    <div class="hidden">
-        <w3m-button />
+</slot>
     </div>
+
 
 </template>
 
-
-
 <script setup>
+
+
 
 import { createAppKit, useAppKit } from '@reown/appkit/vue'
 import { mainnet } from '@reown/appkit/networks'
@@ -19,6 +21,8 @@ import { getAccount, watchAccount, reconnect } from '@wagmi/core'
 import { config } from '@/wagmiConfig';
 
 import { $account } from '@/stores/wallet'
+
+// const account = useStore($account)
 
 onMounted( async () => {
 
@@ -63,8 +67,8 @@ onMounted( async () => {
     })
     
     // 5. Use modal composable
-    const walletmodal = useAppKit();
-    await walletmodal.open({ view: "Connect" });
+    // const walletmodal = useAppKit();
+    // await walletmodal.open({ view: "Connect" });
 
 
     const unwatch = watchAccount(config, {
@@ -81,6 +85,10 @@ onMounted( async () => {
 
 })
 
+const openModal = async () => {
+    const walletmodal = useAppKit();
+    await walletmodal.open({ view: "Connect" });
+}
+
 
 </script>
-

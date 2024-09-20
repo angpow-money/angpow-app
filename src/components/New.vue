@@ -13,6 +13,8 @@
 
         </div> -->
 
+        <Angpao></Angpao>
+
         
         <template v-if="currentStep == 'start'">
             <div class=" w-full h-full flex flex-col justify-between items-center">
@@ -35,9 +37,16 @@
                     </div>
                 </div>
 
-                <button class="w-full bg-black text-white rounded-xl p-4 text-xl font-semibold mb-2">Create AngPao</button>
+                <ConnectWallet>
+                    <button class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2">Create AngPao</button>
+                </ConnectWallet>
+
             </div>
         </template>
+
+        <!-- <template v-if="currentStep == 'connect_wallet'">
+            <WalletConnect></WalletConnect>
+        </template> -->
 
     </div>
 
@@ -47,22 +56,25 @@
 
     import { Button } from "@/components/ui/button"
     import { ref, computed } from "vue"
+    // import WalletConnect from "@/components/WalletConnect.vue"
+    import ConnectWallet from "@/components/ConnectWallet.vue"
+    import Angpao from "./Angpao.vue";
 
     const step = ref([
         {
             name: "start",
+            active: false
+        },
+        {
+            name: "design",
             active: true
         },
         {
-            name: "connect_wallet",
+            name: "configure",
             active: false
         },
         {
             name: "username",
-            active: false
-        },
-        {
-            name: "configure",
             active: false
         },
         {
@@ -74,5 +86,7 @@
     const currentStep = computed(() => {
         return step.value.find((item) => item.active)?.name
     })
+
+
 
 </script>
