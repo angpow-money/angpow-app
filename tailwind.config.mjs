@@ -105,5 +105,5 @@ export default {
 	  }
     },
   },
-  plugins: [animate, require('daisyui'),],
+  plugins: [animate, require('daisyui'), require("@designbycode/tailwindcss-text-stroke"),],
 }

@@ -16,6 +16,8 @@ import { $account } from "@/stores/wallet";
 
 // const account = useStore($account)
 
+const emit = defineEmits(["connected"])
+
 onMounted(async () => {
   // 1. Get projectId from https://cloud.reown.com
   const projectId = "403fc5eac761cd68c452a912aa15c8f8";
@@ -68,6 +70,9 @@ onMounted(async () => {
       console.log("Account changed!", data);
       $account.set(data);
       console.log($account.value);
+      if(data.address){
+        emit('connected')
+      }
     },
   });
 

@@ -14,6 +14,12 @@ dependencies:
   '@astrojs/vue':
     specifier: ^4.5.1
     version: 4.5.1(astro@4.15.8)(vite@5.4.7)(vue@3.5.7)
+  '@designbycode/tailwindcss-text-stroke':
+    specifier: ^1.2.1
+    version: 1.2.1(tailwindcss@3.4.12)
+  '@egjs/vue3-flicking':
+    specifier: ^4.11.4
+    version: 4.11.4(vue@3.5.7)
   '@nanostores/vue':
     specifier: ^0.10.0
     version: 0.10.0(nanostores@0.11.3)(vue@3.5.7)
@@ -1730,6 +1736,18 @@ packages:
       to-fast-properties: 2.0.0
     dev: false
 
+  /@cfcs/core@0.0.24:
+    resolution: {integrity: sha512-feB38qu+eDk0Pggh/yR7gjaNmvUYA2uCxHP3Pz2MLE4LZ/9jPdtu8bzCSI47yTEhWyZCF5Pk698hdz8IN2mTjA==}
+    dependencies:
+      '@egjs/component': 3.0.5
+    dev: false
+
+  /@cfcs/core@0.1.0:
+    resolution: {integrity: sha512-kvYX0RpL45XTHJ5sW7teNbKeAa7pK3nNqaJPoFfZDPTIBJOkTtRD3QhkBG+O3Hu69a8xeMoPvF6y/RtJ6JUOdA==}
+    dependencies:
+      '@egjs/component': 3.0.5
+    dev: false
+
   /@coinbase/wallet-sdk@3.9.3:
     resolution: {integrity: sha512-N/A2DRIf0Y3PHc1XAMvbBUu4zisna6qAdqABMZwBMNEfWrXpAwx16pZGkYCLGE+Rvv1edbcB2LYDRnACNcmCiw==}
     dependencies:
@@ -1755,6 +1773,60 @@ packages:
       keccak: 3.0.4
       preact: 10.24.0
       sha.js: 2.4.11
+    dev: false
+
+  /@designbycode/tailwindcss-text-stroke@1.2.1(tailwindcss@3.4.12):
+    resolution: {integrity: sha512-6SqiFuMjJaWWv5Mm+RIu8Ui3Kc/8AK3m0qSocPOFhk4yS6aMVioy8QLghAj5KOR/8lsfZe3r7I1uJ7YM1FimUA==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || >=3.0.0-alpha.1'
+    dependencies:
+      tailwindcss: 3.4.12
+    dev: false
+
+  /@egjs/agent@2.4.4:
+    resolution: {integrity: sha512-cvAPSlUILhBBOakn2krdPnOGv5hAZq92f1YHxYcfu0p7uarix2C6Ia3AVizpS1SGRZGiEkIS5E+IVTLg1I2Iog==}
+    dev: false
+
+  /@egjs/axes@3.9.1:
+    resolution: {integrity: sha512-vaqUe/boRDk/A4TjiPtMv+lf7c4Q2jTER/Hw4I61NiJUyPftlZjaP4cteBCQejFyZmzimmA2W0cLmYZHTjBY8A==}
+    dependencies:
+      '@cfcs/core': 0.1.0
+      '@egjs/agent': 2.4.4
+      '@egjs/component': 3.0.5
+    dev: false
+
+  /@egjs/component@3.0.5:
+    resolution: {integrity: sha512-cLcGizTrrUNA2EYE3MBmEDt2tQv1joVP1Q3oDisZ5nw0MZDx2kcgEXM+/kZpfa/PAkFvYVhRUZwytIQWoN3V/w==}
+    dev: false
+
+  /@egjs/flicking@4.11.4:
+    resolution: {integrity: sha512-ZQxJS0C9lZ/PcMfM7vo9KQW4tvmi+e+9HIxRstRCo2DGy0nJ6LklZt0b+POf6O9Ak0qZwDeHCGp6AhrDu9EPNA==}
+    dependencies:
+      '@egjs/axes': 3.9.1
+      '@egjs/component': 3.0.5
+      '@egjs/imready': 1.4.1
+      '@egjs/list-differ': 1.0.1
+    dev: false
+
+  /@egjs/imready@1.4.1:
+    resolution: {integrity: sha512-JIOBs4lB7FYdsKi5uvz2j3SObX8eShtZjtqlOH41tm185aJOQZwiKBK8+V4MxzG4X6DqVhpdN8UcuVwBbElfsg==}
+    dependencies:
+      '@cfcs/core': 0.0.24
+      '@egjs/component': 3.0.5
+    dev: false
+
+  /@egjs/list-differ@1.0.1:
+    resolution: {integrity: sha512-OTFTDQcWS+1ZREOdCWuk5hCBgYO4OsD30lXcOCyVOAjXMhgL5rBRDnt/otb6Nz8CzU0L/igdcaQBDLWc4t9gvg==}
+    dev: false
+
+  /@egjs/vue3-flicking@4.11.4(vue@3.5.7):
+    resolution: {integrity: sha512-3CkbaiXHBKnsx0UKY6xKdF5lPbQrJ4LnJSDpoqbIarIMg0mIstC3QlaFGUDIYGCNnhGM1mIYKW4d1KaQdcL6mA==}
+    peerDependencies:
+      vue: ^3.0.0
+    dependencies:
+      '@egjs/component': 3.0.5
+      '@egjs/flicking': 4.11.4
+      vue: 3.5.7(typescript@5.6.2)
     dev: false
 
   /@emmetio/abbreviation@2.3.3:
