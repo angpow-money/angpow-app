@@ -9,5 +9,6 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   integrations: [vue(),  tailwind({
     applyBaseStyles: false,
-  }),]
+  }),],
+  output: "server",
 });

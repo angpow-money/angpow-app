@@ -16,6 +16,7 @@
     "@nanostores/vue": "^0.10.0",
     "@reown/appkit": "^1.0.2",
     "@reown/appkit-adapter-wagmi": "^1.0.2",
+    "@supabase/supabase-js": "^2.45.4",
     "@wagmi/connectors": "^5.1.11",
     "@wagmi/core": "^2.13.5",
     "astro": "^4.15.8",

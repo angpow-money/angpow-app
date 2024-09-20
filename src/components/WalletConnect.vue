@@ -6,6 +6,8 @@
     </div>
 
 
+    <div @click="createAngpow()">Create</div>
+
 </template>
 
 
@@ -21,7 +23,7 @@ import { config } from '@/wagmiConfig';
 
 import { $account } from '@/stores/wallet'
 
-// const account = useStore($account)
+import { createAngpow } from '@/stores/angpow';
 
 onMounted( async () => {
 

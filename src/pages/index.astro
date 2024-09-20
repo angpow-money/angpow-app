@@ -1,6 +1,7 @@
 ---
 import '@/styles/globals.css'
 import New from '@/components/New.vue'
+import WalletConnect from '@/components/WalletConnect.vue'
 ---
 
 <html lang="en">
@@ -12,6 +13,7 @@ import New from '@/components/New.vue'
 		<title>Astro</title>
 	</head>
 	<body class="min-h-screen">
+		<WalletConnect client:only="vue"></WalletConnect>
 		<New client:only="vue"></New>
 	</body>
 </html>
