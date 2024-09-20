@@ -1,6 +1,6 @@
 ---
 import '@/styles/globals.css'
-import Home from '@/components/Home.vue'
+import New from '@/components/New.vue'
 ---
 
 <html lang="en">
@@ -12,7 +12,6 @@ import Home from '@/components/Home.vue'
 		<title>Astro</title>
 	</head>
 	<body class="min-h-screen">
-
-		<Home client:only="vue"></Home>
+		<New client:only="vue"></New>
 	</body>
 </html>
