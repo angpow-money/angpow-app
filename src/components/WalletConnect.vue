@@ -5,9 +5,6 @@
         <w3m-button />
     </div>
 
-
-    <div @click="createAngpow()">Create</div>
-
 </template>
 
 
@@ -22,8 +19,6 @@ import { getAccount, watchAccount, reconnect } from '@wagmi/core'
 import { config } from '@/wagmiConfig';
 
 import { $account } from '@/stores/wallet'
-
-import { createAngpow } from '@/stores/angpow';
 
 onMounted( async () => {
 

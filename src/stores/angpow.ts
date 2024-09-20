@@ -54,3 +54,39 @@ export const createAngpow = async () => {
 }
 
 
+export const receiveAngpow = async () => {
+
+    console.log("receiveAngpow");
+
+    try {
+
+        const id = 8
+
+        const message = JSON.stringify({
+            id: id
+        })
+
+        const result = await signMessage(config, {
+            account: $account.value.address,
+            message: message
+        })
+
+        console.log('result', result)
+
+        const receipt = await fetch(`/api/requestAngpow.json`, {
+            method: 'post',
+            body: JSON.stringify({
+                id: id,
+                signature: result,
+                message: message,  
+                sender: $account.value.address
+            })
+        }).then(res => res.json())
+
+        console.log("receipt", receipt);
+
+    } catch(err) {
+        console.error(err)
+    }
+
+}
