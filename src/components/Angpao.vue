@@ -30,13 +30,13 @@
 
         </article>
 
-        <div :class="[!flip_angpao ? '[transform:rotateY(180deg)] opacity-0' : '']" class="w-full aspect-square z-50 flex justify-center items-center transition-all duration-500 rounded-xl pointer-events-none relative">
+        <div :class="[!flip_angpao ? '[transform:rotateY(180deg)] opacity-0' : '']" class="w-full aspect-square z-50 flex justify-center items-start transition-all duration-500 rounded-xl pointer-events-none relative">
 
           <div class="w-full aspect-square absolute flex justify-center items-center z-50 " :class="selectedBgColor">
 
           </div>
 
-          <div :class="[token_up?'translate-y-[-150%]':'translate-y-[50%] opacity-0']" class="w-full aspect-square absolute flex justify-center items-center z-30 duration-1000 transition-all ">
+          <div :class="[token_up?'translate-y-[-100%]':'translate-y-[50%] opacity-0 ']" class="w-full aspect-square absolute flex justify-center items-center z-30 duration-1000 transition-all ">
             
             <div class="absolute flex justify-center items-center w-full max-w-[10rem]">
               <div class=" bg-white shadow-2xl shadow-black/50 rounded-full aspect-square w-full"></div>
