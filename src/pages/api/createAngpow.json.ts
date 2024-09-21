@@ -9,16 +9,14 @@ export const POST: APIRoute = async ({ request }) => {
     try {
       const ensName = await getEnsName(body.address.toLowerCase())
       if (ensName === "") {
-
-        //await setEnsName({
-        //  "key": body.username,
-        //  "value": {
-        //    "addresses": {
-        //      "60": body.address
-        //    },
-        //    //"text": { "email": "yikkai@ruilabs.com" }
-        //  }
-        //})
+        await setEnsName({
+          "key": body.username,
+          "value": {
+            "addresses": {
+              "60": body.address
+            },
+          }
+        })
       }
       //await supabase.from('angpow_subdomain')
       //  .upsert({
@@ -75,7 +73,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
 
-  if (error) return new Response(JSON.stringify(error));
+  if (error) return Response.json(error);
 
-  return new Response(JSON.stringify(data))
+  return Response.json(data)
 }

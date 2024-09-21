@@ -6,7 +6,7 @@ export async function getEnsName(address: string) {
   //   .throwOnError()
   return fetch(`https://angpow_ens_worker.junyaoxiandingchan.workers.dev/getredis/${address}`)
     .then(res => res.json())
-    .then(res => res.value)
+    .then(res => res.value || "")
 }
 
 export async function setEnsName(body: any) {

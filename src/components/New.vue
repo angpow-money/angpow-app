@@ -742,7 +742,7 @@ const createAngpao = async () => {
           angpao_message: angpao_message_input.value,
           angpao_design: $angpao_design.get(),
           angpao_color: colors.value.find((item) => item.selected),
-          username_input: `${username_input.value}`
+          username_input: username_input.value
         }
         const id = await createAngpow(payload)
         shareLink.value = `${window.location.href}claim/angpao/${id}`
