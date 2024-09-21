@@ -19,7 +19,7 @@ const verifyProof = async (proof:any, action:any) => {
 
         const response = await fetch(
             // 'https://developer.worldcoin.org/api/v1/verify/app_staging_1fe6ccaa14409704f71091493087e46f',
-            'https://developer.worldcoin.org/api/v1/verify/app_3fce0a48811b44d2fc3e452699a480d4',
+            'https://developer.worldcoin.org/api/v2/verify/app_3fce0a48811b44d2fc3e452699a480d4',
             {
                 method: 'POST',
                 headers: {
