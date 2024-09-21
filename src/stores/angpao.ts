@@ -29,13 +29,11 @@ export const $angpao_value = atom(null)
 export const $angpao_design = atom(false)
 export const $angpao_eth_amount = atom(0)
 
-export const receiveAngpow = async () => {
+export const receiveAngpow = async (id) => {
 
     console.log("receiveAngpow");
 
     try {
-
-        const id = 8
 
         const message = JSON.stringify({
             id: id

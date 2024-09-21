@@ -19,8 +19,6 @@ export const GET: APIRoute = async ({ params }) => {
 
   if (error) return new Response(JSON.stringify(error));
 
-  console.log(event)
-
   if (event.created_events.length > 0) {
     const createdEvent = event.created_events[0]
 

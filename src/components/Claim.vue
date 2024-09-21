@@ -110,6 +110,7 @@ const openAngpao = async () => {
     $zoom_close.set(false);
 
     claimBusy.value = true;
+    await receiveAngpow(angpow.value.id)
 
     setTimeout(() => {
         
