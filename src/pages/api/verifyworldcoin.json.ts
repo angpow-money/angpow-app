@@ -7,7 +7,7 @@ export const POST: APIRoute = async ({ request }) => {
     const verified = await verifyProof(body.proof, body.action);
     console.log("verified", verified);
     
-    return new Response(JSON.stringify(verified))
+    return new Response(JSON.stringify(verified));
 }
   
 
@@ -30,8 +30,8 @@ const verifyProof = async (proof:any, action:any) => {
         // console.log('dat', dat);
         return dat;
     } else {
-          const { code, detail } = await response.json();
-          throw new Error(`Error Code ${code}: ${detail}`);
+        // const { code, detail } = await response.json();
+        // throw new Error(`Error Code ${code}: ${detail}`);
         // throw new Error(`failed.`);
         return { "success": false };
     }

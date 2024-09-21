@@ -104,7 +104,12 @@ const connectWallet = () => {
 const openAngpao = async () => {
 
     const verified = await openWorldcoin();
-    if(!verified?.success) return;
+    console.log("verified", verified)
+    
+    if(!verified?.success) {
+        alert("Account claimed. Claming aborted.")
+        return;
+    }
 
     claimStart.value = true;
 
