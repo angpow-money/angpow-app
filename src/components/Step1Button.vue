@@ -4,8 +4,8 @@
 
     <ConnectWallet @connected="walletConnected()"></ConnectWallet>
 
-    <div class="absolute bottom-[0] flex justify-center items-center w-full">
-        <div :class="[expand?'max-h-[70vh] ':'max-h-16']"  class="w-full bg-black text-white rounded-xl max-h-full m-0 text-xl font-semibold transition-all duration-500 h-[70vh] flex flex-col justify-end items-end">
+    <div class="absolute bottom-0 flex justify-center items-center w-full">
+        <div :class="[expand?'h-[80vh] ':'h-16']"  class="w-full bg-black text-white rounded-xl max-h-full m-0 text-xl font-semibold transition-all duration-500 flex flex-col justify-end items-end">
 
             <div v-if="!expand" @click="buttonClick()"  class="w-full h-[4rem] text-center p-4 pointer-events-auto">Create AngPao</div>
             <div v-if="expand"  class="w-full flex justify-between items-center p-4 pointer-events-auto">

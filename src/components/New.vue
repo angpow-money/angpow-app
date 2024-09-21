@@ -18,6 +18,47 @@
         x{{ copies }}
       </div>
 
+      <TransitionRoot as="template" :show="show_explainer">
+    <Dialog class="relative z-10" @close="show_explainer = false">
+      <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+      </TransitionChild>
+
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+            <DialogPanel class="relative transform overflow-visible rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 w-full sm:max-w-sm sm:p-6">
+              
+               <div class="w-full flex justify-center items-center">
+
+                  <div class="w-[8rem] h-[8rem] bg-white border shadow-xl rounded-full mt-[-30%]">
+
+                  </div>
+
+                  
+                </div>
+
+                <section class="py-4 text-center">
+
+                  <p>we're</p>
+                  <p class="text-3xl mb-12">angpao.money</p>
+
+                  <p>A new, fun and hyper-easy way to receive crypto. Think of it as a Magic Link for Receiving crypto. Works with boomers.</p>
+
+                </section>
+
+
+        <div class="w-full mt-4">
+          <button @click="show_explainer=false" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">Let's Go!</button>
+        </div>
+
+            </DialogPanel>
+          </TransitionChild>
+        </div>
+      </div>
+    </Dialog>
+  </TransitionRoot>
+
       <TransitionRoot as="template" :show="show_username_modal">
     <Dialog class="relative z-10" @close="show_username_modal = false">
       <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
@@ -66,8 +107,7 @@
 
             <div class="w-full flex justify-center items-center flex-col">
               <div class="w-[200px] aspect-[3/4]"></div>
-
-              <div class="bg-white ring ring-black/10 text-xl font-medium rounded-full mt-4 p-1.5 px-4 shadow-2xl shadow-black">what???</div>
+              <button @click="show_explainer=true" class="pointer-events-auto bg-white ring ring-black/10 text-xl font-medium rounded-full mt-4 p-1.5 px-4 shadow-2xl shadow-black">what???</button>
             </div>
           </div>
         
@@ -388,6 +428,7 @@ const show_username_modal = ref(false)
 
 import { nanoid } from 'nanoid'
 
+const show_explainer = ref(false)
 
 onMounted( async () => {
 
