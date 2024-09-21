@@ -86,15 +86,20 @@ onMounted(async () => {
 });
 
 const openModal = async () => {
+
+  console.log('bbbbbb');
   const walletmodal = useAppKit();
-  await walletmodal.open({ view: "Connect" });
+  // await walletmodal.open({ view: "Connect" });
+  await walletmodal.open();
 };
 
 appkitBus.on( async (event) => {
   if(event === 'open'){
+    console.log('aaaaaa');
     // console.log('connected')
     const walletmodal = useAppKit();
     await walletmodal.open({ view: "Connect" });
+    // await walletmodal.open();
   }
 })
 </script>
