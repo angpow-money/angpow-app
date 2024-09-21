@@ -137,8 +137,16 @@ const confirmAmount = () => {
 
                 
             }else{
-                ethAmount.value = String(ethAmount.value) + key;
-                ethAmount.value = Number(ethAmount.value);
+
+                if(key == '0') {
+                    ethAmount.value = String(ethAmount.value) + key;
+                } else {
+                    ethAmount.value = String(ethAmount.value) + key;
+                    ethAmount.value = Number(ethAmount.value);
+                    ethAmount.value = String(ethAmount.value);
+
+                }
+
             }
         }
 

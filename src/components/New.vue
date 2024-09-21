@@ -204,7 +204,7 @@
 
                 <div class="p-2 pointer-events-auto">
                   <button @click="customization_tab = 'color'" :class="[customization_tab=='color'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Color</button>
-                  <button @click="customization_tab = 'design'" :class="[customization_tab=='design'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Design</button>
+                  <button @click="customization_tab = 'design'" :class="[customization_tab=='design'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Nouns Art</button>
                   <button @click="customization_tab = 'message'" :class="[customization_tab=='message'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Message</button>
                 </div>
 
@@ -678,6 +678,8 @@ const createAngpao = () => {
     // });
 
     // step.value[7].active = true;
+
+    if($flip_angpao.get() == false) $flip_angpao.set(true);
 
     
     $token_up.set(false);
