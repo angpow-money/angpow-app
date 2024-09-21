@@ -18,6 +18,17 @@
       <div :class="[!flip_angpao ? '' : '[transform:rotateY(-180deg)]', selectedColorClass ]" class="absolute w-full h-full transition-all duration-500 rounded-3xl" style="-webkit-backface-visibility: hidden; backface-visibility: hidden"></div>
 
       <div :class="[!flip_angpao ? 'rounded-xl [transform:rotateY(180deg)]' : 'rounded-xl rounded-t-none [transform:rotateY(0deg)]', selectedBgColor]" class="absolute w-full h-full transition-all duration-500" style="-webkit-backface-visibility: hidden; backface-visibility: hidden">
+
+
+        <article class="absolute bottom-0 p-4 w-full h-auto z-[999] text-white text-center">
+           Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, qui maxime voluptatum possimus, consectetur alias at sunt maiores, officia beatae est. Quo, consequatur? Necessitatibus sapiente porro non dolorum nostrum maiores!
+          
+           <div class="w-full flex justify-center items-center mt-8">
+            <div class="bg-black text-white rounded-full p-2 px-4 text-sm">junyaoc.angpao.money</div>
+           </div>
+
+        </article>
+
         <div :class="[!flip_angpao ? '[transform:rotateY(180deg)] opacity-0' : '']" class="w-full aspect-square z-50 flex justify-center items-center transition-all duration-500 rounded-xl pointer-events-none relative">
 
           <div class="w-full aspect-square absolute flex justify-center items-center z-50 " :class="selectedBgColor">
@@ -25,9 +36,7 @@
           </div>
 
           <div :class="[token_up?'translate-y-[-150%]':'translate-y-[50%] opacity-0']" class="w-full aspect-square absolute flex justify-center items-center z-30 duration-1000 transition-all ">
-            <!-- <div class="bg-red-500 w-full h-[300px] mt-[100%]">
-
-            </div> -->
+            
             <div class="absolute flex justify-center items-center w-full max-w-[10rem]">
               <div class=" bg-white shadow-2xl shadow-black/50 rounded-full aspect-square w-full"></div>
               <div class="absolute bottom-[-1rem] right-[-1rem] bg-white p-2 px-2 rounded-full text-lg shadow-xl border border-black/20">0.001 ETH</div>

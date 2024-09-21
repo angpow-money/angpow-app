@@ -46,8 +46,8 @@
                                 <div class="animate-bounce">Opening...</div>
                             </button>
 
-                            <button v-if="!claimBusy" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 ">
-                                <div class="">Go Home</div>
+                            <button v-if="!claimBusy" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto ">
+                                <div class="">See all Angpao</div>
                             </button>
             </template>
             
