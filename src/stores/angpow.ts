@@ -64,6 +64,7 @@ export const createAngpow = async (angpao: any) => {
         chainId: _address?.chainId
     })
 
+    console.log(result);
     //await waitForTransactionReceipt(config, {
     //    hash: result,
     //})

@@ -41,7 +41,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     const app_id = "app_staging_1fe6ccaa14409704f71091493087e46f";
 
-    const devPortalResponse = await fetch(`https://developer.worldcoin.org/api/v2/create-action/${app_id}`, {
+    await fetch(`https://developer.worldcoin.org/api/v2/create-action/${app_id}`, {
         method: 'POST',
         headers: {
             'authorization': `Bearer api_a2V5Xzk5ODBlYjU1N2Y2M2IzMjBkMTRkMjI2NzRkOTRhMDZlOnNrXzkyYWQ1NTJjNDFiMmE1ZDMwZTMwNzkxZTQzODQxZTE2OWFmMjkwOGNkOGRkYTY3MQ`,
