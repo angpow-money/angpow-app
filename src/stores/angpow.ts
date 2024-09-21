@@ -12,12 +12,12 @@ import { config } from '@/wagmiConfig';
 import { $account } from '@/stores/wallet';
 import { ANGPOW_ABI } from '@/angpow-abi';
 
-export const createAngpow = async () => {
+export const createAngpow = async (angpao: any) => {
 
     console.log("createAngpow");
 
-    const etherAmount = 0.00001;
-    const quantity = 1;
+    const etherAmount = angpao.eth_amount;
+    const quantity = angpao.copies;
 
     const amount = parseEther(String(etherAmount));
 
@@ -28,6 +28,11 @@ export const createAngpow = async () => {
             amount: etherAmount,
             token: zeroAddress,
             quantity: quantity,
+            message: angpao.angpao_message,
+            design: angpao.angpao_design,
+            color: angpao.angpao_color,
+            username: angpao.username_input,
+            address: $account.value.address,
         })
     }).then(res => res.json())
     console.log('resp', resp);
@@ -49,9 +54,6 @@ export const createAngpow = async () => {
     await waitForTransactionReceipt(config, {
         hash: result,
     })
-
-
-
 }
 
 

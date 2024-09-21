@@ -5,6 +5,8 @@ import vue from '@astrojs/vue';
 
 import tailwind from '@astrojs/tailwind';
 
+import cloudflare from '@astrojs/cloudflare';
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [vue({
@@ -16,5 +18,7 @@ export default defineConfig({
   }),  tailwind({
     applyBaseStyles: false,
   }),],
+
   output: "server",
+  adapter: cloudflare(),
 });

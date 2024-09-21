@@ -2,7 +2,7 @@
   <div class="w-full h-[100dvh] flex justify-center items-center bg-poppy-100 pointer-events-none relative">
 
 
-      <button @click="openWallet()" class="pointer-events-auto z-20 w-14 h-14 rounded-full shadow-xl  flex justify-center items-center absolute sm:fixed top-4 left-4 bg-white">
+      <button @click="openWallet()" class="pointer-events-auto z-20 w-14 h-14 rounded-full shadow-xl  flex justify-center items-center absolute sm:fixed top-4 right-4 bg-white">
         <iconify-icon class="text-[2rem]" icon="material-symbols-light:wallet"></iconify-icon>
       </button>
 
@@ -97,7 +97,7 @@
         <div class="w-full h-full flex flex-col justify-between items-center">
          
             <div :class="[show_titles?'':'opacity-0']" class="w-full h-full flex flex-col justify-center items-center space-y-8">
-            <div class="p-4 text-center sm:-mt-24 sm:mb-24">
+            <div class="p-4 text-center sm:top-0 sm:fixed">
               <div class="text-poppy text-5xl font-semibold mb-4">angpao.money</div>
               <p class="text-xl text-black font-semibold">The New + Fun Way to Send Crypto!</p>
             </div>
@@ -416,6 +416,7 @@ const appkitBus = useEventBus("appkit");
 
 import { useStore } from "@nanostores/vue";
 import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $zoom_far_far, $pan_up_palette, $pan_down, $pan_up_up, $selectedColorClass, $show_titles, $token_up, $angpao_design, $angpao_message, $selectedBgColor, $angpao_eth_amount } from "@/stores/angpao";
+import { createAngpow } from "@/stores/angpow";
 
 const flicking = ref(null);
 
@@ -785,7 +786,7 @@ const submitUsername = () => {
 const angpaoTap = () => {
   console.log("TAPTAP");
   // $flip_angpao.set(!$flip_angpao.value);
-  if (currentStep.value == "summary") {
+  if (currentStep.value == "summary" || currentStep.value == "result") {
     $flip_angpao.set(!$flip_angpao.value);
   }
 };
@@ -935,9 +936,7 @@ const selectAngpaoColor = (color) => {
 
 const username_input = ref(undefined)
 
-const executeAngpaoCreate = () => {
-  return new Promise( (resolve) => {
-
+const executeAngpaoCreate = async () => {
     let payload = {
       eth_amount: eth_amount.value,
       copies: copies.value,
@@ -945,14 +944,10 @@ const executeAngpaoCreate = () => {
       angpao_message: angpao_message_input.value,
       angpao_design: $angpao_design.get(),
       angpao_color: colors.value.find((item) => item.selected),
-      username_input: `${username_input.value}.angpao.money`
+      username_input: `${username_input.value}`
     }
 
-    console.log(payload)
-
-    resolve()
-
-  })
+    await createAngpow(payload)
 }
 
 
