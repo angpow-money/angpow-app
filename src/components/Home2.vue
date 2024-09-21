@@ -24,7 +24,9 @@
 
       <div v-else class="w-full py-8 text-center">
 
-        <p class="mb-4">0x0000....0000</p>
+        <p v-if="$account.value?.address" class="mb-4">{{ $account.value?.address.substring(0, 6) }}...{{ $account.value?.address.substring(38) }}</p>
+        <p v-else class="mb-4">0x0000....0000</p>
+
 
         <button @click="showClaimName()" class="btn w-full bg-white text-black border-black/20 shadow-xl rounded-3xl p-4 max-h-full m-0 h-auto text-xl font-medium mb-2 pointer-events-auto">Claim your Name for Free</button>
         
@@ -43,7 +45,7 @@
       <Flicking ref="flicking" class="w-full h-full" :options="{ align: 'center', circular: false }">
         
         <div v-for="(angpow, index) of angpowList?.created" :key="index" class="p-4">
-          <div @click="showAngpao('sent')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl">
+          <div @click="showAngpao('sent', angpow)" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl">
             <!-- {{ angpow }} -->
 
 
@@ -81,16 +83,31 @@
 
     <div class="w-full pointer-events-auto py-8">
       <Flicking ref="flicking" class="w-full h-full" :options="{ align: 'center', circular: false }">
-        <div key="1" class="p-4">
-          <div @click="showAngpao('receive')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
+        
+        <div v-for="(angpow, index) of angpowList?.received" :key="index" class="p-4">
+          <div @click="showAngpao('receive', angpow)" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl">
+
+            <div :class="[ angpow?.angpow?.gradient ]" class="rounded-3xl flex justify-center items-end h-full relative">
+
+              <div class="absolute top-5  bg-white/10 rounded-full text-white justify-center items-center flex font-bold">
+                <img class="w-16 h-16" src="/logo.png" />
+              </div>
+
+              <div class="w-full overflow-hidden flex justify-center items-center p-4  ">
+                <img class="w-full rounded-3xl overflow-hidden" :src="angpow?.angpow?.design" alt="">
+              </div>
+
+            </div>
+
+          </div>
         </div>
 
-        <div key="2" class="p-4">
+        <!-- <div key="2" class="p-4">
           <div @click="showAngpao('receive')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
         </div>
         <div key="3" class="p-4">
           <div @click="showAngpao('receive')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
-        </div>
+        </div> -->
       </Flicking>
     </div>
 
@@ -113,20 +130,24 @@
 
                    <div v-if="angpaoType=='receive'">
                     <p class="text-gray-500">from</p>
-                        <p class="text-2xl font-medium my-2">junyao.angpow.money</p>
+                        <!-- <p class="text-2xl font-medium my-2">junyao.angpow.money</p> -->
+                        
+                        <p v-if="currentAngpow?.angpow?.donatorEns" class="text-2xl font-medium my-2">{{ currentAngpow?.angpow?.donatorEns }}.angpao.money</p>
+                        <p v-else class="text-2xl font-medium my-2">{{ currentAngpow?.angpow?.address.substring(0, 7) }}...{{ currentAngpow?.angpow?.address.substring(37) }}</p>
 
-                        <p class="text-xl bg-black/5 rounded-xl text-black font-medium p-2">0.001 ETH</p>
+
+                        <p class="text-xl bg-black/5 rounded-xl text-black font-medium p-2">{{ formatEther(String(currentAngpow?.token_amount)) }} ETH</p>
                    </div>
 
                    <div class="w-full grid grid-cols-2" v-if="angpaoType=='sent'"> 
 
                     <div>
-                        <p class="py-4 text-2xl font-semibold">1</p>
+                        <p class="py-4 text-2xl font-semibold">{{ currentAngpow?.angpow?.amount }}</p>
                         <p class="text-gray-600">Total ETH</p>
                     </div>
 
                     <div>
-                        <p class="py-4 text-2xl font-semibold">0/5</p>
+                        <p class="py-4 text-2xl font-semibold">{{ currentAngpow?.events?.length }}/{{ currentAngpow?.angpow?.quantity }}</p>
                         <p class="text-gray-600">Opened</p>
                     </div>
                     
@@ -157,17 +178,22 @@
                                 </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200">
-                                <tr>
-                                    <td class="whitespace-nowrap py-2 pl-2 pr-2 text-sm font-medium text-gray-900 sm:pl-0 text-left">hello.angpow.money</td>
-                                    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">0.001</td>
+
+                                <tr v-for="event of currentAngpow?.events">
+                                    <!-- <td class="whitespace-nowrap py-2 pl-2 pr-2 text-sm font-medium text-gray-900 sm:pl-0 text-left">hello.angpow.money</td> -->
+                                    
+                                    <td v-if="event?.recipientEns" class="whitespace-nowrap py-2 pl-2 pr-2 text-sm font-medium text-gray-900 sm:pl-0 text-left">{{ event?.recipientEns?.replace(".angpao.money", "") }}.angpao.money</td>
+                                    <td v-else class="whitespace-nowrap py-2 pl-2 pr-2 text-sm font-medium text-gray-900 sm:pl-0 text-left">{{ event?.recipient?.substring(0, 6) }}...{{ event?.recipient?.substring(38) }}</td>
+
+                                    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">{{ formatEther(String(event?.token_amount)) }}</td>
 
                                 </tr>
 
-                                <tr>
+                                <!-- <tr>
                                     <td class="whitespace-nowrap py-2 pl-2 pr-2 text-sm font-medium text-gray-900 sm:pl-0 text-left">0x0123..</td>
                                     <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">0.001</td>
 
-                                </tr>
+                                </tr> -->
 
 
                                 </tbody>
@@ -243,13 +269,14 @@ import Angpao from "./Angpao.vue";
 import { ref, computed } from "vue";
 import { Dialog, DialogPanel, TransitionChild, TransitionRoot } from "@headlessui/vue";
 
-import { $flip_angpao, $zoom_far, $zoom_close } from "@/stores/angpao";
+import { $zoom_far, $zoom_close, $flip_angpao, $angpao_value, $angpao_message, $angpao_design, $selectedColorClass, $selectedBgColor } from "@/stores/angpao";
 import { useStore } from "@nanostores/vue";
 
 import { Input } from "@/components/ui/input";
 import { onMounted } from "vue";
 import { $account } from "@/stores/wallet";
 import ConnectWallet from "@/components/ConnectWallet.vue";
+import { formatEther } from "viem";
 
 const flip_angpao = useStore($flip_angpao)
 
@@ -262,13 +289,63 @@ const angpowList = ref([]);
 
 const show_username_modal = ref(false)
 const username_input = ref()
-const showAngpao = (type) => {
+const currentAngpow = ref(null);
+
+const showAngpao = async (type, _angpow) => {
 
     $zoom_far.set(false)
     $zoom_close.set(true)
 
     angpaoType.value = type;
     open.value = true;
+    
+
+
+    const events = await fetch(`/api/angpow/${_angpow.angpow_id}/history.json`).then(res => res.json())
+    // .then(res => res.event)
+    // console.log('events', events)
+
+    currentAngpow.value = _angpow;
+    console.log("currentAngpow.value", currentAngpow.value);
+    currentAngpow.value['events'] = events;
+
+    $angpao_value.set(_angpow.angpow.amount)
+    $angpao_design.set(_angpow.angpow.design)
+    $angpao_message.set(_angpow.angpow.message)
+    $selectedColorClass.set(_angpow.angpow.gradient)
+    $selectedBgColor.set(_angpow.angpow.solid)
+
+
+    if(type == "receive") {
+      const donatorEns = await fetch(`/api/ensName.json?address=${_angpow?.angpow?.address}`)
+        .then(res => res.json())
+        .then(res => res.name)
+
+      currentAngpow.value['angpow']['donatorEns'] = donatorEns.replace(".angpao.money", "");
+      console.log("donatorEns", donatorEns)
+    }
+
+    if(type == "sent") {
+
+      const addrArr = currentAngpow.value.events.map(x => x?.recipient.toLowerCase());
+      console.log("addrArr", addrArr);
+
+      if(addrArr?.length > 0) {
+        const ens = await fetch(`/api/ensName.json`, {
+          method: "post",
+          body: JSON.stringify(addrArr)
+        }).then(res => res.json())
+  
+        for(let i=0; i< ens.length; i++) {
+          currentAngpow.value.events[i]['recipientEns'] = ens[i];
+        }
+        console.log("ens ens", ens);
+      }
+
+
+    }
+
+
 };
 
 const angpaoTap = () => {
@@ -301,8 +378,28 @@ const showClaimName = () => {
 
 }
 
-const submitUsername = () => {
-    show_username_modal.value = false
+import { setEnsName, getEnsName } from "@/pages/api/_util";
+const submitUsername = async () => {
+
+  console.log(username_input.value, $account.value?.address)
+
+  if(!$account.value?.address || !username_input.value || username_input.value === "") return;
+
+  const ensName = await getEnsName($account.value?.address.toLowerCase())
+  if (ensName === "" || !ensName) {
+    await setEnsName({
+      "key": username_input.value,
+      "value": {
+        "addresses": {
+          "60": $account.value?.address
+        },
+      }
+    })
+  }
+
+  show_username_modal.value = false
+
+
 }
 
 
@@ -318,8 +415,9 @@ onMounted( async () => {
         console.log("angpao_ens_name", angpao_ens_name.value);
 
 
-      // const addr = "0xFEA11D726A68BD86b1Fe6c0D43C5f423c4517117";
-      const addr = $account.value?.address;
+      const addr = "0xFEA11D726A68BD86b1Fe6c0D43C5f423c4517117";
+      // const addr = "0x77c9ec0e5c571d7593f9d608a3674f6057fc9a9f";
+      // const addr = $account.value?.address;
       angpowList.value = await fetch(`/api/wallet/${addr}.json`).then(res => res.json())
       console.log("angpowList", angpowList.value)
 
