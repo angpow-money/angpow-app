@@ -70,7 +70,7 @@ const appkitBus = useEventBus('appkit')
 
 
 import { useStore } from "@nanostores/vue";
-import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $token_up } from "@/stores/angpao";
+import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $token_up, $angpao_value } from "@/stores/angpao";
 
 const flip_angpao = useStore($flip_angpao);
 const canStart = ref(false);
@@ -129,6 +129,7 @@ onMounted( async () => {
 
     const angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
 
+    $angpao_value.set(angpow.amount)
     ens.value = angpow.ens
 
     setTimeout(() => {

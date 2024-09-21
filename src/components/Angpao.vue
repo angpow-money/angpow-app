@@ -40,7 +40,7 @@
             
             <div class="absolute flex justify-center items-center w-full max-w-[10rem]">
               <div class=" bg-white shadow-2xl shadow-black/50 rounded-full aspect-square w-full"></div>
-              <div class="absolute bottom-[-1rem] right-[-1rem] bg-white p-2 px-2 rounded-full text-lg shadow-xl border border-black/20">0.001 ETH</div>
+                <div class="absolute bottom-[-1rem] right-[-1rem] bg-white p-2 px-2 rounded-full text-lg shadow-xl border border-black/20">{{$angpao_value.get()}} ETH</div>
             </div>
 
 
@@ -103,7 +103,7 @@ import { watch } from "vue";
 import { computed } from "vue";
 
 import { useStore } from "@nanostores/vue";
-import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $selectedColorClass, $token_up, $selectedBgColor, $zoom_far_far, $pan_up_up, $angpao_message } from "@/stores/angpao";
+import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $selectedColorClass, $token_up, $selectedBgColor, $zoom_far_far, $pan_up_up, $angpao_message, $angpao_value } from "@/stores/angpao";
 
 const state = useStore($state);
 const show_palette = useStore($show_palette);
