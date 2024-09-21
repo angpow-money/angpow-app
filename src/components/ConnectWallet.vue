@@ -98,8 +98,8 @@ appkitBus.on( async (event) => {
     console.log('aaaaaa');
     // console.log('connected')
     const walletmodal = useAppKit();
-    await walletmodal.open({ view: "Connect" });
-    // await walletmodal.open();
+    // await walletmodal.open({ view: "Connect" });
+    await walletmodal.open();
   }
 })
 </script>
