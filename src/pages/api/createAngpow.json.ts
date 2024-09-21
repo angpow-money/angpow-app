@@ -39,7 +39,10 @@ export const POST: APIRoute = async ({ request }) => {
 
   if(body?.is_worldcoin_required) {
 
-    const app_id = "app_staging_1fe6ccaa14409704f71091493087e46f";
+    // const app_id = "app_staging_1fe6ccaa14409704f71091493087e46f";
+    const app_id = "app_3fce0a48811b44d2fc3e452699a480d4";
+
+    
 
     await fetch(`https://developer.worldcoin.org/api/v2/create-action/${app_id}`, {
         method: 'POST',

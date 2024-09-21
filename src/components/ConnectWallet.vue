@@ -5,11 +5,15 @@
 </template>
 
 <script setup>
-import { createAppKit, useAppKit } from "@reown/appkit/vue";
+import { createAppKit, useAppKit, useAppKitEvents } from "@reown/appkit/vue";
 import { mainnet } from "@reown/appkit/networks";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
+import { walletConnect, coinbaseWallet, injected } from '@wagmi/connectors'
+
 import { onMounted, ref } from "vue";
-import { getAccount, watchAccount, reconnect } from "@wagmi/core";
+import { http, WagmiProvider, CreateConnectorFn } from 'wagmi'
+import { getAccount, watchAccount, reconnect, connect, watchConnections } from "@wagmi/core";
+
 import { config } from "@/wagmiConfig";
 
 import { $account } from "@/stores/wallet";
@@ -52,6 +56,7 @@ onMounted(async () => {
     projectId,
     networks,
   });
+  console.log("wagmiAdapter", wagmiAdapter)
 
   // 4. Create modal
   createAppKit({
@@ -68,9 +73,13 @@ onMounted(async () => {
 
   // 5. Use modal composable
   // const walletmodal = useAppKit();
+  const events = useAppKitEvents();
+  console.log("events events ", events);
+
   // await walletmodal.open({ view: "Connect" });
 
-  const unwatch = watchAccount(config, {
+  // const unwatch = watchAccount(config, {
+  const unwatch = watchConnections(config, {
     onChange(data) {
       console.log("Account changed!", data);
       $account.set(data);
@@ -81,7 +90,11 @@ onMounted(async () => {
     },
   });
 
-  // reconnect(config);
+  const acc = getAccount(config);
+  console.log("acc", acc);
+  if(acc?.address && acc?.chainId === networks[0].chainId) emit('connected');
+
+  reconnect(config);
   // console.log("reconnect reconnect reconnect");
 });
 
@@ -89,6 +102,7 @@ const openModal = async () => {
 
   console.log('bbbbbb');
   const walletmodal = useAppKit();
+  console.log("walletmodal", walletmodal);
   // await walletmodal.open({ view: "Connect" });
   await walletmodal.open();
 };
@@ -100,6 +114,7 @@ appkitBus.on( async (event) => {
     const walletmodal = useAppKit();
     // await walletmodal.open({ view: "Connect" });
     await walletmodal.open();
+    // await connect(config, { connector: injected() })
   }
 })
 </script>

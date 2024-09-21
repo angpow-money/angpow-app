@@ -118,8 +118,7 @@
             <Step1Button @submit="confirmAmount"></Step1Button>
           </div>
           
-          <!-- <ConnectWallet @connected="walletConnected()"></ConnectWallet>
-          <button @click="startWizard()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">Create AngPao</button> -->
+
         </div>
       </div>
 
@@ -388,9 +387,6 @@
                     </div>
                 </div>
 
-                <ConnectWallet @connected="walletConnected()">
-                    <button class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2">Create AngPao</button>
-                </ConnectWallet>
 
             </div>
         </template>
@@ -408,7 +404,6 @@ const { copy } = useClipboard({ source: shareLink })
 import { Button } from "@/components/ui/button";
 import { ref, computed, watch, onMounted } from "vue";
 // import WalletConnect from "@/components/WalletConnect.vue"
-// import ConnectWallet from "@/components/ConnectWallet.vue";
 import Angpao from "./Angpao.vue";
 import Step1Button from "./Step1Button.vue";
 

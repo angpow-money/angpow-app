@@ -178,8 +178,9 @@ onMounted( async () => {
 
 import '@worldcoin/idkit-standalone'
 IDKit.init({
-    app_id: 'app_staging_1fe6ccaa14409704f71091493087e46f',
-    action: 'testverify',
+    // app_id: 'app_staging_1fe6ccaa14409704f71091493087e46f',
+    app_id: 'app_3fce0a48811b44d2fc3e452699a480d4',
+    action: 'stage',
     verification_level: "device",
     handleVerify: response => {
         // verify the IDKIt proof, throw an error to show the error screen

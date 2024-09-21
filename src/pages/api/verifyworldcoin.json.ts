@@ -15,7 +15,8 @@ export const POST: APIRoute = async ({ request }) => {
 const verifyProof = async (proof:any) => {
     console.log('proof', proof);
     const response = await fetch(
-        'https://developer.worldcoin.org/api/v1/verify/app_staging_1fe6ccaa14409704f71091493087e46f',
+        // 'https://developer.worldcoin.org/api/v1/verify/app_staging_1fe6ccaa14409704f71091493087e46f',
+        'https://developer.worldcoin.org/api/v1/verify/app_3fce0a48811b44d2fc3e452699a480d4',
         {
             method: 'POST',
             headers: {

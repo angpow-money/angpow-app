@@ -90,11 +90,12 @@ const reset = () => {
 const balance = new ref("0")
 import { $account } from '@/stores/wallet';
 const walletConnected = async () => {
-      balance.value = await fetch(`/api/balance.json?address=${$account.value.address}`)
-        .then(res => res.json())
-        .then(res => Number(res.amount))
+    canStart.value = true;
+    
+    balance.value = await fetch(`/api/balance.json?address=${$account.value.address}`)
+    .then(res => res.json())
+    .then(res => Number(res.amount))
 
-  canStart.value = true;
 };
 
 const confirmAmount = () => {
