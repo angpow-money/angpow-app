@@ -79,38 +79,7 @@
 
     </div>
 
-    <section :class="[show_palette ? 'translate-y-0' : 'translate-y-[120%]', 'duration-300 transition-all w-full fixed bottom-[0dvh]']">
-      <!-- <div class="px-4 w-full">
-        <div class="bg-black rounded-t-3xl p-3 grid grid-cols-7">
-          <div class="col-span-5 grid grid-cols-4 gap-3">
-            <div v-for="i in 6" class="bg-white rounded-full w-10 h-10"></div>
-          </div>
-
-          <div class="w-full h-full flex justify-center items-center pr-2 pl-4 col-span-2">
-            <div class="w-full aspect-square rounded-2xl bg-white"></div>
-          </div>
-        </div>
-      </div> -->
-
-      <div class="px-4 w-full flex flex-col justify-end items-center">
-
-        <div class="p-2 bg-black mb-8 rounded-full flex space-x-2">
-            <div class="w-8 h-8 rounded-full bg-white"></div>
-            <div class="w-8 h-8 rounded-full bg-white"></div>
-            <div class="w-8 h-8 rounded-full bg-white"></div>
-            <div class="w-8 h-8"></div>
-            
-            <div class="w-8 h-8 rounded-xl bg-white"></div>
-
-
-        </div>
-
-        
-        
-        <button class="opacity-0 pointer-events-none btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2">Next</button>
-      </div>
-
-    </section>
+    
   </div>
 </template>
 
