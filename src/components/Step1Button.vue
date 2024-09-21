@@ -45,7 +45,7 @@
                 </div>
 
           <div class="w-full p-4">
-            <button @click="confirmAmount()" class="btn w-full bg-white text-black rounded-xl p-4 h-auto text-xl font-semibold pointer-events-auto hover:text-white">Next</button>
+            <button :disabled="Number(ethAmount) === 0" @click="confirmAmount()" class="btn w-full bg-white text-black rounded-xl p-4 h-auto text-xl font-semibold pointer-events-auto hover:text-white">Next</button>
           </div>
 
 
@@ -139,6 +139,9 @@ const confirmAmount = () => {
             }else{
 
                 if(key == '0') {
+                    if (ethAmount.value === '0') {
+                      return
+                    }
                     ethAmount.value = String(ethAmount.value) + key;
                 } else {
                     ethAmount.value = String(ethAmount.value) + key;
