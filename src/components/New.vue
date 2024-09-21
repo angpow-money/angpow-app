@@ -607,14 +607,15 @@ watch(currentStep, async (newVal) => {
 
     sendBusy.value = true;
 
-    await executeAngpaoCreate()
+    console.log(1)
+    // await executeAngpaoCreate()
 
-    setTimeout(() => {
-      sendBusy.value = false;
+    // setTimeout(() => {
+    //   sendBusy.value = false;
 
-      $zoom_close.set(true);
-      $pan_up_palette.set(true);
-    }, 3000);
+    //   $zoom_close.set(true);
+    //   $pan_up_palette.set(true);
+    // }, 3000);
   }
 });
 
@@ -676,6 +677,7 @@ const submitAngpaoConfig = async () => {
   if (!ensname) {
     show_username_modal.value = true;
   } else {
+    console.log(2)
     executeAngpaoCreate()
     //newAngpaoId.value = createAngpao();
   }
@@ -683,7 +685,7 @@ const submitAngpaoConfig = async () => {
 
 }
 
-const createAngpao = () => {
+const createAngpao = async () => {
 
     // step.value.forEach((item) => {
     //     item.active = false;
@@ -702,10 +704,13 @@ const createAngpao = () => {
       $open_angpao.set(false);
       
       
-      setTimeout(() => {
+      setTimeout( async () => {
         $flip_angpao.set(false);
+
+        // wrong
+
       
-      setTimeout(() => {
+      setTimeout( async () => {
 
         $pan_down.set(false);
         $pan_up_palette.set(false);
@@ -722,15 +727,48 @@ const createAngpao = () => {
                 item.active = false;
             }
         });
-    
+
         step.value[3].active = true;
-    
+
         flicking.value.moveTo(3);
+
+
+        sendBusy.value = true;
+
+        let payload = {
+          eth_amount: eth_amount.value,
+          copies: copies.value,
+          is_worldcoin_required: is_worldcoin_required.value,
+          angpao_message: angpao_message_input.value,
+          angpao_design: $angpao_design.get(),
+          angpao_color: colors.value.find((item) => item.selected),
+          username_input: `${username_input.value}`
+        }
+        const id = await createAngpow(payload)
+        shareLink.value = `${window.location.href}claim/angpao/${id}`
+
+
+        sendBusy.value = false;
+
+          $zoom_close.set(true);
+          $pan_up_palette.set(true);
+          
         
       }, 500);
+
+
+
+      
+
+
+
     }, 500);
 
     }, 300);
+
+
+    
+    
 
 
 }
@@ -788,6 +826,7 @@ const submitUsername = () => {
 //   step.value[5].active = true;
 //   flicking.value.moveTo(5);
     show_username_modal.value = false;
+    console.log(3)
     executeAngpaoCreate()
 
     //newAngpaoId.value = createAngpao();
@@ -947,18 +986,19 @@ const selectAngpaoColor = (color) => {
 const username_input = ref(undefined)
 
 const executeAngpaoCreate = async () => {
-  let payload = {
-    eth_amount: eth_amount.value,
-    copies: copies.value,
-    is_worldcoin_required: is_worldcoin_required.value,
-    angpao_message: angpao_message_input.value,
-    angpao_design: $angpao_design.get(),
-    angpao_color: colors.value.find((item) => item.selected),
-    username_input: `${username_input.value}`
-  }
+  // let payload = {
+  //   eth_amount: eth_amount.value,
+  //   copies: copies.value,
+  //   is_worldcoin_required: is_worldcoin_required.value,
+  //   angpao_message: angpao_message_input.value,
+  //   angpao_design: $angpao_design.get(),
+  //   angpao_color: colors.value.find((item) => item.selected),
+  //   username_input: `${username_input.value}`
+  // }
 
-  const id = await createAngpow(payload)
-  shareLink.value = `${window.location.href}claim/angpao/${id}`
+  // const id = await createAngpow(payload)
+  // shareLink.value = `${window.location.href}claim/angpao/${id}`
+  await createAngpao();
 }
 
 

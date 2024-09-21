@@ -104,10 +104,10 @@ const walletConnected = async () => {
 const confirmAmount = () => {
 
     const amount = Number(ethAmount.value) 
-    if (amount > Number(balance.value)) {
-      alert('Insufficient wallet balance')
-      return
-    }
+    // if (amount > Number(balance.value)) {
+    //   alert('Insufficient wallet balance')
+    //   return
+    // }
     expand.value = false;
 
     $flip_angpao.set(true)
