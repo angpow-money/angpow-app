@@ -2,9 +2,14 @@
   <div class="w-full h-[100dvh] flex justify-center items-center bg-poppy-100 pointer-events-none relative">
 
 
-      <button @click="openWallet()" class="pointer-events-auto z-20 w-14 h-14 rounded-full shadow-xl  flex justify-center items-center absolute sm:fixed top-4 right-4 bg-white">
+      <button @click="openWallet()" class="pointer-events-auto z-20 w-12 h-12 rounded-full shadow-xl  flex justify-center items-center absolute sm:fixed top-4 left-4 bg-white">
         <iconify-icon class="text-[2rem]" icon="material-symbols-light:wallet"></iconify-icon>
       </button>
+
+      <button v-if="currentStep=='summary'" @click="showCustomize()" class="fixed top-4 right-4 btn border-none  text-xl   px-6 py-2 rounded-full shadow-xl flex justify-center items-center pointer-events-auto font-medium hover:text-white" :class="[show_customization?'bg-black text-white ring-2 ring-white ring-offset-2 ring-offset-transparent animate-bounce':'text-black bg-white']" >
+            <span v-if="!show_customization">🎨 Customize</span>
+            <span v-else>🎨 Done</span>
+        </button>
 
 
     <div class="fixed w-screen h-[100dvh] flex-col flex justify-center items-center" :class="[currentStep == 'summary' || currentStep == 'result' ? 'pointer-events-auto' : 'pointer-events-none', currentStep=='divide'&&copies>1?'-rotate-12 -translate-x-8':'', 'transition-all duration-300', (currentStep=='divide')?'sm:translate-y-36':'', currentStep=='summary'?'sm:scale-75 sm:-translate-y-12':'', currentStep=='summary'&&show_customization?'sm:scale-[60%]':'']" @click="angpaoTap()">
@@ -102,8 +107,8 @@
               <p class="text-xl text-black font-semibold">The New + Fun Way to Send Crypto!</p>
             </div>
 
-            <div class="w-full flex justify-center items-center flex-col">
-              <div class="sm:w-[400px] w-[300px] aspect-[3/4]"></div>
+            <div class="w-full flex justify-center items-center flex-col absolute bottom-[90px]">
+              <!-- <div class="sm:w-[400px] w-[300px] aspect-[3/4]"></div> -->
               <button @click="show_explainer=true" class="pointer-events-auto bg-white ring ring-black/10 text-xl font-medium rounded-full p-1.5 px-4 shadow-2xl shadow-black">what???</button>
             </div>
           </div>
@@ -174,12 +179,8 @@
 
       <div key="2" class="w-full h-[100dvh] flex flex-col justify-center items-start relative pointer-events-none">
 
-        <div class="absolute top-0 right-0 p-4">
-            <button @click="showCustomize()" class="btn border-none  text-xl   px-6 py-2 rounded-full shadow-xl flex justify-center items-center pointer-events-auto font-medium hover:text-white" :class="[show_customization?'bg-black text-white ring-2 ring-white ring-offset-2 ring-offset-transparent animate-bounce':'text-black bg-white']" >
-                <span v-if="!show_customization">🎨 Customize</span>
-                <span v-else>🎨 Done</span>
-            </button>
-        </div>
+        
+        
 
         <div class="absolute left-0 bottom-[0dvh] px-4 pb-2 w-full">
           
@@ -284,11 +285,11 @@
 
           <div class="w-full bg-white text-black rounded-3xl p-3 flex justify-between items-center mb-4 pl-5">
             <p v-if="sendBusy" class="text-2xl w-full text-center animate-pulse">Creating Your Angpao...</p>
-            <p v-if="!sendBusy" class="text-left animate-pulse text-lg font-medium">https://google.com</p>
+            <p v-if="!sendBusy" class="text-left animate-pulse text-lg font-medium">{{shareLink}}</p>
 
             <div v-if="!sendBusy" class="flex justify-end items-center space-x-1 pointer-events-auto">
-                <button class="btn w-12 h-12 rounded-2xl btn-ghost">share</button>
-                <button class="btn w-12 h-12 bg-black rounded-2xl text-white">copy</button>
+                <button @click="startShare()" class="btn w-12 h-12 rounded-2xl btn-ghost">share</button>
+                <button @click="copy(shareLink)" class="btn w-12 h-12 bg-black rounded-2xl text-white">copy</button>
 
             </div>
           </div>
@@ -401,6 +402,9 @@
 </template>
 
 <script setup>
+import { useClipboard } from '@vueuse/core'
+const shareLink = ref("")
+const { copy } = useClipboard({ source: shareLink })
 import { Button } from "@/components/ui/button";
 import { ref, computed, watch, onMounted } from "vue";
 // import WalletConnect from "@/components/WalletConnect.vue"
@@ -419,6 +423,7 @@ import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angp
 import { createAngpow } from "@/stores/angpow";
 
 const flicking = ref(null);
+const newAngpaoId = ref(null);
 
 const show_titles = useStore($show_titles)
 
@@ -440,7 +445,6 @@ import { $account } from '@/stores/wallet';
 const show_explainer = ref(false)
 
 onMounted( async () => {
-
   $angpao_design.set(`https://noun-api.com/beta/pfp?name=${nanoid(10)}`)
 
 })
@@ -678,7 +682,8 @@ const submitAngpaoConfig = async () => {
   if (!ensname) {
     show_username_modal.value = true;
   } else {
-    createAngpao();
+    executeAngpaoCreate()
+    //newAngpaoId.value = createAngpao();
   }
 
 
@@ -789,8 +794,9 @@ const submitUsername = () => {
 //   step.value[5].active = true;
 //   flicking.value.moveTo(5);
     show_username_modal.value = false;
+    executeAngpaoCreate()
 
-    createAngpao();
+    //newAngpaoId.value = createAngpao();
 };
 
 const angpaoTap = () => {
@@ -947,17 +953,18 @@ const selectAngpaoColor = (color) => {
 const username_input = ref(undefined)
 
 const executeAngpaoCreate = async () => {
-    let payload = {
-      eth_amount: eth_amount.value,
-      copies: copies.value,
-      is_worldcoin_required: is_worldcoin_required.value,
-      angpao_message: angpao_message_input.value,
-      angpao_design: $angpao_design.get(),
-      angpao_color: colors.value.find((item) => item.selected),
-      username_input: `${username_input.value}`
-    }
+  let payload = {
+    eth_amount: eth_amount.value,
+    copies: copies.value,
+    is_worldcoin_required: is_worldcoin_required.value,
+    angpao_message: angpao_message_input.value,
+    angpao_design: $angpao_design.get(),
+    angpao_color: colors.value.find((item) => item.selected),
+    username_input: `${username_input.value}`
+  }
 
-    await createAngpow(payload)
+  const id = await createAngpow(payload)
+  shareLink.value = `${window.location.href}claim/angpao/${id}`
 }
 
 
@@ -968,6 +975,17 @@ const openWallet = () => {
   walletmodal.open();
 }
 
+
+import { useShare } from '@vueuse/core'
+const { share, isSupported } = useShare()
+
+function startShare() {
+  share({
+    title: 'Share',
+    text: 'Give me your money',
+    url: shareLink.value
+  })
+}
 </script>
 
 <style>
