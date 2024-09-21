@@ -5,8 +5,15 @@
 
         <div class="w-full flex justify-between items-center fixed z-[10] top-0 left-0 pointer-events-none p-4">
             
-            <div @click="goHome()"  class="pointer-events-auto w-16 h-16 rounded-full shadow-xl border border-black/10 bg-white flex justify-center items-center">
-                home
+
+            <div class="flex">
+                <div @click="goHome()"  class="pointer-events-auto w-16 h-16 rounded-full shadow-xl border border-black/10 bg-white flex justify-center items-center">
+                    home
+                </div>
+    
+                <div @click="openWallet()"  class="pointer-events-auto w-16 h-16 rounded-full shadow-xl border border-black/10 bg-white flex justify-center items-center">
+                    <iconify-icon class="text-[2rem]" icon="material-symbols-light:wallet"></iconify-icon>
+                </div>
             </div>
 
       <p v-if="userEnsName" class="text-right"><span class="text-xl">{{userEnsName.replace('.angpao.money', '')}}</span><br><span class="opacity-25">.angpao.money</span></p>
@@ -58,6 +65,10 @@
 
 <script setup>
 
+
+import VConsole from 'vconsole';
+
+const vConsole = new VConsole();
 
 import { ref, onMounted  } from "vue";
 import Angpao from "./Angpao.vue";
@@ -269,6 +280,15 @@ const verifyProof = async (proof) => {
 const onSuccess = (_response) => {
   console.log("Success", _response)
 };
+
+
+
+import { useAppKit } from '@reown/appkit/vue'
+const openWallet = () => {
+  console.log("openWallet openWallet openWallet")
+  const walletmodal = useAppKit();
+  walletmodal.open();
+}
 
 
 </script>
