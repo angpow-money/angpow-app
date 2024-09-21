@@ -242,7 +242,9 @@ const openWorldcoin = async () => {
 // TODO: Calls your implemented server route
 const verifyProof = async (proof) => {
     // throw new Error("TODO: verify proof server route")
-    const resp = await fetch(`/api/verifyworldcoin.json`, {
+
+    const resp = await fetch(`https://tester-quiet-breeze-2813.fly.dev/verify`, {
+    //const resp = await fetch(`/api/verifyworldcoin.json`, {
         method: 'post',
         body: JSON.stringify({
             proof: proof,
