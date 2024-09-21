@@ -34,8 +34,8 @@
                                 <div class="animate-bounce">Connect Wallet to Open</div>
                             </button>
                 
-                            <button v-if="canStart" @click="openAngpao()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">
-                                <div class="animate-bounce">Open!</div>
+        <button v-if="canStart" @click="openAngpao()" :disabled="angpow.received" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">
+          <div class="animate-bounce">{{angpow.received ? "Received" : "Open!"}}</div>
                             </button>
 
             </template>
@@ -70,7 +70,7 @@ const appkitBus = useEventBus('appkit')
 
 
 import { useStore } from "@nanostores/vue";
-import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $token_up, $angpao_value } from "@/stores/angpao";
+import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $token_up, $angpao_value, receiveAngpow } from "@/stores/angpao";
 import { $account } from '@/stores/wallet';
 
 const flip_angpao = useStore($flip_angpao);
@@ -81,6 +81,7 @@ const claimBusy = ref(false);
 
 const donatorEnsName = ref("");
 const userEnsName = ref("");
+const angpow = ref(null);
 
 const angpaoTap = () => {
     console.log('angpaoTap')
@@ -135,10 +136,11 @@ const props = defineProps({
 onMounted( async () => {
 
 
-    const angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
+    const _angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
 
     $angpao_value.set(angpow.amount)
-    donatorEnsName.value = angpow.ens
+    angpow.value = _angpow
+    donatorEnsName.value = _angpow.donator_ens_name
 
     setTimeout(() => {
         $zoom_far.set(false);

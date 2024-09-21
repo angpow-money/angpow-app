@@ -12,20 +12,30 @@ import { getEnsName } from '../_util';
 
 export const GET: APIRoute = async ({ params }) => {
 
-  const { data: event, error } = await supabase.from("event_angpow_created")
-    .select("*, angpow(*)")
-    .eq("angpow_id", params.id)
+  const { data: event, error } = await supabase.from("angpow")
+    .select("*, created_events:event_angpow_created(*), received_events:event_angpow_received(*)")
+    .eq("id", params.id)
     .single()
 
   if (error) return new Response(JSON.stringify(error));
 
-  const name = await getEnsName(event.donator)
-    .catch(err => {
-      console.error(err)
-      return Response.json({
-        error: "failed to get ens name"
-      }, { status: 422 })
-    })
+  console.log(event)
+
+  if (event.created_events.length > 0) {
+    const createdEvent = event.created_events[0]
+
+    const name = await getEnsName(createdEvent.donator)
+      .catch(err => {
+        console.error(err)
+        return Response.json({
+          error: "failed to get ens name"
+        }, { status: 422 })
+      })
+
+    event.donator_ens_name = name
+  }
+
+  event.received = event.received_events.length > 0
   //await getEnsAddress(ensConfig, { name: "deployer.angpao.money" }).then(console.log)
   //const client = createEnsPublicClient({
   //  chain: mainnet,
@@ -43,9 +53,11 @@ export const GET: APIRoute = async ({ params }) => {
   //})
   //console.log(event.donator, ensName)
 
+
   return Response.json({
-    ...event.angpow,
-    ens: name
+    ...event,
+    created_events: undefined,
+    received_events: undefined,
 
   })
 }

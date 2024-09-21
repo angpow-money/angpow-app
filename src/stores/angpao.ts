@@ -1,4 +1,7 @@
 import { atom } from 'nanostores'
+import { $account } from '@/stores/wallet';
+import { config } from '@/wagmiConfig';
+import { signMessage } from '@wagmi/core';
 
 export const $state = atom(null);
 export const $show_palette = atom(false);
@@ -25,3 +28,40 @@ export const $angpao_message = atom('')
 export const $angpao_value = atom(null)
 export const $angpao_design = atom(false)
 export const $angpao_eth_amount = atom(0)
+
+export const receiveAngpow = async () => {
+
+    console.log("receiveAngpow");
+
+    try {
+
+        const id = 8
+
+        const message = JSON.stringify({
+            id: id
+        })
+
+        const result = await signMessage(config, {
+            account: $account.value.address,
+            message: message
+        })
+
+        console.log('result', result)
+
+        const receipt = await fetch(`/api/requestAngpow.json`, {
+            method: 'post',
+            body: JSON.stringify({
+                id: id,
+                signature: result,
+                message: message,  
+                sender: $account.value.address
+            })
+        }).then(res => res.json())
+
+        console.log("receipt", receipt);
+
+    } catch(err) {
+        console.error(err)
+    }
+
+}
