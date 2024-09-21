@@ -29,7 +29,7 @@ const verifyProof = async (proof:any, action:any) => {
             }
         );
         console.log('aavvvvvvv', response?.ok, response?.status, response?.statusText, JSON.stringify(response))
-        console.log('222223', await response.json())
+        console.log('222223', await response.text())
 
         if (response.ok) {
             const dat = await response.json();
