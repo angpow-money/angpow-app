@@ -29,40 +29,36 @@ export const $angpao_value = atom(null)
 export const $angpao_design = atom(false)
 export const $angpao_eth_amount = atom(0)
 
-export const receiveAngpow = async (id:any) => {
+export const receiveAngpow = async (id: any) => {
 
-    console.log("receiveAngpow");
+  console.log("receiveAngpow");
 
-    try {
 
-        const message = JSON.stringify({
-            id: id
-        })
+  const message = JSON.stringify({
+    id: id
+  })
 
-        let address = $account.get() as any
-        const config = $config.get() as any;
+  let address = $account.get() as any
+  const config = $config.get() as any;
 
-        const result = await signMessage(config, {
-            account: address,
-            message: message
-        })
+  const result = await signMessage(config, {
+    account: address,
+    message: message
+  })
 
-        console.log('result', result)
+  console.log('result', result)
 
-        const receipt = await fetch(`/api/requestAngpow.json`, {
-            method: 'post',
-            body: JSON.stringify({
-                id: id,
-                signature: result,
-                message: message,  
-                sender: address
-            })
-        }).then(res => res.json())
+  const receipt = await fetch(`/api/requestAngpow.json`, {
+    method: 'post',
+    body: JSON.stringify({
+      id: id,
+      signature: result,
+      message: message,
+      sender: address.address
+    })
+  }).then(res => res.json())
 
-        console.log("receipt", receipt);
+  console.log("receipt", receipt);
 
-    } catch(err) {
-        console.error(err)
-    }
 
 }

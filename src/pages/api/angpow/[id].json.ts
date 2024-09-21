@@ -22,7 +22,7 @@ export const GET: APIRoute = async ({ params }) => {
   if (event.created_events.length > 0) {
     const createdEvent = event.created_events[0]
 
-    const name = await getEnsName(createdEvent.donator)
+    const name = await getEnsName(createdEvent.donator.toLowerCase())
       .catch(err => {
         console.error(err)
         return Response.json({
