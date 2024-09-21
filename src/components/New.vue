@@ -33,8 +33,8 @@
               
                <div class="w-full flex justify-center items-center">
 
-                  <div class="w-[8rem] h-[8rem] bg-white border shadow-xl rounded-full mt-[-30%]">
-
+                  <div class="w-[8rem] h-[8rem] bg-poppy-500 flex justify-center items-center border shadow-xl rounded-full mt-[-30%]">
+                    <img class="w-full h-full p-4" src="/logo.png" />
                   </div>
 
                   
@@ -45,7 +45,9 @@
                   <p>we're</p>
                   <p class="text-3xl mb-12">angpao.money</p>
 
-                  <p>A new, fun and hyper-easy way to receive crypto. Think of it as a Magic Link for Receiving crypto. Works with boomers.</p>
+                  <p>angpao.money is a magic-link utility to make receiving crypto as intuitive as handing over cash in an envelope.</p>
+                  <br>
+                  <p>Absolute zero dependency: install nothing and gas-free, Angpao.money hyper-charge onboarding by bridging the UX gap, making every transfer fun, personal and memorable.</p>
 
                 </section>
 
@@ -1002,11 +1004,12 @@ const executeAngpaoCreate = async () => {
 }
 
 
-import { useAppKit } from '@reown/appkit/vue'
+// import { useAppKit } from '@reown/appkit/vue'
 const openWallet = () => {
-  console.log("openWallet openWallet openWallet")
-  const walletmodal = useAppKit();
-  walletmodal.open();
+  // console.log("openWallet openWallet openWallet")
+  // const walletmodal = useAppKit();
+  // walletmodal.open();
+  appkitBus.emit('open');
 }
 
 

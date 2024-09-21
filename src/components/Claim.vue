@@ -281,12 +281,11 @@ const onSuccess = (_response) => {
 };
 
 
-
-import { useAppKit } from '@reown/appkit/vue'
 const openWallet = () => {
-  console.log("openWallet openWallet openWallet")
-  const walletmodal = useAppKit();
-  walletmodal.open();
+//   console.log("openWallet openWallet openWallet")
+//   const walletmodal = useAppKit();
+//   walletmodal.open();
+    appkitBus.emit('open');
 }
 
 

@@ -1,7 +1,7 @@
 <template>
   <div class="w-full min-h-[100dvh] relative z-10 pt-8 pb-[6rem]">
 
-    
+    <ConnectWallet></ConnectWallet>
 
     <div class="w-full flex justify-center items-center p-8 flex-col">
       <div class="w-40 h-40 rounded-full shadow-xl bg-white overflow-hidden ring-[0.5rem] ring-poppy-700/50 border-4 border-white">
@@ -17,7 +17,7 @@
             <p class="text-xl font-normal">.angpao.money</p>
             
           </div>
-          <button class="btn border-none bg-poppy-600 text-white px-4 py-2 rounded-full font-medium text-lg">0x01234..0000</button>
+          <button class="btn border-none bg-poppy-600 text-white px-4 py-2 rounded-full font-medium text-lg">{{ $account.value.address.substring(0, 6) }}...{{ $account.value.address.substring(38) }}</button>
 
       </template>
 
@@ -41,16 +41,34 @@
 
     <div class="w-full pointer-events-auto py-8">
       <Flicking ref="flicking" class="w-full h-full" :options="{ align: 'center', circular: false }">
-        <div key="1" class="p-4">
-          <div @click="showAngpao('sent')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
-        </div>
+        
+        <div v-for="(angpow, index) of angpowList?.created" :key="index" class="p-4">
+          <div @click="showAngpao('sent')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl">
+            <!-- {{ angpow }} -->
 
-        <div key="2" class="p-4">
+
+            <div :class="[ angpow?.angpow?.gradient ]" class="rounded-3xl flex justify-center items-end h-full relative">
+
+              <div class="absolute top-5  bg-white/10 rounded-full text-white justify-center items-center flex font-bold">
+                <img class="w-16 h-16" src="/logo.png" />
+              </div>
+
+              <div class="w-full overflow-hidden flex justify-center items-center p-4  ">
+                <img class="w-full rounded-3xl overflow-hidden" :src="angpow?.angpow?.design" alt="">
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+        <!-- <div key="2" class="p-4">
           <div @click="showAngpao('sent')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
         </div>
         <div key="3" class="p-4">
           <div @click="showAngpao('sent')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
-        </div>
+        </div> -->
+
       </Flicking>
     </div>
 
@@ -208,8 +226,7 @@
   </TransitionRoot>
 
     <div class="sticky bottom-0 w-full p-4 z-50 flex justify-center items-center">
-        <button class="max-w-sm btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold pointer-events-auto">New Angpao</button>
-
+        <button @click="goHome()" class="max-w-sm btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold pointer-events-auto">New Angpao</button>
     </div>
 
 
@@ -230,14 +247,18 @@ import { $flip_angpao, $zoom_far, $zoom_close } from "@/stores/angpao";
 import { useStore } from "@nanostores/vue";
 
 import { Input } from "@/components/ui/input";
-
+import { onMounted } from "vue";
+import { $account } from "@/stores/wallet";
+import ConnectWallet from "@/components/ConnectWallet.vue";
 
 const flip_angpao = useStore($flip_angpao)
 
 const open = ref(false);
 const angpaoType = ref();
 
-const angpao_ens_name = ref('yikkai.angpao.money')
+// const angpao_ens_name = ref('yikkai.angpao.money')
+const angpao_ens_name = ref(null);
+const angpowList = ref([]);
 
 const show_username_modal = ref(false)
 const username_input = ref()
@@ -282,6 +303,35 @@ const showClaimName = () => {
 
 const submitUsername = () => {
     show_username_modal.value = false
+}
+
+
+onMounted( async () => {
+
+  $account.subscribe( async () => {
+
+    if($account.value?.address) {
+      angpao_ens_name.value = await fetch(`/api/ensName.json?address=${$account.value?.address}`)
+        .then(res => res.json())
+        .then(res => res.name)
+
+        console.log("angpao_ens_name", angpao_ens_name.value);
+
+
+      // const addr = "0xFEA11D726A68BD86b1Fe6c0D43C5f423c4517117";
+      const addr = $account.value?.address;
+      angpowList.value = await fetch(`/api/wallet/${addr}.json`).then(res => res.json())
+      console.log("angpowList", angpowList.value)
+
+
+    }
+
+  })
+})
+
+
+const goHome = () => {
+  window.location.href = window.location.origin
 }
 
 </script>
