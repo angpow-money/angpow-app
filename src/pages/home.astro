@@ -1,0 +1,32 @@
+---
+import '@/styles/globals.css'
+import Home2 from '@/components/Home2.vue'
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+		<title>Astro</title>
+	</head>
+	<body>
+
+		<script>
+	      import "iconify-icon";
+		</script>
+		
+
+		<div class="w-full flex justify-center items-center relative">
+			<Home2 client:only="vue"></Home2>
+
+			<div class="absolute top-0 left-0 bg-gradient-to-b from-gray-200 to-white h-72 w-full pointer-events-none">
+
+			</div>
+		</div>
+	</body>
+</html>
