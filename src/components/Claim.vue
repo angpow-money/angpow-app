@@ -201,7 +201,7 @@ onMounted( async () => {
 
 
 const goHome = () => {
-    console.log("goHome goHome goHome")
+  window.location.href = window.location.origin
 }
 
 import '@worldcoin/idkit-standalone'
