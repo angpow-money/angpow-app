@@ -63,6 +63,7 @@ onMounted(async () => {
       analytics: true, // Optional - defaults to your Cloud configuration
       onramp: true,
     },
+    defaultNetwork: networks[0]
   });
 
   // 5. Use modal composable
@@ -74,7 +75,7 @@ onMounted(async () => {
       console.log("Account changed!", data);
       $account.set(data);
       console.log($account.value);
-      if(data.address){
+      if(data.address && data.chainId === networks[0].chainId) {
         emit('connected')
       }
     },

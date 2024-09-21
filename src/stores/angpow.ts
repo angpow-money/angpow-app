@@ -61,7 +61,7 @@ export const createAngpow = async (angpao: any) => {
             quantity,
         ],
         value: amount,
-        chainId: _address
+        chainId: _address?.chainId
     })
 
     //await waitForTransactionReceipt(config, {
