@@ -146,7 +146,10 @@
               
 
               <div class="w-full flex justify-end items-center">
-                <button @click="decreaseCopy()" class="text-xl w-10 aspect-square rounded-full bg-black text-white flex justify-center items-center pointer-events-auto">-</button>
+                <button @click="decreaseCopy()" class="text-xl w-10 aspect-square rounded-full bg-black text-white flex justify-center items-center pointer-events-auto">
+                  <iconify-icon icon="akar-icons:minus"></iconify-icon>
+
+                </button>
               </div>
 
               <div class="w-full flex justify-center items-center text-5xl">
@@ -154,7 +157,9 @@
               </div>
 
               <div class="w-full flex justify-start items-center">
-                <button @click="increaseCopy()" class="text-xl w-10 aspect-square rounded-full bg-black text-white flex justify-center items-center pointer-events-auto">+</button>
+                <button @click="increaseCopy()" class="text-xl w-10 aspect-square rounded-full bg-black text-white flex justify-center items-center pointer-events-auto">
+                  <iconify-icon icon="akar-icons:plus"></iconify-icon>
+                </button>
               </div>
             </div>
 
@@ -205,7 +210,7 @@
 
                 <div class="p-2 pointer-events-auto">
                   <button @click="customization_tab = 'color'" :class="[customization_tab=='color'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Color</button>
-                  <button @click="customization_tab = 'design'" :class="[customization_tab=='design'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Design</button>
+                  <button @click="customization_tab = 'design'" :class="[customization_tab=='design'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Nouns Art</button>
                   <button @click="customization_tab = 'message'" :class="[customization_tab=='message'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Message</button>
                 </div>
 
@@ -679,6 +684,8 @@ const createAngpao = () => {
     // });
 
     // step.value[7].active = true;
+
+    if($flip_angpao.get() == false) $flip_angpao.set(true);
 
     
     $token_up.set(false);
