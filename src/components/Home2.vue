@@ -415,9 +415,9 @@ onMounted( async () => {
         console.log("angpao_ens_name", angpao_ens_name.value);
 
 
-      const addr = "0xFEA11D726A68BD86b1Fe6c0D43C5f423c4517117";
+      // const addr = "0xFEA11D726A68BD86b1Fe6c0D43C5f423c4517117";
       // const addr = "0x77c9ec0e5c571d7593f9d608a3674f6057fc9a9f";
-      // const addr = $account.value?.address;
+      const addr = $account.value?.address;
       angpowList.value = await fetch(`/api/wallet/${addr}.json`).then(res => res.json())
       console.log("angpowList", angpowList.value)
 
