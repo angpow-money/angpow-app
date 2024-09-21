@@ -6,10 +6,8 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
-    "astro": "astro",
-    "preview": "wrangler pages dev ./dist",
-    "deploy": "wrangler deploy"
-
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
