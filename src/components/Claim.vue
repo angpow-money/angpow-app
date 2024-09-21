@@ -70,7 +70,7 @@ const appkitBus = useEventBus('appkit')
 
 
 import { useStore } from "@nanostores/vue";
-import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $token_up, $angpao_value, receiveAngpow } from "@/stores/angpao";
+import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $token_up, $angpao_value, receiveAngpow, $angpao_message, $angpao_design } from "@/stores/angpao";
 import { $account } from '@/stores/wallet';
 
 const flip_angpao = useStore($flip_angpao);
@@ -137,11 +137,14 @@ const props = defineProps({
 onMounted( async () => {
 
 
-    const _angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
+    const angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
 
+  console.log(142, angpow)
     $angpao_value.set(angpow.amount)
-    angpow.value = _angpow
-    donatorEnsName.value = _angpow.donator_ens_name
+    $angpao_design.set(angpow.design)
+    $angpao_message.set(angpow.message)
+    angpow.value = angpow
+    donatorEnsName.value = angpow.donator_ens_name
 
     setTimeout(() => {
         $zoom_far.set(false);
