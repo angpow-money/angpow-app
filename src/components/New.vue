@@ -433,6 +433,7 @@ const eth_amount = ref(0)
 const is_random_mode = ref(false);
 const is_worldcoin_required = ref(false);
 
+const show_customization = ref(false);
 
 const showCustomize = () => {
 
@@ -512,8 +513,8 @@ watch(currentStep, (newVal) => {
     $pan_up_up.set(false);
     $zoom_far_far.set(false);
 
-    $pan_down.set(true);
-    $zoom_close.set(true);
+    $pan_up_palette.set(true);
+    $zoom_far.set(true);
   }
 
   if (currentStep.value == "result") {

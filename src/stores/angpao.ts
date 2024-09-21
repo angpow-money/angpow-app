@@ -21,3 +21,4 @@ export const $selectedColorClass = atom('bg-gradient-to-b from-poppy-400 to-popp
 export const $selectedBgColor = atom('bg-poppy');
 
 export const $show_titles = atom(true)
+export const $angpao_message = atom('')
