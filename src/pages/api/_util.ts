@@ -9,6 +9,13 @@ export async function getEnsName(address: string) {
     .then(res => res.value || "")
 }
 
+
+export async function getEnsWallet(ens: string) {
+  return fetch(`https://angpow_ens_worker.junyaoxiandingchan.workers.dev/get/${ens}.angpao.money`)
+    .then(res => res.json())
+    .then(res => res.value.addresses[60] || "")
+}
+
 export async function setEnsName(body: any) {
   console.log("bidyddddd", body);
 
