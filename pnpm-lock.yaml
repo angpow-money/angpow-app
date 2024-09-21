@@ -20,6 +20,9 @@ dependencies:
   '@egjs/vue3-flicking':
     specifier: ^4.11.4
     version: 4.11.4(vue@3.5.7)
+  '@headlessui/vue':
+    specifier: 1.7.16
+    version: 1.7.16(vue@3.5.7)
   '@nanostores/vue':
     specifier: ^0.10.0
     version: 0.10.0(nanostores@0.11.3)(vue@3.5.7)
@@ -2152,6 +2155,15 @@ packages:
     resolution: {integrity: sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==}
     dependencies:
       '@hapi/hoek': 9.3.0
+    dev: false
+
+  /@headlessui/vue@1.7.16(vue@3.5.7):
+    resolution: {integrity: sha512-nKT+nf/q6x198SsyK54mSszaQl/z+QxtASmgMEJtpxSX2Q0OPJX0upS/9daDyiECpeAsvjkoOrm2O/6PyBQ+Qg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      vue: 3.5.7(typescript@5.6.2)
     dev: false
 
   /@img/sharp-darwin-arm64@0.33.5:

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full flex-col flex justify-center items-center bg-poppy-100 ">
+  <div class="w-full h-full flex-col flex justify-center items-center  ">
     <!-- <div class="fixed top-0 left-0 pointer-events-auto">
       <button @click="toggle_show_palette()" class="border">show_pallete</button>
       <button @click="toggle_zoom_close()" class="border">zoom_close</button>
@@ -9,12 +9,13 @@
 
       <button @click="toggle_pan_up()" class="border">pan_up</button>
     <button @click="toggle_pan_down()" class="border">pan_down</button>
-
+      
 
     </div> -->
+    
 
-    <div :class="[ pan_up?'translate-y-[-30%]':'', pan_down?'translate-y-[20%]':'', pan_down_open?'translate-y-[50%]':'', pan_up_palette?'translate-y-[-15%]':'']" class="w-[90vw] max-w-[500px] aspect-[2/3] flex justify-center items-start relative duration-300 transition-all pointer-events-none">
-        <div :class="[zoom_close ? 'scale-75' : '', zoom_far ? 'scale-50' : 'scale-100', flip_angpao ? '-translate-y-[0vh]' : '']" class="flex justify-center items-start relative duration-500 transition-all w-full h-full">
+    <div :class="[ pan_up_up?'translate-y-[-40%]':'', pan_up?'translate-y-[-30%]':'', pan_down?'translate-y-[20%]':'', pan_down_open?'translate-y-[50%]':'', pan_up_palette?'translate-y-[-15%]':'']" class="w-[90vw] max-w-[500px] aspect-[2/3] flex justify-center items-start relative duration-300 transition-all pointer-events-none">
+        <div :class="[zoom_close ? 'scale-75' : '', zoom_far ? 'scale-50' : 'scale-100', flip_angpao ? '-translate-y-[0vh]' : '', zoom_far_far?'scale-[30%]':'']" class="flex justify-center items-start relative duration-500 transition-all w-full h-full">
       <div :class="[!flip_angpao ? '' : '[transform:rotateY(-180deg)]', selectedColorClass ]" class="absolute w-full h-full transition-all duration-500 rounded-3xl" style="-webkit-backface-visibility: hidden; backface-visibility: hidden"></div>
 
       <div :class="[!flip_angpao ? 'rounded-xl [transform:rotateY(180deg)]' : 'rounded-xl rounded-t-none [transform:rotateY(0deg)]', selectedBgColor]" class="absolute w-full h-full transition-all duration-500" style="-webkit-backface-visibility: hidden; backface-visibility: hidden">
@@ -58,6 +59,7 @@
         </div>
       </div>
     </div>
+
     </div>
 
     <section :class="[show_palette ? 'translate-y-0' : 'translate-y-[120%]', 'duration-300 transition-all w-full fixed bottom-[0dvh]']">
@@ -101,7 +103,7 @@ import { watch } from "vue";
 import { computed } from "vue";
 
 import { useStore } from "@nanostores/vue";
-import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $selectedColorClass, $token_up, $selectedBgColor } from "@/stores/angpao";
+import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $selectedColorClass, $token_up, $selectedBgColor, $zoom_far_far, $pan_up_up } from "@/stores/angpao";
 
 const state = useStore($state);
 const show_palette = useStore($show_palette);
@@ -115,6 +117,8 @@ const pan_up_palette = useStore($pan_up_palette);
 const pan_down_open = useStore($pan_down_open);
 const token_up = useStore($token_up);
 const selectedBgColor = useStore($selectedBgColor);
+const zoom_far_far = useStore($zoom_far_far);
+const pan_up_up = useStore($pan_up_up);
 
 //// FORM
 
