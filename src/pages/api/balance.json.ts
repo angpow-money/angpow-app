@@ -6,7 +6,6 @@ export const GET: APIRoute = async ({ request }) => {
   const address : any = new URL(request.url).searchParams.get('address')
 
   const balance = await getBalance(address)
-  console.log(balance)
   //if (error) return new Response(JSON.stringify(error));
 
   return Response.json({

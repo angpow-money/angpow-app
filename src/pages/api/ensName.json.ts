@@ -3,6 +3,7 @@ import { getEnsName } from './_util';
 
 export const GET: APIRoute = async ({ request }) => {
   //request.blob
+  console.log(5)
 
   const addr = new URL(request.url).searchParams.get('address') as string;
 

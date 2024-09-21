@@ -93,11 +93,11 @@ const walletConnected = async () => {
     // console.log('bbbbbb')
     canStart.value = true;
     
-    // if($account.value.address) {
-    //     balance.value = await fetch(`/api/balance.json?address=${$account.value.address}`)
-    //     .then(res => res.json())
-    //     .then(res => Number(res.amount))
-    // }
+     if($account.value.address) {
+         balance.value = await fetch(`/api/balance.json?address=${$account.value.address}`)
+         .then(res => res.json())
+         .then(res => Number(res.amount))
+     }
 
 };
 

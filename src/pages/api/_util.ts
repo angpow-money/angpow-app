@@ -1,13 +1,23 @@
-import supabase from "@/supabase"
-
 export async function getEnsName(address: string) {
+  // return supabase.from('angpow_subdomain')
+  //   .select()
+  //   .eq('address', address)
+  //   .maybeSingle()
+  //   .throwOnError()
+  return fetch(`https://angpow_ens_worker.junyaoxiandingchan.workers.dev/getredis/${address}`)
+    .then(res => res.json())
+    .then(res => res.value || "")
+}
 
-  return supabase.from('angpow_subdomain')
-    .select()
-    .eq('address', address)
-    .maybeSingle()
-    .throwOnError()
-    .then(res => res.data?.ensname || "")
+export async function setEnsName(body: any) {
+
+  await fetch(`https://angpow_ens_worker.junyaoxiandingchan.workers.dev/set`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body)
+  })
 }
 
 export async function getBalance(address: string) {
