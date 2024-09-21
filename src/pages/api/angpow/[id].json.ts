@@ -12,7 +12,7 @@ import { getEnsName } from '../_util';
 
 export const GET: APIRoute = async ({ params, url }) => {
 
-  const userAddress = url.searchParams.get('address')
+  const userAddress : any = url.searchParams.get('address')
 
   const { data: event, error } = await supabase.from("angpow")
     .select("*, created_events:event_angpow_created(*), received_events:event_angpow_received(*)")
@@ -35,7 +35,7 @@ export const GET: APIRoute = async ({ params, url }) => {
     event.donator_ens_name = name
   }
 
-  event.received = event.received_events.findIndex(o => o.recipient === userAddress.toLowerCase()) !== -1
+  event.received = event.received_events.findIndex((o:any) => o.recipient === userAddress.toLowerCase()) !== -1
   //await getEnsAddress(ensConfig, { name: "deployer.angpao.money" }).then(console.log)
   //const client = createEnsPublicClient({
   //  chain: mainnet,
