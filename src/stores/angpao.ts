@@ -13,4 +13,6 @@ export const $pan_down = atom(false);
 export const $pan_down_open = atom(false);
 export const $token_up = atom(false)
 
-export const $selectedColorClass = atom('bg-gradient-to-b from-red-500 to-red-900 ');
+export const $selectedColorClass = atom('bg-gradient-to-b from-poppy-400 to-poppy-500');
+export const $selectedBgColor = atom('bg-poppy');
+

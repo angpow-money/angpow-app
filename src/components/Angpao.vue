@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full flex-col flex justify-center items-center">
+  <div class="w-full h-full flex-col flex justify-center items-center bg-poppy-100 ">
     <!-- <div class="fixed top-0 left-0 pointer-events-auto">
       <button @click="toggle_show_palette()" class="border">show_pallete</button>
       <button @click="toggle_zoom_close()" class="border">zoom_close</button>
@@ -15,12 +15,12 @@
 
     <div :class="[ pan_up?'translate-y-[-30%]':'', pan_down?'translate-y-[20%]':'', pan_down_open?'translate-y-[50%]':'', pan_up_palette?'translate-y-[-15%]':'']" class="w-[90vw] max-w-[500px] aspect-[2/3] flex justify-center items-start relative duration-300 transition-all pointer-events-none">
         <div :class="[zoom_close ? 'scale-75' : '', zoom_far ? 'scale-50' : 'scale-100', flip_angpao ? '-translate-y-[0vh]' : '']" class="flex justify-center items-start relative duration-500 transition-all w-full h-full">
-      <div :class="[!flip_angpao ? '' : '[transform:rotateY(-180deg)]', selectedColorClass]" class="absolute w-full h-full transition-all duration-500 shadow-2xl rounded-3xl" style="-webkit-backface-visibility: hidden; backface-visibility: hidden"></div>
+      <div :class="[!flip_angpao ? '' : '[transform:rotateY(-180deg)]', selectedColorClass ]" class="absolute w-full h-full transition-all duration-500 rounded-3xl" style="-webkit-backface-visibility: hidden; backface-visibility: hidden"></div>
 
-      <div :class="[!flip_angpao ? 'rounded-xl [transform:rotateY(180deg)]' : 'rounded-xl rounded-t-none [transform:rotateY(0deg)]']" class="absolute w-full h-full bg-red-500 transition-all duration-500" style="-webkit-backface-visibility: hidden; backface-visibility: hidden">
+      <div :class="[!flip_angpao ? 'rounded-xl [transform:rotateY(180deg)]' : 'rounded-xl rounded-t-none [transform:rotateY(0deg)]', selectedBgColor]" class="absolute w-full h-full transition-all duration-500" style="-webkit-backface-visibility: hidden; backface-visibility: hidden">
         <div :class="[!flip_angpao ? '[transform:rotateY(180deg)] opacity-0' : '']" class="w-full aspect-square z-50 flex justify-center items-center transition-all duration-500 rounded-xl pointer-events-none relative">
 
-          <div class="w-full aspect-square absolute flex justify-center items-center z-50 bg-red-500">
+          <div class="w-full aspect-square absolute flex justify-center items-center z-50 " :class="selectedBgColor">
 
           </div>
 
@@ -29,7 +29,7 @@
 
             </div> -->
             <div class="absolute flex justify-center items-center w-full max-w-[13rem]">
-              <div class=" bg-black rounded-full aspect-square w-full "></div>
+              <div class=" bg-black rounded-full aspect-square w-full"></div>
               <div class="absolute bottom-0 right-[-1rem] bg-white p-2 px-2 rounded-full text-lg shadow-xl border border-black/20">0.001 ETH</div>
             </div>
 
@@ -37,8 +37,14 @@
             
           </div>
 
-          <div id="envelopeCover" class="aspect-square w-full overflow-hidden origin-top z-20">
-            <div class="bg-blue-500 w-full h-full rotate-45 translate-y-[-70%] rounded-3xl"></div>
+          <div id="envelopeCover" class="w-full h-[40rem] overflow-hidden origin-top z-20 border-t-2 border-t-poppy-300">
+            <div :class="selectedBgColor" class=" w-full h-full translate-y-[-80%] rounded-3xl rounded-b-[3rem] brightness-90 p-2">
+
+              <div class="w-full h-full bg-black/20 rounded-[2.5rem]">
+
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
@@ -86,7 +92,7 @@ import { watch } from "vue";
 import { computed } from "vue";
 
 import { useStore } from "@nanostores/vue";
-import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $selectedColorClass, $token_up } from "@/stores/angpao";
+import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $selectedColorClass, $token_up, $selectedBgColor } from "@/stores/angpao";
 
 const state = useStore($state);
 const show_palette = useStore($show_palette);
@@ -99,7 +105,7 @@ const pan_down = useStore($pan_down);
 const pan_up_palette = useStore($pan_up_palette);
 const pan_down_open = useStore($pan_down_open);
 const token_up = useStore($token_up);
-
+const selectedBgColor = useStore($selectedBgColor);
 
 //// FORM
 

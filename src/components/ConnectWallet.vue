@@ -14,6 +14,10 @@ import { config } from "@/wagmiConfig";
 
 import { $account } from "@/stores/wallet";
 
+import { useEventBus } from '@vueuse/core'
+const appkitBus = useEventBus('appkit')
+
+
 // const account = useStore($account)
 
 const emit = defineEmits(["connected"])
@@ -84,4 +88,12 @@ const openModal = async () => {
   const walletmodal = useAppKit();
   await walletmodal.open({ view: "Connect" });
 };
+
+appkitBus.on( async (event) => {
+  if(event === 'open'){
+    // console.log('connected')
+    const walletmodal = useAppKit();
+    await walletmodal.open({ view: "Connect" });
+  }
+})
 </script>

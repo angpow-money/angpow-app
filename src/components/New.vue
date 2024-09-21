@@ -40,8 +40,8 @@
                 </div>
 
                 <ConnectWallet @connected="walletConnected()">
-                    <button class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2">Create AngPao</button>
                 </ConnectWallet>
+                <button @click="startWizard()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">Create AngPao</button>
 
             </div>
 
@@ -74,23 +74,61 @@
 
     <div class="w-full bottom-[0dvh] absolute pointer-events-auto">
 
-        <div class="w-full bg-white rounded-t-xl pt-8 p-4 space-y-4">
+        <div class="w-full bg-white rounded-t-xl space-y-4">
             
-            <div class="w-full grid grid-cols-2">
+            <!-- <div class="w-full grid grid-cols-2">
                 <div class="text-xl font-medium">Total ETH</div>
                 <input class="bg-transparent border-b" placeholder="enter amount" type="text">
+            </div> -->
+
+            <div class="grid w-full max-w-sm items-center gap-1.5 border-b pb-4 p-4">
+    <Label class="">Total ETH to Send</Label>
+    
+
+    <div class="flex justify-center items-center w-full space-x-3">
+        <Input class="border-none text-left text-xl py-6" placeholder="Enter Total ETH Amount" />
+        <p class="text-3xl">ETH</p>
+    </div>
+  </div>
+
+            <div class="w-full grid grid-cols-3 border-b pb-12">
+
+                <div class="col-span-full text-center text-2xl font-medium mb-8">
+                    Copies
+                </div>
+
+                <div class="w-full flex justify-end items-center">
+                    <button class="text-xl w-10 aspect-square rounded-full bg-black text-white flex justify-center items-center">-</button>
+                </div>
+
+                <div class="w-full flex justify-center items-center text-5xl">
+                    <div>1</div>
+                </div>
+
+                <div class="w-full flex justify-start items-center">
+                    <button class="text-xl w-10 aspect-square rounded-full bg-black text-white flex justify-center items-center">+</button>
+                </div>
+
             </div>
 
-            <div class="w-full grid grid-cols-2">
-                <div class="text-xl font-medium">How many copies?</div>
-                <input class="bg-transparent border-b" placeholder="enter amount" type="text">
+
+            <div class="w-full grid grid-cols-2 p-2 px-4">
+                <div class="flex items-center space-x-2">
+                    <Switch id="random-mode" />
+                    <Label for="random-mode">Random Mode</Label>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                    <Switch id="random-mode" />
+                    <Label for="random-mode">Require WorldID</Label>
+                </div>
             </div>
 
-            <p class="py-8 text-center">Each copy will have X ETH</p>
 
-
+            <div class="w-full p-4 pb-0">
+                <p class="text-center mb-4">Each copy will receive X ETH</p>
             <button @click="submitAsset()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">Write a Message</button>
-
+            </div>
         </div>
 
         
@@ -106,12 +144,12 @@
 
 <div class="w-full bottom-[0dvh] absolute pointer-events-auto">
 
-    <div class="w-full bg-white rounded-t-xl pt-8 p-4 space-y-4">
+    <div class="w-full bg-white rounded-t-xl p-4 space-y-4">
         
-        <div class="text-xl font-medium">Write a Message</div>
+        <div class="text-xl font-medium">Say Something</div>
         
-        <div class="h-60">
-
+        <div class="">
+            <Textarea class="w-full h-[20vh]" placeholder="Type your message here." />
         </div>
 
 
@@ -128,19 +166,21 @@
 
 </div>
 
-<div key="4" class="w-full h-[100dvh] flex justify-start items-start relative pointer-events-none bg-black/50">
+<div key="4" class="w-full h-[100dvh] flex justify-start items-start relative pointer-events-none bg-black/50 px-8">
 
 
     <div class="w-full flex flex-col justify-center items-center h-full text-white pointer-events-auto" >
     <p class="text-4xl mb-8">Enter a username</p>
 
 
-<div class="bg-white  p-4 rounded-xl  text-3xl text-center">
-    <input class="bg-transparent w-full text-center" type="text" placeholder="junyaoc">
+<div class="bg-white  p-4 rounded-xl  text-3xl text-center w-full">
+    <!-- <input class="bg-transparent w-full text-center" type="text" placeholder="junyaoc"> -->
+    <Input class="bg-gray-200 border-none text-2xl py-6 text-black text-center mb-4" placeholder="Hi! My name is..." />
+
     <p class="text-black">.angpao.money</p>
 </div>
 
-<p class="text-xl mt-8 text-center">choose your name wisely!</p>
+<p class="text-xl mt-8 text-center">choose your name wisely, your name will be visible to everyone sending angpao!</p>
 
 
  </div>
@@ -166,6 +206,8 @@
 
             <p>Total ETH: 1</p>
             <p>Number of Copies: 1</p>
+            <p>Random Mode: Yes</p>
+            <p>Require WorldID: Yes</p>
 
             <br>
 
@@ -275,13 +317,59 @@
     import Flicking from "@egjs/vue3-flicking";
     import "@egjs/vue3-flicking/dist/flicking.css";
 
+    import { useEventBus } from '@vueuse/core'
+    const appkitBus = useEventBus('appkit')
 
     import { useStore } from "@nanostores/vue";
     import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $selectedColorClass } from "@/stores/angpao";
 
     const flicking = ref(null)
 
+    const canStart = ref(false)
+
     const sendBusy = ref(false)
+
+    import { Input } from '@/components/ui/input'
+    import { Label } from '@/components/ui/label'
+    import { Switch } from '@/components/ui/switch'
+    import { Textarea } from '@/components/ui/textarea'
+
+    const startWizard = async () => {
+
+        if(canStart.value){
+            setTimeout(() => {
+                step.value.forEach((item) => {
+                    if(item.name == 'start') {
+                        item.active = false
+                    }
+                })
+
+                step.value[1].active = true
+            }, 1000);
+
+            
+
+            if(!flicking.value) {
+                
+                await new Promise( (resolve) => {
+                    setTimeout(() => {
+                        if(flicking.value) {
+                            resolve()
+                        }
+                    }, 100);
+                })
+
+            }
+
+
+            setTimeout(() => {
+                // flicking.value.moveTo(2)
+                flicking.value.moveTo(1)
+            }, 1000);
+        } else {
+            appkitBus.emit('open')
+        }
+    }
 
     const step = ref([
         {
@@ -355,7 +443,7 @@
             $open_angpao.set(false)
 
             $zoom_close.set(true)
-            $pan_up_palette.set(true)
+            $pan_up.set(true)
         }
 
         if(currentStep.value == 'summary') {
@@ -389,36 +477,10 @@
     })
 
     const walletConnected = async () => {
+
+        canStart.value = true;
         
-        setTimeout(() => {
-            step.value.forEach((item) => {
-                if(item.name == 'start') {
-                    item.active = false
-                }
-            })
-
-            step.value[1].active = true
-        }, 1000);
-
         
-
-        if(!flicking.value) {
-            
-            await new Promise( (resolve) => {
-                setTimeout(() => {
-                    if(flicking.value) {
-                        resolve()
-                    }
-                }, 100);
-            })
-
-        }
-
-
-        setTimeout(() => {
-            // flicking.value.moveTo(2)
-            flicking.value.moveTo(1)
-        }, 1000);
 
     }
 
@@ -507,3 +569,9 @@
 
 </script>
 
+<style>
+
+*:focus {
+    outline: 0 !important;
+}
+</style>
