@@ -10,6 +10,12 @@
             <Button class="w-full">Create New</Button>
 
         </div> -->
+
+      <button @click="openWallet()" class="pointer-events-auto z-20 w-16 h-16 rounded-full shadow-xl border border-black/10 flex justify-center items-center absolute top-4 left-4">
+        <iconify-icon class="text-[2rem]" icon="ph:wallet"></iconify-icon>
+      </button>
+
+
     <div class="fixed w-screen h-[100dvh] flex-col flex justify-center items-center" :class="[currentStep == 'summary' || currentStep == 'result' ? 'pointer-events-auto' : 'pointer-events-none', currentStep=='divide'&&copies>1?'-rotate-12 -translate-x-8':'', 'transition-all duration-300']" @click="angpaoTap()">
       <Angpao></Angpao>
     </div>
@@ -239,7 +245,7 @@
   
                   <div class="text-center pb-3">
                     <div class="text-2xl font-medium" >{{ copies }}</div>
-                      <div class="font-medium text-gray-500">Angpao</div>
+                    <div class="font-medium text-gray-500">Angpao</div>
                   </div>
   
                   
@@ -941,6 +947,14 @@ const executeAngpaoCreate = () => {
     resolve()
 
   })
+}
+
+
+import { useAppKit } from '@reown/appkit/vue'
+const openWallet = () => {
+  console.log("openWallet openWallet openWallet")
+  const walletmodal = useAppKit();
+  walletmodal.open();
 }
 
 </script>

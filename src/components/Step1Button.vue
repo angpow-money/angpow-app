@@ -3,7 +3,7 @@
 <div class="w-full relative flex justify-end items-end">
 
     <ConnectWallet @connected="walletConnected()"></ConnectWallet>
-
+    
     <div class="absolute bottom-0 flex justify-center items-center w-full">
         <div :class="[expand?'h-[80vh] ':'h-16']"  class="w-full bg-black text-white rounded-xl max-h-full m-0 text-xl font-semibold transition-all duration-500 flex flex-col justify-end items-end">
 
