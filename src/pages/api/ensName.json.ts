@@ -6,7 +6,7 @@ export const GET: APIRoute = async ({ request }) => {
 
   const addr = new URL(request.url).searchParams.get('address') as string;
 
-  const name = await getEnsName(addr)
+  const name = await getEnsName(addr.toLowerCase())
     .catch(err => {
       console.error(err)
       return Response.json({

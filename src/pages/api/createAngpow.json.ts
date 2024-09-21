@@ -4,19 +4,20 @@ import supabase from '@/supabase';
 export const POST: APIRoute = async ({ request }) => {
   const body = await request.json()
 
-  console.log(body);
-  try {
-    await supabase.from('angpow_subdomain')
-      .upsert({
-        address: body.address.toLowerCase(),
-        ensname: body.username,
-      }, {
-        ignoreDuplicates: true
-      })
-      .throwOnError()
-  } catch (err) {
-    console.error(18, err)
-    if (err) return new Response(JSON.stringify({ error: "failed to create subdomain" }));
+  if (body.username) {
+    try {
+      await supabase.from('angpow_subdomain')
+        .upsert({
+          address: body.address.toLowerCase(),
+          ensname: body.username,
+        }, {
+          ignoreDuplicates: true
+        })
+        .throwOnError()
+    } catch (err) {
+      console.error(18, err)
+      if (err) return new Response(JSON.stringify({ error: "failed to create subdomain" }));
+    }
   }
 
   const { data, error } = await supabase.from("angpow").insert({

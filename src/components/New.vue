@@ -435,6 +435,7 @@ import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } fro
 const show_username_modal = ref(false)
 
 import { nanoid } from 'nanoid'
+import { $account } from '@/stores/wallet';
 
 const show_explainer = ref(false)
 
@@ -668,9 +669,18 @@ const goSummary = () => {
 }
 
 
-const submitAngpaoConfig = () => {
+const submitAngpaoConfig = async () => {
 
-   show_username_modal.value = true;
+  const ensname = await fetch(`/api/ensName.json?address=${$account.value.address}`)
+    .then(res => res.json())
+    .then(res => res.name)
+
+  if (!ensname) {
+    show_username_modal.value = true;
+  } else {
+    createAngpao();
+  }
+
 
 }
 
