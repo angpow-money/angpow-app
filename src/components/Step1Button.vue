@@ -22,7 +22,7 @@
 
                     <div class="text-4xl mb-8">{{ ethAmount }} ETH</div>
 
-                    <p class="text-sm font-normal ">balance: 0.1 ETH</p>
+            <p class="text-sm font-normal ">balance: {{balance}} ETH</p>
                     
                 </div>
 
@@ -45,7 +45,7 @@
                 </div>
 
           <div class="w-full p-4">
-            <button :disabled="Number(ethAmount) === 0" @click="confirmAmount()" class="btn w-full bg-white text-black rounded-xl p-4 h-auto text-xl font-semibold pointer-events-auto hover:text-white">Next</button>
+            <button :disabled="Number(ethAmount) === 0 || Number(ethAmount) > Number(balance)" @click="confirmAmount()" class="btn w-full bg-white text-black rounded-xl p-4 h-auto text-xl font-semibold pointer-events-auto hover:text-white">Next</button>
           </div>
 
 
@@ -87,7 +87,13 @@ const reset = () => {
 
 };
 
+const balance = new ref("0")
+import { $account } from '@/stores/wallet';
 const walletConnected = async () => {
+      balance.value = await fetch(`/api/balance.json?address=${$account.value.address}`)
+        .then(res => res.json())
+        .then(res => Number(res.amount))
+
   canStart.value = true;
 };
 
