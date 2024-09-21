@@ -15,6 +15,7 @@
     "@astrojs/vue": "^4.5.1",
     "@designbycode/tailwindcss-text-stroke": "^1.2.1",
     "@egjs/vue3-flicking": "^4.11.4",
+    "iconify-icon": "^2.1.0",
     "@headlessui/vue": "1.7.16",
     "@nanostores/vue": "^0.10.0",
     "@reown/appkit": "^1.0.2",

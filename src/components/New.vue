@@ -233,13 +233,13 @@
               <div class="w-full grid grid-cols-2 p-4">
   
                   <div class="text-center border-r pb-3">
-                      <div class="text-sm font-medium">Total ETH</div>
-                      <div class="text-xl" >{{ eth_amount }} ETH</div>
+                    <div class="text-xl" >{{ eth_amount }} ETH</div>
+                    <div class="font-medium text-gray-500">In Total</div>
                   </div>
   
                   <div class="text-center pb-3">
-                      <div class="text-sm font-medium">Divide By</div>
-                      <div class="text-2xl" >{{ copies }}</div>
+                    <div class="text-2xl font-medium" >{{ copies }}</div>
+                      <div class="font-medium text-gray-500">Angpao</div>
                   </div>
   
                   

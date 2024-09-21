@@ -62,6 +62,9 @@ dependencies:
   ethers:
     specifier: ^6.13.2
     version: 6.13.2
+  iconify-icon:
+    specifier: ^2.1.0
+    version: 2.1.0
   lucide-vue-next:
     specifier: ^0.441.0
     version: 0.441.0(vue@3.5.7)
@@ -2170,6 +2173,10 @@ packages:
       vue: ^3.2.0
     dependencies:
       vue: 3.5.7(typescript@5.6.2)
+    dev: false
+
+  /@iconify/types@2.0.0:
+    resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
     dev: false
 
   /@img/sharp-darwin-arm64@0.33.5:
@@ -7566,6 +7573,12 @@ packages:
     resolution: {integrity: sha512-41pvpVbW9rhZPk5xjCX2TPJi2861LEig/YRhUkY+1FQ2IQPS0bKUDYnEqY8XPPbB48h1uIwLnP9iiEfuSl20CA==}
     dependencies:
       '@babel/runtime': 7.25.6
+    dev: false
+
+  /iconify-icon@2.1.0:
+    resolution: {integrity: sha512-lto4XU3bwTQnb+D/CsJ4dWAo0aDe+uPMxEtxyOodw9l7R9QnJUUab3GCehlw2M8mDHdeUu/ufx8PvRQiJphhXg==}
+    dependencies:
+      '@iconify/types': 2.0.0
     dev: false
 
   /idb-keyval@6.2.1:
