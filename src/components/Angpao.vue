@@ -24,13 +24,13 @@
 
           </div>
 
-          <div :class="[token_up?'translate-y-[-100%]':'translate-y-[50%] opacity-0']" class="w-full aspect-square absolute flex justify-center items-center z-30 duration-1000 transition-all ">
+          <div :class="[token_up?'translate-y-[-150%]':'translate-y-[50%] opacity-0']" class="w-full aspect-square absolute flex justify-center items-center z-30 duration-1000 transition-all ">
             <!-- <div class="bg-red-500 w-full h-[300px] mt-[100%]">
 
             </div> -->
-            <div class="absolute flex justify-center items-center w-full max-w-[13rem]">
-              <div class=" bg-black rounded-full aspect-square w-full"></div>
-              <div class="absolute bottom-0 right-[-1rem] bg-white p-2 px-2 rounded-full text-lg shadow-xl border border-black/20">0.001 ETH</div>
+            <div class="absolute flex justify-center items-center w-full max-w-[10rem]">
+              <div class=" bg-white shadow-2xl shadow-black/50 rounded-full aspect-square w-full"></div>
+              <div class="absolute bottom-[-1rem] right-[-1rem] bg-white p-2 px-2 rounded-full text-lg shadow-xl border border-black/20">0.001 ETH</div>
             </div>
 
 

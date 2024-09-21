@@ -17,6 +17,8 @@
             <Angpao ></Angpao>
         </div>
 
+        <ConnectWallet @connected="walletConnected()"></ConnectWallet>
+
 
         <div class="w-full absolute bottom-0 px-4 pb-2 flex flex-col justify-center items-center">
 
@@ -25,7 +27,29 @@
                 <p>junyaoc.angpao.money</p>
             </div>
 
-            <button @click="openAngpao()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">Open my Angpao!</button>
+            <template v-if="!claimStart">
+
+                
+                            <button v-if="!canStart" @click="connectWallet()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">
+                                <div class="animate-bounce">Connect Wallet to Open</div>
+                            </button>
+                
+                            <button v-if="canStart" @click="openAngpao()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">
+                                <div class="animate-bounce">Open!</div>
+                            </button>
+
+            </template>
+
+            <template v-else>
+
+                <button v-if="claimBusy" class="btn w-full bg-black ring-black ring-offset-2 ring-4 ring-offset-white text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 ">
+                                <div class="animate-bounce">Opening...</div>
+                            </button>
+
+                            <button v-if="!claimBusy" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 ">
+                                <div class="">Go Home</div>
+                            </button>
+            </template>
             
         </div>
 
@@ -41,13 +65,18 @@ import { ref, onMounted  } from "vue";
 import Angpao from "./Angpao.vue";
 
 import ConnectWallet from "@/components/ConnectWallet.vue"
-
+import { useEventBus } from '@vueuse/core'
+const appkitBus = useEventBus('appkit')
 
 
 import { useStore } from "@nanostores/vue";
 import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $token_up } from "@/stores/angpao";
 
 const flip_angpao = useStore($flip_angpao);
+const canStart = ref(false);
+
+const claimStart = ref(false);
+const claimBusy = ref(false);
 
 const angpaoTap = () => {
     console.log('angpaoTap')
@@ -55,29 +84,38 @@ const angpaoTap = () => {
     $flip_angpao.set(!flip_angpao.value);
 }
 
+const walletConnected = async () => {
+    canStart.value = true;
+}
+
+const connectWallet = () => {
+    appkitBus.emit('open')
+}
+
 const openAngpao = () => {
 
-    // if user no wallet, no username, ask to setup
+    claimStart.value = true;
 
-    let need_setup = false;
+    $zoom_close.set(false);
 
-    if(need_setup){
+    claimBusy.value = true;
 
-    } else {
-
-
-        $zoom_close.set(false);
+    setTimeout(() => {
         
         $pan_down_open.set(true);
-
+    
         $flip_angpao.set(true);
         $open_angpao.set(true);
-
+    
         setTimeout(() => {
             $token_up.set(true);
+
+            claimBusy.value = false;
+
         }, 200);
 
-    }
+    }, 2000);
+        
 }
 
 onMounted( () => {
