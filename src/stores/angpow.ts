@@ -7,7 +7,7 @@ export const ANGPOW_CONTRACT = atom("0x25a25506B36626d328B1ebE0D16aEF2d3713CE91"
 export const ABB_SEPOLIA_RPC_URL = atom("https://endpoints.omniatech.io/v1/arbitrum/sepolia/public");
 
 import { zeroAddress, parseEther } from 'viem';
-import { writeContract, readContract, waitForTransactionReceipt, signMessage } from '@wagmi/core';
+import { writeContract, waitForTransactionReceipt, signMessage } from '@wagmi/core';
 import { config } from '@/wagmiConfig';
 import { $account } from '@/stores/wallet';
 import { ANGPOW_ABI } from '@/angpow-abi';
@@ -38,19 +38,21 @@ export const createAngpow = async (angpao: any) => {
     }).then(res => res.json())
     console.log('resp', resp);
 
-    //const result = await writeContract(config, {
-    //    abi: ANGPOW_ABI,
-    //    address: ANGPOW_CONTRACT.value,
-    //    functionName: 'createAngpow',
-    //    args: [
-    //        String(resp.id),
-    //        zeroAddress,
-    //        amount,
-    //        quantity,
-    //    ],
-    //    value: amount,
-    //    chainId: $account.value.chainId
-    //})
+    let _address = $account.get() as any
+
+    const result = await writeContract(config, {
+        abi: ANGPOW_ABI,
+        address: ANGPOW_CONTRACT.value as any,
+        functionName: 'createAngpow',
+        args: [
+            String(resp.id),
+            zeroAddress,
+            amount,
+            quantity,
+        ],
+        value: amount,
+        chainId: _address
+    })
 
     //await waitForTransactionReceipt(config, {
     //    hash: result,
@@ -70,8 +72,10 @@ export const receiveAngpow = async () => {
             id: id
         })
 
+        let address = $account.get() as any
+
         const result = await signMessage(config, {
-            account: $account.value.address,
+            account: address,
             message: message
         })
 
@@ -83,7 +87,7 @@ export const receiveAngpow = async () => {
                 id: id,
                 signature: result,
                 message: message,  
-                sender: $account.value.address
+                sender: address
             })
         }).then(res => res.json())
 

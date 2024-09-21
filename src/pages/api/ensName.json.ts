@@ -1,10 +1,10 @@
 import type { APIRoute } from 'astro';
 import { getEnsName } from './_util';
 
-export const GET: APIRoute = async ({ request, params }) => {
+export const GET: APIRoute = async ({ request }) => {
   //request.blob
 
-  const addr = new URL(request.url).searchParams.get('address')
+  const addr = new URL(request.url).searchParams.get('address') as string;
 
   const name = await getEnsName(addr)
     .catch(err => {

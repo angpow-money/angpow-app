@@ -29,7 +29,7 @@ export const $angpao_value = atom(null)
 export const $angpao_design = atom(false)
 export const $angpao_eth_amount = atom(0)
 
-export const receiveAngpow = async (id) => {
+export const receiveAngpow = async (id:any) => {
 
     console.log("receiveAngpow");
 
@@ -39,8 +39,10 @@ export const receiveAngpow = async (id) => {
             id: id
         })
 
+        let address = $account.get() as any
+
         const result = await signMessage(config, {
-            account: $account.value.address,
+            account: address,
             message: message
         })
 
@@ -52,7 +54,7 @@ export const receiveAngpow = async (id) => {
                 id: id,
                 signature: result,
                 message: message,  
-                sender: $account.value.address
+                sender: address
             })
         }).then(res => res.json())
 
