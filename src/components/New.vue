@@ -97,7 +97,7 @@
         <div class="w-full h-full flex flex-col justify-between items-center">
          
             <div :class="[show_titles?'':'opacity-0']" class="w-full h-full flex flex-col justify-center items-center space-y-8">
-            <div class="p-4 text-center sm:-mt-24 sm:mb-24">
+            <div class="p-4 text-center sm:top-0 sm:fixed">
               <div class="text-poppy text-5xl font-semibold mb-4">angpao.money</div>
               <p class="text-xl text-black font-semibold">The New + Fun Way to Send Crypto!</p>
             </div>
