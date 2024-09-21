@@ -44,7 +44,7 @@
                                 <div class="animate-bounce">Opening...</div>
                             </button>
 
-                            <button v-if="!claimBusy && success" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto ">
+                            <button @click="goHome()" v-if="!claimBusy && success" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto ">
                                 <div class="">See all Angpao</div>
                             </button>
             </template>
@@ -89,6 +89,17 @@ const angpaoTap = () => {
 }
 
 const walletConnected = async () => {
+
+  const _angpow = await fetch(`/api/angpow/${props.id}.json?address=${$account.value.address}`).then(res => res.json())
+    angpow.value = _angpow;
+
+    $angpao_value.set(_angpow.amount)
+    $angpao_design.set(_angpow.design)
+    $angpao_message.set(_angpow.message)
+    $selectedColorClass.set(_angpow.gradient)
+    $selectedBgColor.set(_angpow.solid)
+    donatorEnsName.value = _angpow.donator_ens_name
+
   userEnsName.value = await fetch(`/api/ensName.json?address=${$account.value.address}`)
     .then(res => res.json())
     .then(res => res.name)
@@ -153,16 +164,7 @@ const props = defineProps({
 
 onMounted( async () => {
 
-
-    const _angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
-    angpow.value = _angpow;
-
-    $angpao_value.set(_angpow.amount)
-    $angpao_design.set(_angpow.design)
-    $angpao_message.set(_angpow.message)
-    $selectedColorClass.set(_angpow.gradient)
-    $selectedBgColor.set(_angpow.solid)
-    donatorEnsName.value = _angpow.donator_ens_name
+  
 
     setTimeout(() => {
         $zoom_far.set(false);

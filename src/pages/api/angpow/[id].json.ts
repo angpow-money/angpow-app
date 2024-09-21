@@ -10,7 +10,9 @@ import { getEnsName } from '../_util';
 //import { mainnet } from 'viem/chains'
 //import { createEnsPublicClient } from '@ensdomains/ensjs/wallet'
 
-export const GET: APIRoute = async ({ params }) => {
+export const GET: APIRoute = async ({ params, url }) => {
+
+  const userAddress = url.searchParams.get('address')
 
   const { data: event, error } = await supabase.from("angpow")
     .select("*, created_events:event_angpow_created(*), received_events:event_angpow_received(*)")
@@ -33,7 +35,7 @@ export const GET: APIRoute = async ({ params }) => {
     event.donator_ens_name = name
   }
 
-  event.received = event.received_events.length > 0
+  event.received = event.received_events.findIndex(o => o.recipient === userAddress.toLowerCase()) !== -1
   //await getEnsAddress(ensConfig, { name: "deployer.angpao.money" }).then(console.log)
   //const client = createEnsPublicClient({
   //  chain: mainnet,
