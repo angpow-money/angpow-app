@@ -103,12 +103,16 @@ const connectWallet = () => {
 
 const openAngpao = async () => {
 
-    const verified = await openWorldcoin();
-    console.log("verified", verified)
-    
-    if(!verified?.success) {
-        alert("Account claimed. Claming aborted.")
-        return;
+    console.log("angpow.value", angpow.value);
+
+    if(angpow.value.is_worldcoin_required) {
+        const verified = await openWorldcoin();
+        console.log("verified", verified)
+        
+        if(!verified?.success) {
+            alert("Account claimed. Claming aborted.")
+            return;
+        }
     }
 
     claimStart.value = true;
@@ -152,14 +156,15 @@ const props = defineProps({
 onMounted( async () => {
 
 
-    const angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
+    const _angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
+    angpow.value = _angpow;
 
-    $angpao_value.set(angpow.amount)
-    $angpao_design.set(angpow.design)
-    $angpao_message.set(angpow.message)
-    $selectedColorClass.set(angpow.gradient)
-    $selectedBgColor.set(angpow.solid)
-    donatorEnsName.value = angpow.donator_ens_name
+    $angpao_value.set(_angpow.amount)
+    $angpao_design.set(_angpow.design)
+    $angpao_message.set(_angpow.message)
+    $selectedColorClass.set(_angpow.gradient)
+    $selectedBgColor.set(_angpow.solid)
+    donatorEnsName.value = _angpow.donator_ens_name
 
     setTimeout(() => {
         $zoom_far.set(false);
