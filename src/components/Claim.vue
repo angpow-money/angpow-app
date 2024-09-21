@@ -66,9 +66,8 @@
 <script setup>
 
 
-import VConsole from 'vconsole';
-
-const vConsole = new VConsole();
+// import VConsole from 'vconsole';
+// const vConsole = new VConsole();
 
 import { ref, onMounted  } from "vue";
 import Angpao from "./Angpao.vue";
