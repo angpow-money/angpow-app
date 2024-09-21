@@ -9,7 +9,7 @@
                 home
             </div>
 
-            <p class="text-right"><span class="text-xl">someone</span><br><span class="opacity-25">.angpao.money</span></p>
+      <p v-if="userEnsName" class="text-right"><span class="text-xl">{{userEnsName}}</span><br><span class="opacity-25">.angpao.money</span></p>
 
         </div>
 
@@ -24,7 +24,7 @@
 
             <p>From</p>
             <div class="shadow-xl shadow-black/20 rounded-full px-6 py-3 text-xl border mt-4 mb-8 bg-white">
-              <p>{{ens}}</p>
+              <p>{{donatorEnsName}}.angpao.money</p>
             </div>
 
             <template v-if="!claimStart">
@@ -70,7 +70,8 @@ const appkitBus = useEventBus('appkit')
 
 
 import { useStore } from "@nanostores/vue";
-import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $token_up } from "@/stores/angpao";
+import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $token_up, $angpao_value } from "@/stores/angpao";
+import { $account } from '@/stores/wallet';
 
 const flip_angpao = useStore($flip_angpao);
 const canStart = ref(false);
@@ -78,7 +79,8 @@ const canStart = ref(false);
 const claimStart = ref(false);
 const claimBusy = ref(false);
 
-const ens = ref("");
+const donatorEnsName = ref("");
+const userEnsName = ref("");
 
 const angpaoTap = () => {
     console.log('angpaoTap')
@@ -87,6 +89,9 @@ const angpaoTap = () => {
 }
 
 const walletConnected = async () => {
+  userEnsName.value = await fetch(`/api/ensName.json?address=${$account.value.address}`)
+    .then(res => res.json())
+    .then(res => res.name)
     canStart.value = true;
 }
 
@@ -132,7 +137,8 @@ onMounted( async () => {
 
     const angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
 
-    ens.value = angpow.ens
+    $angpao_value.set(angpow.amount)
+    donatorEnsName.value = angpow.ens
 
     setTimeout(() => {
         $zoom_far.set(false);

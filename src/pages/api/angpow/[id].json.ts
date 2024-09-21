@@ -1,23 +1,14 @@
 import type { APIRoute } from 'astro';
 import supabase from '@/supabase';
 //import { getEnsName, getEnsAddress, getEnsText, getEnsResolver } from "@wagmi/core";
-import { ensConfig } from '@/wagmiConfig';
+//import { ensConfig } from '@/wagmiConfig';
+import { getEnsName } from '../_util';
 //import { EnsResolver, ethers } from 'ethers';
 //import { offchainLookup } from 'viem';
 //
 //import { http } from 'viem'
 //import { mainnet } from 'viem/chains'
 //import { createEnsPublicClient } from '@ensdomains/ensjs/wallet'
-
-async function getEnsName(address: string) {
-
-  return supabase.from('angpow_subdomain')
-    .select()
-    .eq('address', address)
-    .single()
-    .throwOnError()
-    .then(res => res.data.ensname)
-}
 
 export const GET: APIRoute = async ({ params }) => {
 

@@ -22,25 +22,25 @@
 
 
         <article class="absolute bottom-0 p-4 w-full h-auto z-[999] text-white text-center">
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore, qui maxime voluptatum possimus, consectetur alias at sunt maiores, officia beatae est. Quo, consequatur? Necessitatibus sapiente porro non dolorum nostrum maiores!
+           {{ angpao_message }}
           
            <div class="w-full flex justify-center items-center mt-8">
-            <div class="bg-black text-white rounded-full p-2 px-4 text-sm">junyaoc.angpao.money</div>
+            <div class="bg-red-800 text-white rounded-full p-2 px-4 text-sm">angpao.money</div>
            </div>
 
         </article>
 
-        <div :class="[!flip_angpao ? '[transform:rotateY(180deg)] opacity-0' : '']" class="w-full aspect-square z-50 flex justify-center items-center transition-all duration-500 rounded-xl pointer-events-none relative">
+        <div :class="[!flip_angpao ? '[transform:rotateY(180deg)] opacity-0' : '']" class="w-full aspect-square z-50 flex justify-center items-start transition-all duration-500 rounded-xl pointer-events-none relative">
 
           <div class="w-full aspect-square absolute flex justify-center items-center z-50 " :class="selectedBgColor">
 
           </div>
 
-          <div :class="[token_up?'translate-y-[-150%]':'translate-y-[50%] opacity-0']" class="w-full aspect-square absolute flex justify-center items-center z-30 duration-1000 transition-all ">
+          <div :class="[token_up?'translate-y-[-100%]':'translate-y-[50%] opacity-0 ']" class="w-full aspect-square absolute flex justify-center items-center z-30 duration-1000 transition-all ">
             
             <div class="absolute flex justify-center items-center w-full max-w-[10rem]">
               <div class=" bg-white shadow-2xl shadow-black/50 rounded-full aspect-square w-full"></div>
-              <div class="absolute bottom-[-1rem] right-[-1rem] bg-white p-2 px-2 rounded-full text-lg shadow-xl border border-black/20">0.001 ETH</div>
+                <div class="absolute bottom-[-1rem] right-[-1rem] bg-white p-2 px-2 rounded-full text-lg shadow-xl border border-black/20">{{$angpao_value.get()}} ETH</div>
             </div>
 
 
@@ -103,7 +103,7 @@ import { watch } from "vue";
 import { computed } from "vue";
 
 import { useStore } from "@nanostores/vue";
-import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $selectedColorClass, $token_up, $selectedBgColor, $zoom_far_far, $pan_up_up } from "@/stores/angpao";
+import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $selectedColorClass, $token_up, $selectedBgColor, $zoom_far_far, $pan_up_up, $angpao_message, $angpao_value } from "@/stores/angpao";
 
 const state = useStore($state);
 const show_palette = useStore($show_palette);
@@ -119,6 +119,7 @@ const token_up = useStore($token_up);
 const selectedBgColor = useStore($selectedBgColor);
 const zoom_far_far = useStore($zoom_far_far);
 const pan_up_up = useStore($pan_up_up);
+const angpao_message = useStore($angpao_message)
 
 //// FORM
 

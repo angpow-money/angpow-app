@@ -141,13 +141,13 @@
 
         <div class="absolute left-0 bottom-[0dvh] px-4 pb-2 w-full">
           
-          <div class="w-full flex justify-between items-center mb-2 pr-4">
+          <div class="w-full flex justify-between items-center mb-2 pr-2">
             
             <div @click="backToDivide()" class="btn ml-2 btn-sm text-white pointer-events-auto">
               <p>back</p>
             </div>
             
-              <p class="text-center ont-medium">Tap AngPao to Flip!</p>
+              <p class="text-center font-medium bg-white px-3 py-2 rounded-xl">Tap AngPao to Flip!</p>
 
           </div>
 
@@ -196,7 +196,7 @@
             <p class="text-right">From: username.angpao.money</p> -->
           </div>
 
-          <button @click="submitAngpaoConfig()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">Send Angpao!</button>
+          <button @click="submitAngpaoConfig()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">Create Angpao!</button>
         </div>
       </div>
 
@@ -339,7 +339,7 @@ import { useEventBus } from "@vueuse/core";
 const appkitBus = useEventBus("appkit");
 
 import { useStore } from "@nanostores/vue";
-import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $zoom_far_far, $pan_up_palette, $pan_down, $pan_up_up, $selectedColorClass, $show_titles } from "@/stores/angpao";
+import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $zoom_far_far, $pan_up_palette, $pan_down, $pan_up_up, $selectedColorClass, $show_titles, $token_up } from "@/stores/angpao";
 
 const flicking = ref(null);
 
@@ -433,6 +433,7 @@ const eth_amount = ref(0)
 const is_random_mode = ref(false);
 const is_worldcoin_required = ref(false);
 
+const show_customization = ref(false);
 
 const showCustomize = () => {
 
@@ -505,12 +506,14 @@ watch(currentStep, (newVal) => {
     $zoom_far.set(false);
     $show_palette.set(false);
     $pan_down.set(false);
-    $open_angpao.set(false);
+    $pan_up.set(false);
+
+    // $open_angpao.set(false);
     $pan_up_palette.set(false);
     $pan_up_up.set(false);
     $zoom_far_far.set(false);
 
-    $pan_up.set(true);
+    $pan_up_palette.set(true);
     $zoom_far.set(true);
   }
 
@@ -590,15 +593,42 @@ const createAngpao = () => {
 
     // step.value[7].active = true;
 
-    step.value.forEach((item) => {
-        if (item.name == "summary") {
-            item.active = false;
-        }
-    });
+    
+    $token_up.set(false);
 
-    step.value[3].active = true;
+    setTimeout(() => {
 
-    flicking.value.moveTo(4);
+
+      $open_angpao.set(false);
+      
+      
+      setTimeout(() => {
+        $flip_angpao.set(false);
+      
+      setTimeout(() => {
+
+        $pan_down.set(false);
+        $pan_up_palette.set(false);
+        $pan_up_up.set(false)
+        
+        $pan_up.set(true);
+        $zoom_far.set(true);
+   
+        step.value.forEach((item) => {
+            if (item.name == "summary") {
+                item.active = false;
+            }
+        });
+    
+        step.value[3].active = true;
+    
+        flicking.value.moveTo(3);
+        
+      }, 500);
+    }, 500);
+
+    }, 300);
+
 
 }
 
@@ -713,8 +743,8 @@ const backToDivide = () => {
 
   step.value[1].active = true;
 
-  $zoom_close.set(false);
-    $pan_down.set(false);
+  // $zoom_close.set(false);
+    $zoom_far.set(true);
   //   // $open_angpao.set(false);
     
 
