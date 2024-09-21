@@ -986,15 +986,15 @@ const selectAngpaoColor = (color) => {
 const username_input = ref(undefined)
 
 const executeAngpaoCreate = async () => {
-  // let payload = {
-  //   eth_amount: eth_amount.value,
-  //   copies: copies.value,
-  //   is_worldcoin_required: is_worldcoin_required.value,
-  //   angpao_message: angpao_message_input.value,
-  //   angpao_design: $angpao_design.get(),
-  //   angpao_color: colors.value.find((item) => item.selected),
-  //   username_input: `${username_input.value}`
-  // }
+  let payload = {
+    eth_amount: eth_amount.value,
+    copies: copies.value,
+    is_worldcoin_required: is_worldcoin_required.value,
+    angpao_message: angpao_message_input.value,
+    angpao_design: $angpao_design.get(),
+    angpao_color: colors.value.find((item) => item.selected),
+    username_input: username_input.value
+  }
 
   // const id = await createAngpow(payload)
   // shareLink.value = `${window.location.href}claim/angpao/${id}`
