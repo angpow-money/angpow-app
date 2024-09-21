@@ -140,7 +140,10 @@
               
 
               <div class="w-full flex justify-end items-center">
-                <button @click="decreaseCopy()" class="text-xl w-10 aspect-square rounded-full bg-black text-white flex justify-center items-center pointer-events-auto">-</button>
+                <button @click="decreaseCopy()" class="text-xl w-10 aspect-square rounded-full bg-black text-white flex justify-center items-center pointer-events-auto">
+                  <iconify-icon icon="akar-icons:minus"></iconify-icon>
+
+                </button>
               </div>
 
               <div class="w-full flex justify-center items-center text-5xl">
@@ -148,7 +151,9 @@
               </div>
 
               <div class="w-full flex justify-start items-center">
-                <button @click="increaseCopy()" class="text-xl w-10 aspect-square rounded-full bg-black text-white flex justify-center items-center pointer-events-auto">+</button>
+                <button @click="increaseCopy()" class="text-xl w-10 aspect-square rounded-full bg-black text-white flex justify-center items-center pointer-events-auto">
+                  <iconify-icon icon="akar-icons:plus"></iconify-icon>
+                </button>
               </div>
             </div>
 

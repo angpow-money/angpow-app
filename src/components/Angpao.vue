@@ -52,7 +52,11 @@
           <div :class="[token_up?'translate-y-[-100%]':'translate-y-[50%] opacity-0 ']" class="w-full aspect-square absolute flex justify-center items-center z-30 duration-1000 transition-all ">
             
             <div class="absolute flex justify-center items-center w-full max-w-[10rem]">
-              <div class=" bg-white shadow-2xl shadow-black/50 rounded-full aspect-square w-full"></div>
+              <div class=" bg-white shadow-2xl shadow-black/50 rounded-full aspect-square w-full flex justify-center items-center">
+
+                <iconify-icon class="text-[9rem]" icon="cryptocurrency-color:eth"></iconify-icon>
+
+              </div>
               <div class="absolute bottom-[-1rem] right-[-1rem] bg-white p-2 px-2 rounded-full text-lg shadow-xl border border-black/20">{{ angpao_eth_amount }} ETH</div>
             </div>
 
