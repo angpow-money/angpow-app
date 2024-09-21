@@ -40,16 +40,16 @@
     </div>
 
     <div class="w-full pointer-events-auto py-8">
-      <Flicking ref="flicking" :options="{ align: 'center', circular: false }">
+      <Flicking ref="flicking" class="w-full h-full" :options="{ align: 'center', circular: false }">
         <div key="1" class="p-4">
-          <div @click="showAngpao('sent')" class="w-[60vw] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
+          <div @click="showAngpao('sent')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
         </div>
 
         <div key="2" class="p-4">
-          <div @click="showAngpao('sent')" class="w-[60vw] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
+          <div @click="showAngpao('sent')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
         </div>
         <div key="3" class="p-4">
-          <div @click="showAngpao('sent')" class="w-[60vw] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
+          <div @click="showAngpao('sent')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
         </div>
       </Flicking>
     </div>
@@ -62,16 +62,16 @@
     </div>
 
     <div class="w-full pointer-events-auto py-8">
-      <Flicking ref="flicking" :options="{ align: 'center', circular: false }">
+      <Flicking ref="flicking" class="w-full h-full" :options="{ align: 'center', circular: false }">
         <div key="1" class="p-4">
-          <div @click="showAngpao('receive')" class="w-[60vw] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
+          <div @click="showAngpao('receive')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
         </div>
 
         <div key="2" class="p-4">
-          <div @click="showAngpao('receive')" class="w-[60vw] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
+          <div @click="showAngpao('receive')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
         </div>
         <div key="3" class="p-4">
-          <div @click="showAngpao('receive')" class="w-[60vw] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
+          <div @click="showAngpao('receive')" class="w-[60vw] sm:w-[300px] aspect-[3/4] bg-gray-200 shadow rounded-xl"></div>
         </div>
       </Flicking>
     </div>
@@ -207,8 +207,8 @@
     </Dialog>
   </TransitionRoot>
 
-    <div class="fixed bottom-0 w-full p-4 z-50">
-        <button class=" btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold pointer-events-auto">New Angpao</button>
+    <div class="sticky bottom-0 w-full p-4 z-50 flex justify-center items-center">
+        <button class="max-w-sm btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold pointer-events-auto">New Angpao</button>
 
     </div>
 

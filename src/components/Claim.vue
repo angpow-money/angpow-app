@@ -1,17 +1,17 @@
 <template>
     
     
-    <div class="w-full h-[100dvh] flex justify-center items-center bg-poppy-100  pointer-events-none">
+    <div class="w-full h-[100dvh] flex justify-center items-center pointer-events-none relative">
 
         <div class="w-full flex justify-between items-center fixed z-[10] top-0 left-0 pointer-events-none p-4">
             
 
-            <div class="flex">
-                <div @click="goHome()"  class="pointer-events-auto w-16 h-16 rounded-full shadow-xl border border-black/10 bg-white flex justify-center items-center">
-                    home
+            <div class="flex space-x-2">
+                <div @click="goHome()"  class="pointer-events-auto w-16 h-16 sm:w-12 sm:h-12 rounded-full shadow-xl bg-poppy-500 text-white flex justify-center items-center">
+                    <iconify-icon class="text-[2rem]" icon="ri:home-fill"></iconify-icon>
                 </div>
     
-                <div @click="openWallet()"  class="pointer-events-auto w-16 h-16 rounded-full shadow-xl border border-black/10 bg-white flex justify-center items-center">
+                <div @click="openWallet()"  class="pointer-events-auto w-16 h-16 sm:w-12 sm:h-12 rounded-full shadow-xl bg-poppy-500 text-white flex justify-center items-center">
                     <iconify-icon class="text-[2rem]" icon="material-symbols-light:wallet"></iconify-icon>
                 </div>
             </div>
@@ -20,7 +20,7 @@
 
         </div>
 
-        <div class="fixed w-screen h-[100dvh] flex-col flex justify-center items-center pointer-events-none" >
+        <div class="fixed w-screen h-[100dvh] sm:scale-75 flex-col flex justify-center items-center pointer-events-none" >
             <Angpao @click="angpaoTap()" class="pointer-events-auto"></Angpao>
         </div>
 

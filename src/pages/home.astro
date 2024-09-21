@@ -22,7 +22,10 @@ import Home2 from '@/components/Home2.vue'
 		
 
 		<div class="w-full flex justify-center items-center relative">
-			<Home2 client:only="vue"></Home2>
+			
+			<div class="w-full">
+				<Home2 client:only="vue"></Home2>
+			</div>
 
 			<div class="absolute top-0 left-0 bg-gradient-to-b from-gray-200 to-white h-72 w-full pointer-events-none">
 
