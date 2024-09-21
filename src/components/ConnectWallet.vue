@@ -8,11 +8,9 @@
 import { createAppKit, useAppKit, useAppKitEvents } from "@reown/appkit/vue";
 import { mainnet } from "@reown/appkit/networks";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
-import { walletConnect, coinbaseWallet, injected } from '@wagmi/connectors'
-
 import { onMounted, ref } from "vue";
-import { http, WagmiProvider, CreateConnectorFn } from 'wagmi'
 import { getAccount, watchAccount, reconnect, connect, watchConnections } from "@wagmi/core";
+import { injected } from '@wagmi/connectors'
 
 import { config } from "@/wagmiConfig";
 
@@ -55,8 +53,12 @@ onMounted(async () => {
     ssr: true,
     projectId,
     networks,
+    
   });
   console.log("wagmiAdapter", wagmiAdapter)
+
+  console.log(config);
+
 
   // 4. Create modal
   createAppKit({
