@@ -9,7 +9,7 @@
                 home
             </div>
 
-      <p v-if="userEnsName" class="text-right"><span class="text-xl">{{userEnsName}}</span><br><span class="opacity-25">.angpao.money</span></p>
+      <p v-if="userEnsName" class="text-right"><span class="text-xl">{{userEnsName.replace('.angpao.money', '')}}</span><br><span class="opacity-25">.angpao.money</span></p>
 
         </div>
 
