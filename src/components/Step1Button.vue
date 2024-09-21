@@ -45,7 +45,7 @@
                 </div>
 
           <div class="w-full p-4">
-            <button :disabled="Number(ethAmount) === 0 || Number(ethAmount) > Number(balance)" @click="confirmAmount()" class="btn w-full bg-white text-black rounded-xl p-4 h-auto text-xl font-semibold pointer-events-auto hover:text-white">Next</button>
+            <button :disabled="Number(ethAmount) === 0" @click="confirmAmount()" class="btn w-full bg-white text-black rounded-xl p-4 h-auto text-xl font-semibold pointer-events-auto hover:text-white">Next</button>
           </div>
 
 
@@ -99,6 +99,11 @@ const walletConnected = async () => {
 
 const confirmAmount = () => {
 
+    const amount = Number(ethAmount.value) 
+    if (amount > Number(balance.value)) {
+      alert('Insufficient wallet balance')
+      return
+    }
     expand.value = false;
 
     $flip_angpao.set(true)
@@ -108,7 +113,7 @@ const confirmAmount = () => {
     $pan_down.set(true)
 
     setTimeout(() => {
-        emit("submit", Number(ethAmount.value));
+        emit("submit", amount);
     }, 500);
 }
 
