@@ -284,7 +284,7 @@
 
           <div class="w-full bg-white text-black rounded-3xl p-3 flex justify-between items-center mb-4 pl-5">
             <p v-if="sendBusy" class="text-2xl w-full text-center animate-pulse">Creating Your Angpao...</p>
-            <p v-if="!sendBusy" class="text-left animate-pulse text-lg font-medium">{{shareLink}}</p>
+            <p v-if="!sendBusy" class="text-left animate-pulse text-lg font-medium">Link Generated</p>
 
             <div v-if="!sendBusy" class="flex justify-end items-center space-x-1 pointer-events-auto">
                 <button @click="startShare()" class="btn w-12 h-12 rounded-2xl btn-ghost">share</button>
