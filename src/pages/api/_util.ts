@@ -10,14 +10,21 @@ export async function getEnsName(address: string) {
 }
 
 export async function setEnsName(body: any) {
+  console.log("bidyddddd", body);
 
-  await fetch(`https://angpow_ens_worker.junyaoxiandingchan.workers.dev/set`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body)
-  })
+  try {
+
+    await fetch(`https://angpow_ens_worker.junyaoxiandingchan.workers.dev/set`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body)
+    })
+  } catch(error) {
+    console.log("error setEnsName", error)
+  }
+
 }
 
 export async function getBalance(address: string) {

@@ -101,18 +101,16 @@ const connectWallet = () => {
     appkitBus.emit('open')
 }
 
+const wcverified = ref(false);
 const openAngpao = async () => {
 
-    console.log("angpow.value", angpow.value);
+    console.log("angpow.value", angpow.value?.is_worldcoin_required);
 
-    if(angpow.value.is_worldcoin_required) {
+    if(angpow.value?.is_worldcoin_required) {
         const verified = await openWorldcoin();
-        console.log("verified", verified)
-        
-        if(!verified?.success) {
-            alert("Account claimed. Claming aborted.")
-            return;
-        }
+        // console.log("verified", verified)
+
+        if(!wcverified.value) return;
     }
 
     claimStart.value = true;
@@ -250,6 +248,12 @@ const verifyProof = async (proof) => {
         })
     }).then(res => res.json())
     console.log('verifyProof resp', resp);
+    wcverified.value = resp?.success; 
+
+    if(!resp?.success) {
+        alert("Account claimed. Claming aborted.")
+        return;
+    }
 };
 
 // TODO: Functionality after verifying

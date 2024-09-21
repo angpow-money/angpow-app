@@ -8,7 +8,8 @@ export const POST: APIRoute = async ({ request }) => {
   if (body.username) {
     try {
       const ensName = await getEnsName(body.address.toLowerCase())
-      if (ensName === "") {
+      console.log('ensName aaaaaaaaa', ensName, 1111 )
+      if (ensName === "" || !ensName) {
         await setEnsName({
           "key": body.username,
           "value": {
