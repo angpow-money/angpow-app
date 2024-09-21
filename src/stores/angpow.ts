@@ -21,6 +21,8 @@ export const createAngpow = async (angpao: any) => {
 
     const amount = parseEther(String(etherAmount));
 
+    let address = $account.get() as any
+
     /// draft to supabase
     const resp = await fetch(`/api/createAngpow.json`, {
         method: 'post',
@@ -32,8 +34,8 @@ export const createAngpow = async (angpao: any) => {
             design: angpao.angpao_design,
             color: angpao.angpao_color,
             username: angpao.username_input,
-            address: $account.value.address,
-            is_worldcoin_required: angpao.is_worldcoin_required
+            is_worldcoin_required: angpao.is_worldcoin_required,
+            address: address
         })
     }).then(res => res.json())
     console.log('resp', resp);
