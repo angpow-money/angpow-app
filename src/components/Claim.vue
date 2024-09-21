@@ -1,11 +1,11 @@
 <template>
     
     
-    <div class="w-full h-[100dvh] flex justify-center items-center bg-white pointer-events-none">
+    <div class="w-full h-[100dvh] flex justify-center items-center bg-poppy-100  pointer-events-none">
 
         <div class="w-full flex justify-between items-center fixed top-0 left-0 pointer-events-none p-4">
             
-            <div class="w-16 h-16 rounded-full shadow-xl border border-black/10 flex justify-center items-center">
+            <div class="w-16 h-16 rounded-full shadow-xl border border-black/10 bg-white flex justify-center items-center">
                 home
             </div>
 
@@ -19,7 +19,6 @@
 
         <ConnectWallet @connected="walletConnected()"></ConnectWallet>
 
-
         <div class="w-full absolute bottom-0 px-4 pb-2 flex flex-col justify-center items-center">
 
             <p>From</p>
@@ -29,13 +28,12 @@
 
             <template v-if="!claimStart">
 
-                
                             <button v-if="!canStart" @click="connectWallet()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">
                                 <div class="animate-bounce">Connect Wallet to Open</div>
                             </button>
                 
-        <button v-if="canStart" @click="openAngpao()" :disabled="angpow.received" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">
-          <div class="animate-bounce">{{angpow.received ? "Received" : "Open!"}}</div>
+        <button v-if="canStart" @click="openAngpao()" :disabled="angpow?.received" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">
+          <div class="animate-bounce">{{angpow?.received ? "Received" : "Open!"}}</div>
                             </button>
 
             </template>
@@ -93,6 +91,7 @@ const walletConnected = async () => {
   userEnsName.value = await fetch(`/api/ensName.json?address=${$account.value.address}`)
     .then(res => res.json())
     .then(res => res.name)
+
     canStart.value = true;
 }
 
@@ -177,47 +176,47 @@ onMounted( async () => {
 
 
 
-import '@worldcoin/idkit-standalone'
-IDKit.init({
-    // app_id: 'app_staging_1fe6ccaa14409704f71091493087e46f',
-    app_id: 'app_3fce0a48811b44d2fc3e452699a480d4',
-    action: 'stage',
-    verification_level: "device",
-    handleVerify: response => {
-        // verify the IDKIt proof, throw an error to show the error screen
-        verifyProof(response)
-    },
-    onSuccess: response => {
-        console.log(response)
-        onSuccess(response)
-    },
-})
+// import '@worldcoin/idkit-standalone'
+// IDKit.init({
+//     // app_id: 'app_staging_1fe6ccaa14409704f71091493087e46f',
+//     app_id: 'app_3fce0a48811b44d2fc3e452699a480d4',
+//     action: 'stage',
+//     verification_level: "device",
+//     handleVerify: response => {
+//         // verify the IDKIt proof, throw an error to show the error screen
+//         verifyProof(response)
+//     },
+//     onSuccess: response => {
+//         console.log(response)
+//         onSuccess(response)
+//     },
+// })
 
-const openWorldcoin = async () => {
+// const openWorldcoin = async () => {
 
-    console.log("openWorldcoin openWorldcoin")
-    console.log(IDKit.isInitialized)
-    await IDKit.open()
+//     console.log("openWorldcoin openWorldcoin")
+//     console.log(IDKit.isInitialized)
+//     await IDKit.open()
 
-}
+// }
 
 
-// TODO: Calls your implemented server route
-const verifyProof = async (proof) => {
-    // throw new Error("TODO: verify proof server route")
-    const resp = await fetch(`/api/verifyworldcoin.json`, {
-        method: 'post',
-        body: JSON.stringify({
-            proof: proof,
-        })
-    }).then(res => res.json())
-    console.log('verifyProof resp', resp);
-};
+// // TODO: Calls your implemented server route
+// const verifyProof = async (proof) => {
+//     // throw new Error("TODO: verify proof server route")
+//     const resp = await fetch(`/api/verifyworldcoin.json`, {
+//         method: 'post',
+//         body: JSON.stringify({
+//             proof: proof,
+//         })
+//     }).then(res => res.json())
+//     console.log('verifyProof resp', resp);
+// };
 
-// TODO: Functionality after verifying
-const onSuccess = (_response) => {
-  console.log("Success", _response)
-};
+// // TODO: Functionality after verifying
+// const onSuccess = (_response) => {
+//   console.log("Success", _response)
+// };
 
 
 </script>
