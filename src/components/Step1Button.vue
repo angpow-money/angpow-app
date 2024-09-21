@@ -1,6 +1,6 @@
 <template>
 
-<div class="w-full relative">
+<div class="w-full relative flex justify-end items-end">
 
     <ConnectWallet @connected="walletConnected()"></ConnectWallet>
 

@@ -16,7 +16,20 @@
 
     <div :class="[ pan_up_up?'translate-y-[-40%]':'', pan_up?'translate-y-[-30%]':'', pan_down?'translate-y-[20%]':'', pan_down_open?'translate-y-[50%]':'', pan_up_palette?'translate-y-[-15%]':'']" class="w-[90vw] max-w-[500px] aspect-[2/3] flex justify-center items-start relative duration-300 transition-all pointer-events-none">
         <div :class="[zoom_close ? 'scale-75' : '', zoom_far ? 'scale-50' : 'scale-100', flip_angpao ? '-translate-y-[0vh]' : '', zoom_far_far?'scale-[30%]':'']" class="flex justify-center items-start relative duration-500 transition-all w-full h-full">
-      <div :class="[!flip_angpao ? '' : '[transform:rotateY(-180deg)]', selectedColorClass ]" class="absolute w-full h-full transition-all duration-500 rounded-3xl" style="-webkit-backface-visibility: hidden; backface-visibility: hidden"></div>
+
+          
+
+      <div :class="[!flip_angpao ? '' : '[transform:rotateY(-180deg)]', selectedColorClass ]" class="absolute w-full h-full transition-all duration-500 rounded-3xl flex justify-center items-end" style="-webkit-backface-visibility: hidden; backface-visibility: hidden">
+
+        <div class="absolute top-10 w-24 h-24 bg-white/10 rounded-full text-white justify-center items-center flex font-bold">
+          LOGO
+        </div>
+
+        <div v-if="angpao_design" class="w-full overflow-hidden flex justify-center items-center p-4  ">
+            <img class="w-full rounded-3xl  overflow-hidden" :src="angpao_design" alt="">
+          </div>
+
+      </div>
 
       <div :class="[!flip_angpao ? 'rounded-xl [transform:rotateY(180deg)]' : 'rounded-xl rounded-t-none [transform:rotateY(0deg)]', selectedBgColor]" class="absolute w-full h-full transition-all duration-500" style="-webkit-backface-visibility: hidden; backface-visibility: hidden">
 
@@ -40,7 +53,7 @@
             
             <div class="absolute flex justify-center items-center w-full max-w-[10rem]">
               <div class=" bg-white shadow-2xl shadow-black/50 rounded-full aspect-square w-full"></div>
-                <div class="absolute bottom-[-1rem] right-[-1rem] bg-white p-2 px-2 rounded-full text-lg shadow-xl border border-black/20">{{$angpao_value.get()}} ETH</div>
+              <div class="absolute bottom-[-1rem] right-[-1rem] bg-white p-2 px-2 rounded-full text-lg shadow-xl border border-black/20">{{ angpao_eth_amount }} ETH</div>
             </div>
 
 
@@ -103,7 +116,7 @@ import { watch } from "vue";
 import { computed } from "vue";
 
 import { useStore } from "@nanostores/vue";
-import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $selectedColorClass, $token_up, $selectedBgColor, $zoom_far_far, $pan_up_up, $angpao_message, $angpao_value } from "@/stores/angpao";
+import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $pan_up_palette, $pan_down, $pan_down_open, $selectedColorClass, $token_up, $selectedBgColor, $zoom_far_far, $pan_up_up, $angpao_message, $angpao_design, $angpao_eth_amount } from "@/stores/angpao";
 
 const state = useStore($state);
 const show_palette = useStore($show_palette);
@@ -120,6 +133,8 @@ const selectedBgColor = useStore($selectedBgColor);
 const zoom_far_far = useStore($zoom_far_far);
 const pan_up_up = useStore($pan_up_up);
 const angpao_message = useStore($angpao_message)
+const angpao_design = useStore($angpao_design)
+const angpao_eth_amount = useStore($angpao_eth_amount)
 
 //// FORM
 

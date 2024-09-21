@@ -23,3 +23,5 @@ export const $selectedBgColor = atom('bg-poppy');
 export const $show_titles = atom(true)
 export const $angpao_message = atom('')
 export const $angpao_value = atom(null)
+export const $angpao_design = atom(false)
+export const $angpao_eth_amount = atom(0)

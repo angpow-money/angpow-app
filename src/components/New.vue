@@ -133,9 +133,9 @@
       <div key="2" class="w-full h-[100dvh] flex flex-col justify-center items-start relative pointer-events-none">
 
         <div class="absolute top-0 right-0 p-4">
-            <button @click="showCustomize()" class="btn border-none text-black font-normal bg-white  px-4 py-2 rounded-full shadow-xl flex justify-center items-center">
-                🎨
-                Customize
+            <button @click="showCustomize()" class="btn border-none  text-xl   px-6 py-2 rounded-full shadow-xl flex justify-center items-center pointer-events-auto font-medium" :class="[show_customization?'bg-black-500 text-white ring-2 ring-white ring-offset-2 ring-offset-transparent animate-bounce':'text-black bg-white']" >
+                <span v-if="!show_customization">🎨 Customize</span>
+                <span v-else>🎨 Done</span>
             </button>
         </div>
 
@@ -153,50 +153,79 @@
 
           <div class="w-full mb-4 bg-white border border-black/20 rounded-xl">
 
-            <div class="w-full grid grid-cols-2 p-4">
+            <template v-if="show_customization">
 
-                <div class="text-center border-r pb-3">
-                    <div class="text-sm font-medium">Total ETH</div>
-                    <div class="text-xl" >{{ eth_amount }} ETH</div>
+              <div>
+
+                <div class="p-2 pointer-events-auto">
+                  <button @click="customization_tab = 'color'" :class="[customization_tab=='color'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Color</button>
+                  <button @click="customization_tab = 'design'" :class="[customization_tab=='design'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Design</button>
+                  <button @click="customization_tab = 'message'" :class="[customization_tab=='message'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Message</button>
                 </div>
 
-                <div class="text-center pb-3">
-                    <div class="text-sm font-medium">Divide By</div>
-                    <div class="text-2xl" >{{ copies }}</div>
+                <div class="grid grid-cols-4 justify-center items-center p-4 gap-4" v-if="customization_tab == 'color'">
+                  
+                  <button @click="selectAngpaoColor(color)" v-for="color in colors" class="w-full flex justify-center items-center pointer-events-auto">
+                    <div class="w-12 h-12 rounded-full" :class="[color.gradient, color.selected?'ring-4 ring-black ring-offset-4':'']"></div>
+                  </button>
+
                 </div>
 
+                <div class="px-2" v-if="customization_tab == 'design'">
+                  <button @click="randomizeDesign()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">Randomize</button>
+                </div>
+
+                <div class="w-full p-4 pointer-events-auto" v-if="customization_tab == 'message'">
+
+                  <Textarea v-model="angpao_message_input"  class="w-full h-[15vh] mb-4" placeholder="Type your message here." />
                 
 
-
-                <div class="col-span-2 flex justify-between pointer-events-auto items-end pt-4 py-2 border-t">
-                    <div>
-                        <p> Humans Only</p>
-                        <p class="text-sm text-gray-400" >Requires World ID upon claim</p>
-                    </div>
-                    
-                    <Switch id="random-mode" v-model:checked="is_worldcoin_required" />
-                    
                 </div>
 
-            </div>
+              </div>
 
-            <!-- <p>Total ETH: 1</p>
-            <p>Number of Copies: 1</p>
-            <p>Random Mode: Yes</p>
-            <p>Require WorldID: Yes</p>
 
-            <br />
 
-            <p>Each copy will have 1 ETH</p>
+            </template>
 
-            <br />
+            <template v-else>
 
-            <p class="text-left">Message</p>
-            <p class="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam</p>
-            <p class="text-right">From: username.angpao.money</p> -->
+              <div class="w-full grid grid-cols-2 p-4">
+  
+                  <div class="text-center border-r pb-3">
+                      <div class="text-sm font-medium">Total ETH</div>
+                      <div class="text-xl" >{{ eth_amount }} ETH</div>
+                  </div>
+  
+                  <div class="text-center pb-3">
+                      <div class="text-sm font-medium">Divide By</div>
+                      <div class="text-2xl" >{{ copies }}</div>
+                  </div>
+  
+                  
+  
+  
+                  <div class="col-span-2 flex justify-between pointer-events-auto items-end pt-4 py-2 border-t">
+                      <div>
+                          <p> Humans Only</p>
+                          <p class="text-sm text-gray-400" >Requires World ID upon claim</p>
+                      </div>
+                      
+                      <Switch v-model:checked="is_worldcoin_required" />
+                      
+                  </div>
+  
+              </div>
+
+            </template>
+
+
           </div>
 
-          <button @click="submitAngpaoConfig()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">Create Angpao!</button>
+          <div :class="[show_customization?'max-h-0':'max-h-[10rem]','overflow-hidden h-full duration-500 transition-all ']">
+            <button @click="submitAngpaoConfig()" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">Create Angpao!</button>
+          </div>
+
         </div>
       </div>
 
@@ -326,7 +355,7 @@
 
 <script setup>
 import { Button } from "@/components/ui/button";
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 // import WalletConnect from "@/components/WalletConnect.vue"
 // import ConnectWallet from "@/components/ConnectWallet.vue";
 import Angpao from "./Angpao.vue";
@@ -339,7 +368,7 @@ import { useEventBus } from "@vueuse/core";
 const appkitBus = useEventBus("appkit");
 
 import { useStore } from "@nanostores/vue";
-import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $zoom_far_far, $pan_up_palette, $pan_down, $pan_up_up, $selectedColorClass, $show_titles, $token_up } from "@/stores/angpao";
+import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $zoom_far_far, $pan_up_palette, $pan_down, $pan_up_up, $selectedColorClass, $show_titles, $token_up, $angpao_design, $angpao_message, $selectedBgColor, $angpao_eth_amount } from "@/stores/angpao";
 
 const flicking = ref(null);
 
@@ -357,8 +386,14 @@ import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } fro
 
 const show_username_modal = ref(false)
 
+import { nanoid } from 'nanoid'
 
 
+onMounted( async () => {
+
+  $angpao_design.set(`https://noun-api.com/beta/pfp?name=${nanoid(10)}`)
+
+})
 
 // const startWizard = async () => {
 //   if (canStart.value) {
@@ -434,9 +469,10 @@ const is_random_mode = ref(false);
 const is_worldcoin_required = ref(false);
 
 const show_customization = ref(false);
+const customization_tab = ref('color')
 
 const showCustomize = () => {
-
+  show_customization.value = !show_customization.value;
 }
 
 const currentStep = computed(() => {
@@ -561,6 +597,8 @@ const confirmAmount = (event) => {
     });
 
     step.value[1].active = true;
+
+    $angpao_eth_amount.set(eth_amount.value);
 
    flicking.value.moveTo(1);
 
@@ -760,6 +798,84 @@ const backToDivide = () => {
   
 
   
+}
+
+const colors = ref([
+  {
+    gradient: 'bg-gradient-to-b from-poppy-400 to-poppy-500',
+    solid: 'bg-poppy',
+    selected: true
+  },
+  {
+    gradient: 'bg-gradient-to-b from-orange-400 to-orange-500',
+    solid: 'bg-orange-500',
+    selected: false
+  },
+  {
+    gradient: 'bg-gradient-to-b from-yellow-400 to-yellow-500',
+    solid: 'bg-yellow-500',
+    selected: false
+  },
+  
+  {
+    gradient: 'bg-gradient-to-b from-green-400 to-green-500',
+    solid: 'bg-green-500',
+    selected: false
+  },
+  {
+    gradient: 'bg-gradient-to-b from-blue-400 to-blue-500',
+    solid: 'bg-blue-500',
+    selected: false
+  },
+  {
+    gradient: 'bg-gradient-to-b from-indigo-400 to-indigo-500',
+    solid: 'bg-indigo-500',
+    selected: false
+  },
+  {
+    gradient: 'bg-gradient-to-b from-purple-400 to-purple-500',
+    solid: 'bg-purple-500',
+    selected: false
+  },
+  {
+    gradient: 'bg-gradient-to-b from-pink-400 to-pink-500',
+    solid: 'bg-pink-500',
+    selected: false
+  }
+])
+
+
+watch(customization_tab, (newVal) => {
+  if(customization_tab.value == 'design') {
+    $flip_angpao.set(false);
+  } 
+})
+
+const angpao_message_input = ref('')
+
+watch(customization_tab, (newVal) => {
+  if(customization_tab.value == 'message') {
+    $flip_angpao.set(true);
+  } 
+})
+
+watch(angpao_message_input, () => {
+  $angpao_message.set(angpao_message_input.value)
+})
+
+const randomizeDesign = () => {
+  $angpao_design.set(`https://noun-api.com/beta/pfp?name=${nanoid(10)}`)
+}
+
+const selectAngpaoColor = (color) => {
+  $selectedColorClass.set(color.gradient)
+  $selectedBgColor.set(color.solid)
+
+  colors.value.forEach((item) => {
+    item.selected = false;
+  })
+
+  color.selected = true;
 }
 
 </script>
