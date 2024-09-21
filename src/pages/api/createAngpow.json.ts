@@ -27,6 +27,7 @@ export const POST: APIRoute = async ({ request }) => {
     color: body.color,
     design: body.design,
     message: body.message,
+    is_worldcoin_required: body.is_worldcoin_required
   }).select().single();
   console.log(23, data, error)
   if (error) return new Response(JSON.stringify(error));

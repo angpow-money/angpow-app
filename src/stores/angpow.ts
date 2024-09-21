@@ -33,27 +33,28 @@ export const createAngpow = async (angpao: any) => {
             color: angpao.angpao_color,
             username: angpao.username_input,
             address: $account.value.address,
+            is_worldcoin_required: angpao.is_worldcoin_required
         })
     }).then(res => res.json())
     console.log('resp', resp);
 
-    const result = await writeContract(config, {
-        abi: ANGPOW_ABI,
-        address: ANGPOW_CONTRACT.value,
-        functionName: 'createAngpow',
-        args: [
-            String(resp.id),
-            zeroAddress,
-            amount,
-            quantity,
-        ],
-        value: amount,
-        chainId: $account.value.chainId
-    })
+    //const result = await writeContract(config, {
+    //    abi: ANGPOW_ABI,
+    //    address: ANGPOW_CONTRACT.value,
+    //    functionName: 'createAngpow',
+    //    args: [
+    //        String(resp.id),
+    //        zeroAddress,
+    //        amount,
+    //        quantity,
+    //    ],
+    //    value: amount,
+    //    chainId: $account.value.chainId
+    //})
 
-    await waitForTransactionReceipt(config, {
-        hash: result,
-    })
+    //await waitForTransactionReceipt(config, {
+    //    hash: result,
+    //})
 }
 
 
