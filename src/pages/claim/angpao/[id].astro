@@ -24,6 +24,7 @@ import ClaimVue from '@/components/Claim.vue'
 		<title>Astro</title>
 	</head>
 	<body>
-		<ClaimVue client:only="vue"></ClaimVue>
+                <ClaimVue id={Astro.params.id} client:only="vue"></ClaimVue>
 	</body>
 </html>
+

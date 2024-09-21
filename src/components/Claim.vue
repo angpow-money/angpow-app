@@ -24,7 +24,7 @@
 
             <p>From</p>
             <div class="shadow-xl shadow-black/20 rounded-full px-6 py-3 text-xl border mt-4 mb-8 bg-white">
-                <p>junyaoc.angpao.money</p>
+              <p>{{ens}}</p>
             </div>
 
             <template v-if="!claimStart">
@@ -78,6 +78,8 @@ const canStart = ref(false);
 const claimStart = ref(false);
 const claimBusy = ref(false);
 
+const ens = ref("");
+
 const angpaoTap = () => {
     console.log('angpaoTap')
 
@@ -118,7 +120,16 @@ const openAngpao = () => {
         
 }
 
-onMounted( () => {
+const props = defineProps({ 
+        id: String
+})
+
+onMounted( async () => {
+
+
+    const angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
+
+    ens.value = angpow.ens
 
     setTimeout(() => {
         $zoom_far.set(false);
