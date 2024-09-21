@@ -81,7 +81,7 @@ onMounted(async () => {
     },
   });
 
-  reconnect(config);
+  // reconnect(config);
   // console.log("reconnect reconnect reconnect");
 });
 
