@@ -1,4 +1,4 @@
-
+<!-- 
 <template>
 
     <div class="hidden">
@@ -40,7 +40,8 @@ onMounted( async () => {
         explorerUrl: "https://sepolia.arbiscan.io",
         id: "eip155:421614",
         name: "ARBTestnet",
-        rpcUrl: "https://endpoints.omniatech.io/v1/arbitrum/sepolia/public"
+        // rpcUrl: "https://endpoints.omniatech.io/v1/arbitrum/sepolia/public"
+        rpcUrl: "https://arb-sepolia.g.alchemy.com/v2/cOI6YkiomPgpNGs89aF2LTMS50_vpRr2"
     }]
 
     // 3. Create Wagmi Adapter
@@ -83,4 +84,4 @@ onMounted( async () => {
 
 
 </script>
-
+ -->

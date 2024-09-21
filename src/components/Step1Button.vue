@@ -90,11 +90,14 @@ const reset = () => {
 const balance = new ref("0")
 import { $account } from '@/stores/wallet';
 const walletConnected = async () => {
+    // console.log('bbbbbb')
     canStart.value = true;
     
-    balance.value = await fetch(`/api/balance.json?address=${$account.value.address}`)
-    .then(res => res.json())
-    .then(res => Number(res.amount))
+    // if($account.value.address) {
+    //     balance.value = await fetch(`/api/balance.json?address=${$account.value.address}`)
+    //     .then(res => res.json())
+    //     .then(res => Number(res.amount))
+    // }
 
 };
 
@@ -120,12 +123,13 @@ const confirmAmount = () => {
 
 
     const buttonClick = () => {
-
+        console.log("canStart.value canStart.value", canStart.value)
         if(canStart.value){
             expand.value = true;
 
             $show_titles.set(false)
         }else{
+            console.log(22222)
             appkitBus.emit("open");
         }
 

@@ -403,7 +403,6 @@ const shareLink = ref("")
 const { copy } = useClipboard({ source: shareLink })
 import { Button } from "@/components/ui/button";
 import { ref, computed, watch, onMounted } from "vue";
-// import WalletConnect from "@/components/WalletConnect.vue"
 import Angpao from "./Angpao.vue";
 import Step1Button from "./Step1Button.vue";
 

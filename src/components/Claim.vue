@@ -97,6 +97,7 @@ const walletConnected = async () => {
 }
 
 const connectWallet = () => {
+    console.log(1111)
     appkitBus.emit('open')
 }
 

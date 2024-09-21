@@ -1,9 +1,9 @@
-import { http, createConfig } from "@wagmi/core";
-import { arbitrumSepolia } from "@wagmi/core/chains";
+// import { http, createConfig } from "@wagmi/core";
+// import { arbitrumSepolia } from "@wagmi/core/chains";
 
-export const config = createConfig({
-  chains: [arbitrumSepolia],
-  transports: {
-    [arbitrumSepolia.id]: http(),
-  },
-});
+// export const config = createConfig({
+//   chains: [arbitrumSepolia],
+//   transports: {
+//     [arbitrumSepolia.id]: http(),
+//   },
+// });

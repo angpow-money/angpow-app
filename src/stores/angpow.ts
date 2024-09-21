@@ -4,12 +4,13 @@ import { atom } from 'nanostores'
 
 // export const ANGPOW_CONTRACT = atom("0x353fCB9FE729a892E9716fcC142262d7635DFF6f");
 export const ANGPOW_CONTRACT = atom("0x25a25506B36626d328B1ebE0D16aEF2d3713CE91");
-export const ABB_SEPOLIA_RPC_URL = atom("https://endpoints.omniatech.io/v1/arbitrum/sepolia/public");
+// export const ABB_SEPOLIA_RPC_URL = atom("https://endpoints.omniatech.io/v1/arbitrum/sepolia/public");
+export const ABB_SEPOLIA_RPC_URL = atom("https://arb-sepolia.g.alchemy.com/v2/cOI6YkiomPgpNGs89aF2LTMS50_vpRr2");
+
 
 import { zeroAddress, parseEther } from 'viem';
 import { writeContract, waitForTransactionReceipt, signMessage } from '@wagmi/core';
-import { config } from '@/wagmiConfig';
-import { $account } from '@/stores/wallet';
+import { $account, $config } from '@/stores/wallet';
 import { ANGPOW_ABI } from '@/angpow-abi';
 
 export const createAngpow = async (angpao: any) => {
@@ -49,6 +50,7 @@ export const createAngpow = async (angpao: any) => {
     console.log('resp', resp);
 
     let _address = $account.get() as any
+    const config = $config.get() as any;
 
     const result = await writeContract(config, {
         abi: ANGPOW_ABI,
@@ -90,6 +92,7 @@ export const receiveAngpow = async () => {
         })
 
         let address = $account.get() as any
+        const config = $config.get() as any;
 
         const result = await signMessage(config, {
             account: address,

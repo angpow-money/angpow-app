@@ -9,12 +9,11 @@ import { createAppKit, useAppKit, useAppKitEvents } from "@reown/appkit/vue";
 import { mainnet } from "@reown/appkit/networks";
 import { WagmiAdapter } from "@reown/appkit-adapter-wagmi";
 import { onMounted, ref } from "vue";
-import { getAccount, watchAccount, reconnect, connect, watchConnections } from "@wagmi/core";
+import { http, getAccount, watchAccount, reconnect, connect, watchConnections } from "@wagmi/core";
 import { injected } from '@wagmi/connectors'
+import { arbitrumSepolia } from "@wagmi/core/chains";
 
-import { config } from "@/wagmiConfig";
-
-import { $account } from "@/stores/wallet";
+import { $account, $config } from "@/stores/wallet";
 
 import { useEventBus } from '@vueuse/core'
 const appkitBus = useEventBus('appkit')
@@ -44,21 +43,22 @@ onMounted(async () => {
       explorerUrl: "https://sepolia.arbiscan.io",
       id: "eip155:421614",
       name: "ARBTestnet",
-      rpcUrl: "https://endpoints.omniatech.io/v1/arbitrum/sepolia/public",
+      // rpcUrl: "https://endpoints.omniatech.io/v1/arbitrum/sepolia/public",
+      rpcUrl: "https://arb-sepolia.g.alchemy.com/v2/cOI6YkiomPgpNGs89aF2LTMS50_vpRr2"
     },
   ];
 
   // 3. Create Wagmi Adapter
   const wagmiAdapter = new WagmiAdapter({
+    transports: {
+      [arbitrumSepolia.id]: http()
+    },
+    // connectors: 
     ssr: true,
     projectId,
     networks,
-    
   });
-  console.log("wagmiAdapter", wagmiAdapter)
-
-  console.log(config);
-
+  $config.set(wagmiAdapter.wagmiConfig);
 
   // 4. Create modal
   createAppKit({
@@ -74,14 +74,8 @@ onMounted(async () => {
   });
 
   // 5. Use modal composable
-  // const walletmodal = useAppKit();
-  const events = useAppKitEvents();
-  console.log("events events ", events);
 
-  // await walletmodal.open({ view: "Connect" });
-
-  // const unwatch = watchAccount(config, {
-  const unwatch = watchConnections(config, {
+  const unwatch = watchAccount(wagmiAdapter.wagmiConfig, {
     onChange(data) {
       console.log("Account changed!", data);
       $account.set(data);
@@ -92,17 +86,17 @@ onMounted(async () => {
     },
   });
 
-  const acc = getAccount(config);
-  console.log("acc", acc);
-  if(acc?.address && acc?.chainId === networks[0].chainId) emit('connected');
+  // const acc = getAccount(config);
+  // console.log("acc", acc);
+  // if(acc?.address && acc?.chainId === networks[0].chainId) emit('connected');
 
-  reconnect(config);
+  reconnect(wagmiAdapter.wagmiConfig);
   // console.log("reconnect reconnect reconnect");
 });
 
 const openModal = async () => {
 
-  console.log('bbbbbb');
+  // console.log('bbbbbb');
   const walletmodal = useAppKit();
   console.log("walletmodal", walletmodal);
   // await walletmodal.open({ view: "Connect" });
@@ -111,12 +105,15 @@ const openModal = async () => {
 
 appkitBus.on( async (event) => {
   if(event === 'open'){
-    console.log('aaaaaa');
+    // console.log('aaaaaa');
     // console.log('connected')
     const walletmodal = useAppKit();
     // await walletmodal.open({ view: "Connect" });
     await walletmodal.open();
     // await connect(config, { connector: injected() })
+
+
+    
   }
 })
 </script>

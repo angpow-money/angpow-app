@@ -1,6 +1,6 @@
 import { atom } from 'nanostores'
-import { $account } from '@/stores/wallet';
-import { config } from '@/wagmiConfig';
+import { $account, $config } from '@/stores/wallet';
+// import { config } from '@/wagmiConfig';
 import { signMessage } from '@wagmi/core';
 
 export const $state = atom(null);
@@ -40,6 +40,7 @@ export const receiveAngpow = async (id:any) => {
         })
 
         let address = $account.get() as any
+        const config = $config.get() as any;
 
         const result = await signMessage(config, {
             account: address,
