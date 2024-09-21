@@ -6,7 +6,7 @@ import { atom } from 'nanostores'
 export const ANGPOW_CONTRACT = atom("0x25a25506B36626d328B1ebE0D16aEF2d3713CE91");
 export const ABB_SEPOLIA_RPC_URL = atom("https://endpoints.omniatech.io/v1/arbitrum/sepolia/public");
 
-import { zeroAddress, parseEther } from 'viem';
+import { zeroAddress } from 'viem';
 import { writeContract, waitForTransactionReceipt, signMessage } from '@wagmi/core';
 import { config } from '@/wagmiConfig';
 import { $account } from '@/stores/wallet';
