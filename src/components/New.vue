@@ -416,6 +416,7 @@ const appkitBus = useEventBus("appkit");
 
 import { useStore } from "@nanostores/vue";
 import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $zoom_far_far, $pan_up_palette, $pan_down, $pan_up_up, $selectedColorClass, $show_titles, $token_up, $angpao_design, $angpao_message, $selectedBgColor, $angpao_eth_amount } from "@/stores/angpao";
+import { createAngpow } from "@/stores/angpow";
 
 const flicking = ref(null);
 
@@ -935,9 +936,7 @@ const selectAngpaoColor = (color) => {
 
 const username_input = ref(undefined)
 
-const executeAngpaoCreate = () => {
-  return new Promise( (resolve) => {
-
+const executeAngpaoCreate = async () => {
     let payload = {
       eth_amount: eth_amount.value,
       copies: copies.value,
@@ -945,14 +944,10 @@ const executeAngpaoCreate = () => {
       angpao_message: angpao_message_input.value,
       angpao_design: $angpao_design.get(),
       angpao_color: colors.value.find((item) => item.selected),
-      username_input: `${username_input.value}.angpao.money`
+      username_input: `${username_input.value}`
     }
 
-    console.log(payload)
-
-    resolve()
-
-  })
+    await createAngpow(payload)
 }
 
 
