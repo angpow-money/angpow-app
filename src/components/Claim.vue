@@ -3,9 +3,9 @@
     
     <div class="w-full h-[100dvh] flex justify-center items-center bg-poppy-100  pointer-events-none">
 
-        <div class="w-full flex justify-between items-center fixed top-0 left-0 pointer-events-none p-4">
+        <div class="w-full flex justify-between items-center fixed z-[10] top-0 left-0 pointer-events-none p-4">
             
-            <div class="w-16 h-16 rounded-full shadow-xl border border-black/10 bg-white flex justify-center items-center">
+            <div @click="goHome()"  class="pointer-events-auto w-16 h-16 rounded-full shadow-xl border border-black/10 bg-white flex justify-center items-center">
                 home
             </div>
 
@@ -13,8 +13,8 @@
 
         </div>
 
-        <div class="fixed w-screen h-[100dvh] flex-col flex justify-center items-center pointer-events-auto" @click="angpaoTap()">
-            <Angpao ></Angpao>
+        <div class="fixed w-screen h-[100dvh] flex-col flex justify-center items-center pointer-events-none" >
+            <Angpao @click="angpaoTap()" class="pointer-events-auto"></Angpao>
         </div>
 
         <ConnectWallet @connected="walletConnected()"></ConnectWallet>
@@ -171,12 +171,32 @@ onMounted( async () => {
         
     }, 200);
 
+    if(!IDKit.isInitialized) {
+        IDKit.init({
+            // app_id: 'app_staging_1fe6ccaa14409704f71091493087e46f',
+            app_id: 'app_3fce0a48811b44d2fc3e452699a480d4',
+            action: window.location.pathname.split("/").at(-1),
+            verification_level: "device",
+            handleVerify: response => {
+                // verify the IDKIt proof, throw an error to show the error screen
+                verifyProof(response)
+            },
+            onSuccess: response => {
+                console.log(response)
+                onSuccess(response)
+            },
+        })
+    }
+
+
 })
 
 
+const goHome = () => {
+    console.log("goHome goHome goHome")
+}
 
-
-// import '@worldcoin/idkit-standalone'
+import '@worldcoin/idkit-standalone'
 // IDKit.init({
 //     // app_id: 'app_staging_1fe6ccaa14409704f71091493087e46f',
 //     app_id: 'app_3fce0a48811b44d2fc3e452699a480d4',
@@ -192,31 +212,32 @@ onMounted( async () => {
 //     },
 // })
 
-// const openWorldcoin = async () => {
+const openWorldcoin = async () => {
 
-//     console.log("openWorldcoin openWorldcoin")
-//     console.log(IDKit.isInitialized)
-//     await IDKit.open()
+    console.log("openWorldcoin openWorldcoin")
+    console.log(IDKit.isInitialized)
+    await IDKit.open()
 
-// }
+}
 
 
-// // TODO: Calls your implemented server route
-// const verifyProof = async (proof) => {
-//     // throw new Error("TODO: verify proof server route")
-//     const resp = await fetch(`/api/verifyworldcoin.json`, {
-//         method: 'post',
-//         body: JSON.stringify({
-//             proof: proof,
-//         })
-//     }).then(res => res.json())
-//     console.log('verifyProof resp', resp);
-// };
+// TODO: Calls your implemented server route
+const verifyProof = async (proof) => {
+    // throw new Error("TODO: verify proof server route")
+    const resp = await fetch(`/api/verifyworldcoin.json`, {
+        method: 'post',
+        body: JSON.stringify({
+            proof: proof,
+            action: window.location.pathname.split("/").at(-1),
+        })
+    }).then(res => res.json())
+    console.log('verifyProof resp', resp);
+};
 
-// // TODO: Functionality after verifying
-// const onSuccess = (_response) => {
-//   console.log("Success", _response)
-// };
+// TODO: Functionality after verifying
+const onSuccess = (_response) => {
+  console.log("Success", _response)
+};
 
 
 </script>
