@@ -45,7 +45,7 @@
 
         <div :class="[!flip_angpao ? '[transform:rotateY(180deg)] opacity-0' : '']" class="w-full aspect-square z-50 flex justify-center items-start transition-all duration-500 rounded-xl pointer-events-none relative">
 
-          <div class="w-full aspect-square absolute flex justify-center items-center z-50 " :class="selectedBgColor">
+          <div class="w-full aspect-[3/4] absolute flex justify-center items-center z-50 " :class="selectedBgColor">
 
           </div>
 

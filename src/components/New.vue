@@ -34,7 +34,7 @@
 
           <div class="bg-gray-100 p-4 rounded-xl text-3xl text-center w-full">
             <!-- <input class="bg-transparent w-full text-center" type="text" placeholder="junyaoc"> -->
-            <Input class="bg-gray-200 border-none text-2xl py-6 text-black text-center mb-4" placeholder="Hi! My name is..." />
+            <Input v-model="username_input" class="bg-gray-200 border-none text-2xl py-6 text-black text-center mb-4" placeholder="Hi! My name is..." />
 
             <p class="text-black">.angpao.money</p>
           </div>
@@ -479,7 +479,7 @@ const currentStep = computed(() => {
   return step.value.find((item) => item.active)?.name;
 });
 
-watch(currentStep, (newVal) => {
+watch(currentStep, async (newVal) => {
   console.log(newVal);
 
   if (currentStep.value == "start") {
@@ -558,6 +558,8 @@ watch(currentStep, (newVal) => {
     $zoom_far.set(false);
 
     sendBusy.value = true;
+
+    await executeAngpaoCreate()
 
     setTimeout(() => {
       sendBusy.value = false;
@@ -876,6 +878,28 @@ const selectAngpaoColor = (color) => {
   })
 
   color.selected = true;
+}
+
+const username_input = ref(undefined)
+
+const executeAngpaoCreate = () => {
+  return new Promise( (resolve) => {
+
+    let payload = {
+      eth_amount: eth_amount.value,
+      copies: copies.value,
+      is_worldcoin_required: is_worldcoin_required.value,
+      angpao_message: angpao_message_input.value,
+      angpao_design: $angpao_design.get(),
+      angpao_color: colors.value.find((item) => item.selected),
+      username_input: `${username_input.value}.angpao.money`
+    }
+
+    console.log(payload)
+
+    resolve()
+
+  })
 }
 
 </script>
