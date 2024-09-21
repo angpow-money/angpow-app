@@ -94,7 +94,10 @@ const connectWallet = () => {
     appkitBus.emit('open')
 }
 
-const openAngpao = () => {
+const openAngpao = async () => {
+
+    const verified = await openWorldcoin();
+    if(!verified?.success) return;
 
     claimStart.value = true;
 
@@ -155,5 +158,50 @@ onMounted( async () => {
     }, 200);
 
 })
+
+
+
+
+import '@worldcoin/idkit-standalone'
+IDKit.init({
+    app_id: 'app_staging_1fe6ccaa14409704f71091493087e46f',
+    action: 'testverify',
+    verification_level: "device",
+    handleVerify: response => {
+        // verify the IDKIt proof, throw an error to show the error screen
+        verifyProof(response)
+    },
+    onSuccess: response => {
+        console.log(response)
+        onSuccess(response)
+    },
+})
+
+const openWorldcoin = async () => {
+
+    console.log("openWorldcoin openWorldcoin")
+    console.log(IDKit.isInitialized)
+    await IDKit.open()
+
+}
+
+
+// TODO: Calls your implemented server route
+const verifyProof = async (proof) => {
+    // throw new Error("TODO: verify proof server route")
+    const resp = await fetch(`/api/verifyworldcoin.json`, {
+        method: 'post',
+        body: JSON.stringify({
+            proof: proof,
+        })
+    }).then(res => res.json())
+    console.log('verifyProof resp', resp);
+};
+
+// TODO: Functionality after verifying
+const onSuccess = (_response) => {
+  console.log("Success", _response)
+};
+
 
 </script>
