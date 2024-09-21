@@ -28,7 +28,7 @@ const verifyProof = async (proof:any, action:any) => {
                 body: JSON.stringify({ ...proof, action: action}),
             }
         );
-        console.log('aavvvvvvv', response)
+        console.log('aavvvvvvv', response?.ok, response?.status, response?.statusText, JSON.stringify(response))
         
         if (response.ok) {
             const dat = await response.json();
