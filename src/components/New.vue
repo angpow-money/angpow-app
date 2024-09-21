@@ -7,7 +7,7 @@
       </button>
 
 
-    <div class="fixed w-screen h-[100dvh] flex-col flex justify-center items-center" :class="[currentStep == 'summary' || currentStep == 'result' ? 'pointer-events-auto' : 'pointer-events-none', currentStep=='divide'&&copies>1?'-rotate-12 -translate-x-8':'', 'transition-all duration-300']" @click="angpaoTap()">
+    <div class="fixed w-screen h-[100dvh] flex-col flex justify-center items-center" :class="[currentStep == 'summary' || currentStep == 'result' ? 'pointer-events-auto' : 'pointer-events-none', currentStep=='divide'&&copies>1?'-rotate-12 -translate-x-8':'', 'transition-all duration-300', (currentStep=='divide')?'sm:translate-y-36':'', currentStep=='summary'?'sm:scale-75 sm:-translate-y-12':'', currentStep=='summary'&&show_customization?'sm:scale-[60%]':'']" @click="angpaoTap()">
       <Angpao></Angpao>
     </div>
 
@@ -103,8 +103,8 @@
             </div>
 
             <div class="w-full flex justify-center items-center flex-col">
-              <div class="w-[200px] aspect-[3/4] sm:mb-12"></div>
-              <button @click="show_explainer=true" class="pointer-events-auto bg-white ring ring-black/10 text-xl font-medium rounded-full mt-4 p-1.5 px-4 shadow-2xl shadow-black">what???</button>
+              <div class="sm:w-[400px] w-[300px] aspect-[3/4]"></div>
+              <button @click="show_explainer=true" class="pointer-events-auto bg-white ring ring-black/10 text-xl font-medium rounded-full p-1.5 px-4 shadow-2xl shadow-black">what???</button>
             </div>
           </div>
         
@@ -125,7 +125,7 @@
         <div class="w-full absolute bottom-[0dvh] left-0 ">
           
 
-            <div @click="backToAmount()" class="btn ml-2 btn-sm mb-2 text-white pointer-events-auto">
+            <div @click="backToAmount()" class="btn ml-2 btn-sm mb-2 text-white pointer-events-auto bg-black">
               <p>back</p>
             </div>
 
@@ -175,7 +175,7 @@
       <div key="2" class="w-full h-[100dvh] flex flex-col justify-center items-start relative pointer-events-none">
 
         <div class="absolute top-0 right-0 p-4">
-            <button @click="showCustomize()" class="btn border-none  text-xl   px-6 py-2 rounded-full shadow-xl flex justify-center items-center pointer-events-auto font-medium hover:text-white" :class="[show_customization?'bg-black-500 text-white ring-2 ring-white ring-offset-2 ring-offset-transparent animate-bounce':'text-black bg-white']" >
+            <button @click="showCustomize()" class="btn border-none  text-xl   px-6 py-2 rounded-full shadow-xl flex justify-center items-center pointer-events-auto font-medium hover:text-white" :class="[show_customization?'bg-black text-white ring-2 ring-white ring-offset-2 ring-offset-transparent animate-bounce':'text-black bg-white']" >
                 <span v-if="!show_customization">🎨 Customize</span>
                 <span v-else>🎨 Done</span>
             </button>
@@ -185,7 +185,7 @@
           
           <div class="w-full flex justify-between items-center mb-2 pr-2">
             
-            <div @click="backToDivide()" class="btn ml-2 btn-sm text-white pointer-events-auto">
+            <div @click="backToDivide()" class="btn ml-2 btn-sm bg-black text-white pointer-events-auto">
               <p>back</p>
             </div>
             
@@ -200,9 +200,9 @@
               <div>
 
                 <div class="p-2 pointer-events-auto">
-                  <button @click="customization_tab = 'color'" :class="[customization_tab=='color'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Color</button>
-                  <button @click="customization_tab = 'design'" :class="[customization_tab=='design'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Nouns Art</button>
-                  <button @click="customization_tab = 'message'" :class="[customization_tab=='message'?'text-white':'btn-ghost']" class="btn btn-sm rounded-full">Message</button>
+                  <button @click="customization_tab = 'color'" :class="[customization_tab=='color'?'text-white bg-black':'btn-ghost']" class="btn btn-sm rounded-full">Color</button>
+                  <button @click="customization_tab = 'design'" :class="[customization_tab=='design'?'text-white bg-black':'btn-ghost']" class="btn btn-sm rounded-full">Nouns Art</button>
+                  <button @click="customization_tab = 'message'" :class="[customization_tab=='message'?'text-white bg-black':'btn-ghost']" class="btn btn-sm rounded-full">Message</button>
                 </div>
 
                 <div class="grid grid-cols-4 justify-center items-center p-4 gap-4" v-if="customization_tab == 'color'">
