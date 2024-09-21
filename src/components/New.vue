@@ -1,18 +1,9 @@
 <template>
   <div class="w-full h-[100dvh] flex justify-center items-center bg-poppy-100 pointer-events-none relative">
-    <!-- <div class="w-full max-w-sm p-4 bg-white rounded-xl flex flex-col justify-between items-center">
-            
-            <div class="w-full flex justify-center items-center flex-col aspect-square ">
-                <div class="text-7xl text-center mb-4">🧧</div>
-                <h1 class="text-center text-xl">Hello! Create New Angpao!</h1>
-            </div>
 
-            <Button class="w-full">Create New</Button>
 
-        </div> -->
-
-      <button @click="openWallet()" class="pointer-events-auto z-20 w-16 h-16 rounded-full shadow-xl border border-black/10 flex justify-center items-center absolute top-4 left-4">
-        <iconify-icon class="text-[2rem]" icon="ph:wallet"></iconify-icon>
+      <button @click="openWallet()" class="pointer-events-auto z-20 w-14 h-14 rounded-full shadow-xl  flex justify-center items-center absolute sm:fixed top-4 left-4 bg-white">
+        <iconify-icon class="text-[2rem]" icon="material-symbols-light:wallet"></iconify-icon>
       </button>
 
 
@@ -101,18 +92,18 @@
   </TransitionRoot>
     
 
-    <Flicking class="w-full h-[100dvh] pointer-events-none" ref="flicking" :options="{ align: 'prev', circular: false, horizontal: false }">
+    <Flicking class="w-full h-[100dvh] pointer-events-none" ref="flicking" :options="{ align: 'prev', circular: false, horizontal: false, disableOnInit:true }">
       <div key="0" class="w-full h-[100dvh] flex justify-center items-center p-4 pb-2">
         <div class="w-full h-full flex flex-col justify-between items-center">
          
             <div :class="[show_titles?'':'opacity-0']" class="w-full h-full flex flex-col justify-center items-center space-y-8">
-            <div class="p-4 text-center">
+            <div class="p-4 text-center sm:-mt-24 sm:mb-24">
               <div class="text-poppy text-5xl font-semibold mb-4">angpao.money</div>
               <p class="text-xl text-black font-semibold">The New + Fun Way to Send Crypto!</p>
             </div>
 
             <div class="w-full flex justify-center items-center flex-col">
-              <div class="w-[200px] aspect-[3/4]"></div>
+              <div class="w-[200px] aspect-[3/4] sm:mb-12"></div>
               <button @click="show_explainer=true" class="pointer-events-auto bg-white ring ring-black/10 text-xl font-medium rounded-full mt-4 p-1.5 px-4 shadow-2xl shadow-black">what???</button>
             </div>
           </div>
@@ -184,7 +175,7 @@
       <div key="2" class="w-full h-[100dvh] flex flex-col justify-center items-start relative pointer-events-none">
 
         <div class="absolute top-0 right-0 p-4">
-            <button @click="showCustomize()" class="btn border-none  text-xl   px-6 py-2 rounded-full shadow-xl flex justify-center items-center pointer-events-auto font-medium" :class="[show_customization?'bg-black-500 text-white ring-2 ring-white ring-offset-2 ring-offset-transparent animate-bounce':'text-black bg-white']" >
+            <button @click="showCustomize()" class="btn border-none  text-xl   px-6 py-2 rounded-full shadow-xl flex justify-center items-center pointer-events-auto font-medium hover:text-white" :class="[show_customization?'bg-black-500 text-white ring-2 ring-white ring-offset-2 ring-offset-transparent animate-bounce':'text-black bg-white']" >
                 <span v-if="!show_customization">🎨 Customize</span>
                 <span v-else>🎨 Done</span>
             </button>
@@ -283,8 +274,13 @@
 
       <div key="3" class="w-full h-[100dvh] flex flex-col justify-center items-start relative pointer-events-none">
         <div class="absolute left-0 bottom-[0dvh] px-4 pb-2 w-full">
-          <p v-if="sendBusy" class="text-center mb-4 font-medium">Please Confirm Transaction</p>
-          <p v-if="!sendBusy" class="text-center mb-4 font-medium">Done!</p>
+          
+          <div class="w-full flex justify-center items-center mb-4">
+            <div class="bg-white px-4 py-2 rounded-xl">
+            <p v-if="sendBusy" class="text-center font-medium">Please Confirm Transaction</p>
+            <p v-if="!sendBusy" class="text-center font-medium">Done!</p>
+          </div>
+          </div>
 
           <div class="w-full bg-white text-black rounded-3xl p-3 flex justify-between items-center mb-4 pl-5">
             <p v-if="sendBusy" class="text-2xl w-full text-center animate-pulse">Creating Your Angpao...</p>
@@ -705,8 +701,11 @@ const createAngpao = () => {
         $pan_up_palette.set(false);
         $pan_up_up.set(false)
         
+        $zoom_far.set(false);
+        
         $pan_up.set(true);
-        $zoom_far.set(true);
+
+        $zoom_close.set(true);
    
         step.value.forEach((item) => {
             if (item.name == "summary") {

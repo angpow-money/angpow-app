@@ -14,7 +14,7 @@
     </div> -->
     
 
-    <div :class="[ pan_up_up?'translate-y-[-40%]':'', pan_up?'translate-y-[-30%]':'', pan_down?'translate-y-[20%]':'', pan_down_open?'translate-y-[50%]':'', pan_up_palette?'translate-y-[-15%]':'']" class="w-[90vw] max-w-[500px] aspect-[2/3] flex justify-center items-start relative duration-300 transition-all pointer-events-none">
+    <div :class="[ pan_up_up?'translate-y-[-40%]':'', pan_up?'translate-y-[-30%]':'', pan_down?'translate-y-[20%]':'', pan_down_open?'translate-y-[50%]':'', pan_up_palette?'translate-y-[-15%] sm:translate-y-[-3rem]':'']" class="w-[90vw] sm:w-[50vw] aspect-[2/3] flex justify-center items-start relative duration-300 transition-all pointer-events-auto  max-w-[500px]">
         <div :class="[zoom_close ? 'scale-75' : '', zoom_far ? 'scale-50' : 'scale-100', flip_angpao ? '-translate-y-[0vh]' : '', zoom_far_far?'scale-[30%]':'']" class="flex justify-center items-start relative duration-500 transition-all w-full h-full">
 
           
@@ -35,10 +35,10 @@
 
 
         <article class="absolute bottom-0 p-4 w-full h-auto z-[999] text-white text-center">
-           {{ angpao_message }}
+           <span class="sm:text-6xl">{{ angpao_message }}</span>
           
-           <div class="w-full flex justify-center items-center mt-8">
-            <div class="bg-red-800 text-white rounded-full p-2 px-4 text-sm">angpao.money</div>
+           <div class="w-full flex justify-center items-center mt-8 sm:mb-4">
+            <div class="bg-red-800 text-white rounded-full p-2 px-4 text-sm sm:text-4xl">angpao.money</div>
            </div>
 
         </article>
