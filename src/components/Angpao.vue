@@ -22,7 +22,7 @@
       <div :class="[!flip_angpao ? '' : '[transform:rotateY(-180deg)]', selectedColorClass ]" class="absolute w-full h-full transition-all duration-500 rounded-3xl flex justify-center items-end" style="-webkit-backface-visibility: hidden; backface-visibility: hidden">
 
         <div class="absolute top-10  bg-white/10 rounded-full text-white justify-center items-center flex font-bold">
-          <img class="w-36 h-36" src="/public/logo.png" />
+          <img class="w-36 h-36" src="/logo.png" />
         </div>
 
         <div v-if="angpao_design" class="w-full overflow-hidden flex justify-center items-center p-4  ">
