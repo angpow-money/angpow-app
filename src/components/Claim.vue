@@ -32,8 +32,8 @@
                                 <div class="animate-bounce">Connect Wallet to Open</div>
                             </button>
                 
-        <button v-if="canStart" @click="openAngpao()" :disabled="angpow?.received" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">
-          <div class="animate-bounce">{{angpow?.received ? "Received" : "Open!"}}</div>
+        <button v-if="canStart" @click="openAngpao()" :disabled="received" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">
+          <div class="animate-bounce">{{received ? "Received" : "Open!"}}</div>
                             </button>
 
             </template>
@@ -78,6 +78,7 @@ const claimStart = ref(false);
 const claimBusy = ref(false);
 const success = ref(false)
 
+const received = ref(null);
 const donatorEnsName = ref("");
 const userEnsName = ref("");
 const angpow = ref(null);
@@ -90,15 +91,9 @@ const angpaoTap = () => {
 
 const walletConnected = async () => {
 
-  const _angpow = await fetch(`/api/angpow/${props.id}.json?address=${$account.value.address}`).then(res => res.json())
-    angpow.value = _angpow;
-
-    $angpao_value.set(_angpow.amount)
-    $angpao_design.set(_angpow.design)
-    $angpao_message.set(_angpow.message)
-    $selectedColorClass.set(_angpow.gradient)
-    $selectedBgColor.set(_angpow.solid)
-    donatorEnsName.value = _angpow.donator_ens_name
+  received.value = await fetch(`/api/angpow/${props.id}/received.json?address=${$account.value.address}`)
+    .then(res => res.json())
+    .then(res => res.received)
 
   userEnsName.value = await fetch(`/api/ensName.json?address=${$account.value.address}`)
     .then(res => res.json())
@@ -164,6 +159,16 @@ const props = defineProps({
 
 onMounted( async () => {
 
+
+  const _angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
+    angpow.value = _angpow;
+
+    $angpao_value.set(_angpow.amount)
+    $angpao_design.set(_angpow.design)
+    $angpao_message.set(_angpow.message)
+    $selectedColorClass.set(_angpow.gradient)
+    $selectedBgColor.set(_angpow.solid)
+    donatorEnsName.value = _angpow.donator_ens_name
   
 
     setTimeout(() => {
