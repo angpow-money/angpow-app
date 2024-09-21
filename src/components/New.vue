@@ -2,7 +2,7 @@
   <div class="w-full h-[100dvh] flex justify-center items-center bg-poppy-100 pointer-events-none relative">
 
 
-      <button @click="openWallet()" class="pointer-events-auto z-20 w-14 h-14 rounded-full shadow-xl  flex justify-center items-center absolute sm:fixed top-4 left-4 bg-white">
+      <button @click="openWallet()" class="pointer-events-auto z-20 w-14 h-14 rounded-full shadow-xl  flex justify-center items-center absolute sm:fixed top-4 right-4 bg-white">
         <iconify-icon class="text-[2rem]" icon="material-symbols-light:wallet"></iconify-icon>
       </button>
 
@@ -785,7 +785,7 @@ const submitUsername = () => {
 const angpaoTap = () => {
   console.log("TAPTAP");
   // $flip_angpao.set(!$flip_angpao.value);
-  if (currentStep.value == "summary") {
+  if (currentStep.value == "summary" || currentStep.value == "result") {
     $flip_angpao.set(!$flip_angpao.value);
   }
 };
