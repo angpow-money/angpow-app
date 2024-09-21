@@ -19,7 +19,7 @@ export const createAngpow = async (angpao: any) => {
     const etherAmount = angpao.eth_amount;
     const quantity = angpao.copies;
 
-    const amount = parseEther(String(etherAmount));
+    //const amount = parseEther(String(etherAmount));
 
     let address = $account.get() as any
 
@@ -64,9 +64,11 @@ export const createAngpow = async (angpao: any) => {
         chainId: _address?.chainId
     })
 
-    //await waitForTransactionReceipt(config, {
-    //    hash: result,
-    //})
+    await waitForTransactionReceipt(config, {
+        hash: result,
+    })
+
+  return resp.id
 }
 
 

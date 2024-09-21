@@ -284,11 +284,11 @@
 
           <div class="w-full bg-white text-black rounded-3xl p-3 flex justify-between items-center mb-4 pl-5">
             <p v-if="sendBusy" class="text-2xl w-full text-center animate-pulse">Creating Your Angpao...</p>
-            <p v-if="!sendBusy" class="text-left animate-pulse text-lg font-medium">https://google.com</p>
+            <p v-if="!sendBusy" class="text-left animate-pulse text-lg font-medium">{{shareLink}}</p>
 
             <div v-if="!sendBusy" class="flex justify-end items-center space-x-1 pointer-events-auto">
-                <button class="btn w-12 h-12 rounded-2xl btn-ghost">share</button>
-                <button class="btn w-12 h-12 bg-black rounded-2xl text-white">copy</button>
+                <button @click="startShare()" class="btn w-12 h-12 rounded-2xl btn-ghost">share</button>
+                <button @click="copy(shareLink)" class="btn w-12 h-12 bg-black rounded-2xl text-white">copy</button>
 
             </div>
           </div>
@@ -401,6 +401,9 @@
 </template>
 
 <script setup>
+import { useClipboard } from '@vueuse/core'
+const shareLink = ref("")
+const { copy } = useClipboard({ source: shareLink })
 import { Button } from "@/components/ui/button";
 import { ref, computed, watch, onMounted } from "vue";
 // import WalletConnect from "@/components/WalletConnect.vue"
@@ -419,6 +422,7 @@ import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angp
 import { createAngpow } from "@/stores/angpow";
 
 const flicking = ref(null);
+const newAngpaoId = ref(null);
 
 const show_titles = useStore($show_titles)
 
@@ -440,7 +444,6 @@ import { $account } from '@/stores/wallet';
 const show_explainer = ref(false)
 
 onMounted( async () => {
-
   $angpao_design.set(`https://noun-api.com/beta/pfp?name=${nanoid(10)}`)
 
 })
@@ -678,7 +681,8 @@ const submitAngpaoConfig = async () => {
   if (!ensname) {
     show_username_modal.value = true;
   } else {
-    createAngpao();
+    executeAngpaoCreate()
+    //newAngpaoId.value = createAngpao();
   }
 
 
@@ -789,8 +793,9 @@ const submitUsername = () => {
 //   step.value[5].active = true;
 //   flicking.value.moveTo(5);
     show_username_modal.value = false;
+    executeAngpaoCreate()
 
-    createAngpao();
+    //newAngpaoId.value = createAngpao();
 };
 
 const angpaoTap = () => {
@@ -947,17 +952,18 @@ const selectAngpaoColor = (color) => {
 const username_input = ref(undefined)
 
 const executeAngpaoCreate = async () => {
-    let payload = {
-      eth_amount: eth_amount.value,
-      copies: copies.value,
-      is_worldcoin_required: is_worldcoin_required.value,
-      angpao_message: angpao_message_input.value,
-      angpao_design: $angpao_design.get(),
-      angpao_color: colors.value.find((item) => item.selected),
-      username_input: `${username_input.value}`
-    }
+  let payload = {
+    eth_amount: eth_amount.value,
+    copies: copies.value,
+    is_worldcoin_required: is_worldcoin_required.value,
+    angpao_message: angpao_message_input.value,
+    angpao_design: $angpao_design.get(),
+    angpao_color: colors.value.find((item) => item.selected),
+    username_input: `${username_input.value}`
+  }
 
-    await createAngpow(payload)
+  const id = await createAngpow(payload)
+  shareLink.value = `${window.location.href}claim/angpao/${id}`
 }
 
 
@@ -968,6 +974,17 @@ const openWallet = () => {
   walletmodal.open();
 }
 
+
+import { useShare } from '@vueuse/core'
+const { share, isSupported } = useShare()
+
+function startShare() {
+  share({
+    title: 'Share',
+    text: 'Give me your money',
+    url: shareLink.value
+  })
+}
 </script>
 
 <style>
