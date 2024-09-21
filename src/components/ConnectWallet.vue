@@ -77,9 +77,7 @@ onMounted(async () => {
 
   const unwatch = watchAccount(wagmiAdapter.wagmiConfig, {
     onChange(data) {
-      console.log("Account changed!", data);
       $account.set(data);
-      console.log($account.value);
       if(data.address && data.chainId === networks[0].chainId) {
         emit('connected')
       }

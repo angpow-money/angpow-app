@@ -23,7 +23,7 @@
 
             <p>From</p>
             <div class="shadow-xl shadow-black/20 rounded-full px-6 py-3 text-xl border mt-4 mb-8 bg-white">
-              <p>{{donatorEnsName}}.angpao.money</p>
+              <p>{{donatorEnsName}}</p>
             </div>
 
             <template v-if="!claimStart">
@@ -44,7 +44,7 @@
                                 <div class="animate-bounce">Opening...</div>
                             </button>
 
-                            <button v-if="!claimBusy" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto ">
+                            <button v-if="!claimBusy && success" class="btn w-full bg-black text-white rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto ">
                                 <div class="">See all Angpao</div>
                             </button>
             </template>
@@ -76,6 +76,7 @@ const canStart = ref(false);
 
 const claimStart = ref(false);
 const claimBusy = ref(false);
+const success = ref(false)
 
 const donatorEnsName = ref("");
 const userEnsName = ref("");
@@ -110,7 +111,15 @@ const openAngpao = async () => {
     $zoom_close.set(false);
 
     claimBusy.value = true;
-    await receiveAngpow(angpow.value.id)
+    try {
+      await receiveAngpow(props.id)
+    } catch(err) {
+
+      claimBusy.value = false;
+      claimStart.value = false
+      console.error(err)
+      return
+    }
 
     setTimeout(() => {
         
@@ -123,6 +132,7 @@ const openAngpao = async () => {
             $token_up.set(true);
 
             claimBusy.value = false;
+            success.value = true;
 
         }, 200);
 
@@ -139,13 +149,11 @@ onMounted( async () => {
 
     const angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
 
-  console.log(142, angpow)
     $angpao_value.set(angpow.amount)
     $angpao_design.set(angpow.design)
     $angpao_message.set(angpow.message)
     $selectedColorClass.set(angpow.gradient)
     $selectedBgColor.set(angpow.solid)
-    angpow.value = angpow
     donatorEnsName.value = angpow.donator_ens_name
 
     setTimeout(() => {
