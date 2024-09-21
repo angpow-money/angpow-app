@@ -9,7 +9,7 @@ export const ABB_SEPOLIA_RPC_URL = atom("https://arb-sepolia.g.alchemy.com/v2/cO
 
 
 import { zeroAddress, parseEther } from 'viem';
-import { writeContract, waitForTransactionReceipt, signMessage } from '@wagmi/core';
+import { writeContract, signMessage } from '@wagmi/core';
 import { $account, $config } from '@/stores/wallet';
 import { ANGPOW_ABI } from '@/angpow-abi';
 

@@ -1,5 +1,4 @@
 import supabase from "@/supabase"
-import { formatEther, parseEther } from "viem"
 
 export async function getEnsName(address: string) {
 
