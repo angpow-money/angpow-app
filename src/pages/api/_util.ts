@@ -11,7 +11,7 @@ export async function getEnsName(address: string) {
 
 
 export async function getEnsWallet(ens: string) {
-  return fetch(`https://angpow_ens_worker.junyaoxiandingchan.workers.dev/get/${ens}.angpao.money`)
+  return fetch(`https://angpow_ens_worker.junyaoxiandingchan.workers.dev/get/${ens}`)
     .then(res => res.json())
     .then(res => res.value.addresses[60] || "")
 }
