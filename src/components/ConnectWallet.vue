@@ -36,6 +36,7 @@ onMounted(async () => {
   };
 
   const networks = [
+    mainnet,
     {
       chainId: 421614,
       chainNamespace: "eip155",
@@ -51,7 +52,8 @@ onMounted(async () => {
   // 3. Create Wagmi Adapter
   const wagmiAdapter = new WagmiAdapter({
     transports: {
-      [arbitrumSepolia.id]: http()
+      [arbitrumSepolia.id]: http(),
+      [mainnet.id]: http(),
     },
     // connectors: 
     ssr: true,
