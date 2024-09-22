@@ -229,7 +229,7 @@ const goHome = () => {
   window.location.href = window.location.origin
 }
 
-const goBigHone = () => {
+const goBigHome = () => {
     window.location.href = window.location.origin + "/home"
 }
 
