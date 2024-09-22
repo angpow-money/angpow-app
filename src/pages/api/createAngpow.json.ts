@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request }) => {
       console.log('ensName aaaaaaaaa', ensName, 1111 )
       if (ensName === "" || !ensName) {
         await setEnsName({
-          "key": body.username,
+          "key": body.username + ".angpao.money",
           "value": {
             "addresses": {
               "60": body.address
