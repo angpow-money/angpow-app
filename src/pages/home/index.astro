@@ -19,6 +19,19 @@ import Home2 from '@/components/Home2.vue'
 		<script>
 	      import "iconify-icon";
 		</script>
+
+<script>
+
+	import posthog from 'posthog-js'
+	
+	posthog.init('phc_aB9tQxCKVNrxkD52p1sPSrhELBgquMttk9udO9J8sGV',
+		{
+			api_host: 'https://us.i.posthog.com',
+			person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
+		}
+	)
+	
+			</script>
 		
 
 		<div class="w-full flex justify-center items-center relative">

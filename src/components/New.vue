@@ -439,8 +439,18 @@ import { nanoid } from 'nanoid'
 import { $account } from '@/stores/wallet';
 
 const show_explainer = ref(false)
+import posthog from 'posthog-js'
 
 onMounted( async () => {
+
+	
+	posthog.init('phc_aB9tQxCKVNrxkD52p1sPSrhELBgquMttk9udO9J8sGV',
+		{
+			api_host: 'https://us.i.posthog.com',
+			person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
+		}
+	)
+
   $angpao_design.set(`https://noun-api.com/beta/pfp?name=${nanoid(10)}`)
 
 })
@@ -550,7 +560,6 @@ watch(currentStep, async (newVal) => {
     // $pan_up_up.set(true);
     // $zoom_far.set(true);
 
-
     
 
   }
@@ -619,6 +628,17 @@ watch(currentStep, async (newVal) => {
     //   $pan_up_palette.set(true);
     // }, 3000);
   }
+
+
+  posthog.capture(`new_${currentStep.value}`, {
+          eth_amount: eth_amount.value,
+          copies: copies.value,
+          is_worldcoin_required: is_worldcoin_required.value,
+          angpao_message: angpao_message_input.value,
+          angpao_design: $angpao_design.get(),
+          angpao_color: colors.value.find((item) => item.selected),
+          username_input: username_input.value
+        });
 });
 
 // const walletConnected = async () => {
@@ -737,6 +757,8 @@ const createAngpao = async () => {
 
         sendBusy.value = true;
 
+        
+
         let payload = {
           eth_amount: eth_amount.value,
           copies: copies.value,
@@ -746,9 +768,15 @@ const createAngpao = async () => {
           angpao_color: colors.value.find((item) => item.selected),
           username_input: username_input.value
         }
+
+        posthog.capture('start_create_angpao',payload)
         const id = await createAngpow(payload)
         shareLink.value = `${window.location.href}claim/angpao/${id}`
 
+        posthog.capture('angpao_created',{
+          ...payload,
+          link: shareLink.value
+        })
 
         sendBusy.value = false;
 
@@ -1009,6 +1037,7 @@ const openWallet = () => {
   // console.log("openWallet openWallet openWallet")
   // const walletmodal = useAppKit();
   // walletmodal.open();
+  posthog.capture('open_wallet')
   appkitBus.emit('open');
 }
 
@@ -1017,9 +1046,13 @@ import { useShare } from '@vueuse/core'
 const { share, isSupported } = useShare()
 
 function startShare() {
+
+  posthog.capture('share_pressed', {
+    link: shareLink.value
+  })
   share({
     title: 'Share',
-    text: 'Give me your money',
+    text: `Here's your angpao link! Click to receive your ETH!`,
     url: shareLink.value
   })
 }

@@ -1,6 +1,6 @@
 ---
 import '@/styles/globals.css'
-import ClaimVue from '@/components/Claim.vue'
+import NewVue from '@/components/New.vue'
 ---
 
 <html lang="en">
@@ -15,24 +15,20 @@ import ClaimVue from '@/components/Claim.vue'
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 
+		
 
-
-
-
-		<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet"> -->
 		<title>🧧 angpao.money</title>
 	</head>
 	<body>
 
 		<script>
-			import "iconify-icon";
-		  </script>
-                <div class="w-full flex justify-center items-center bg-poppy-100">
-					<div class="w-full sm:max-w-sm">
-						<ClaimVue id={Astro.params.id} client:only="vue"></ClaimVue>
-					</div>
-				</div>
+	      import "iconify-icon";
+		</script>
+
+		<div class="w-full flex justify-center items-center bg-poppy-100">
+			<div class="w-full sm:max-w-sm">
+				<NewVue client:only="vue"></NewVue>
+			</div>
+		</div>
 	</body>
 </html>
-

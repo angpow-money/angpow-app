@@ -18,6 +18,7 @@ import { $account, $config } from "@/stores/wallet";
 import { useEventBus } from '@vueuse/core'
 const appkitBus = useEventBus('appkit')
 
+import posthog from 'posthog-js'
 
 // const account = useStore($account)
 
@@ -81,6 +82,10 @@ onMounted(async () => {
     onChange(data) {
       $account.set(data);
       if(data.address && data.chainId === networks[0].chainId) {
+        posthog.capture('connected',{
+          chainId: data.chainId,
+          address: data.address
+        })
         emit('connected')
       }
     },

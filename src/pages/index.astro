@@ -1,6 +1,5 @@
 ---
 import '@/styles/globals.css'
-import New from '@/components/New.vue'
 ---
 
 <html lang="en">
@@ -12,24 +11,190 @@ import New from '@/components/New.vue'
 		
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-
-		
-
-		<title>Astro</title>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+		<title>🧧 angpao.money</title>
 	</head>
-	<body>
+	<body class="w-full h-full bg-poppy-100">
 
 		<script>
 	      import "iconify-icon";
 		</script>
+
+		<script>
+
+import posthog from 'posthog-js'
+
+posthog.init('phc_aB9tQxCKVNrxkD52p1sPSrhELBgquMttk9udO9J8sGV',
+    {
+        api_host: 'https://us.i.posthog.com',
+        person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
+    }
+)
+
+		</script>
+
+
+		<nav class="w-full fixed top-0 p-4 flex justify-between items-center">
+			
+			<a href="/" class="bg-white/50 text-poppy rounded-full sm:py-2 sm:px-6 p-2 sm:text-xl" >angpao.money</a>
+
+
+			<a data-ph-capture-attribute-link-type="nav_new_angpao" href="/new" target="_blank" class="bg-black text-white rounded-full py-2 px-6 font-semibold text-xl ring-white ring animate-bounce" >New Angpao</a>
+
+		</nav>
 		
 
-		<div class="w-full flex justify-center items-center bg-poppy-100">
-			<div class="w-full sm:max-w-sm">
-				<New client:only="vue"></New>
+		<section class="w-full min-w-screen min-h-[100dvh] flex justify-center items-center">
+			
+			<div class="w-full min-h-[80vh] flex justify-center items-center flex-col">
+
+				<div class="w-full flex justify-center items-center">
+
+					<div class="w-[30vh] max-w-[200px] bg-gradient-to-b from-poppy-400 to-poppy-500 aspect-[3/4] rounded-xl mb-12 shadow-xl flex flex-col justify-between items-center p-4">
+						<div class="aspect-square bg-white/10 p-4 rounded-full mb-4">
+							<img class="w-16 h-16" src="/logo.png" />
+						</div>
+
+						<div class="w-full aspect-square rounded-xl overflow-hidden">
+							<img class="w-full h-full" alt="" src="https://noun-api.com/beta/pfp">
+						</div>
+					</div>
+
+				</div>
+
+				<p class="sm:text-8xl text-4xl font-semibold mb-4 text-poppy-500">angpao.money</p>
+				<p class="sm:text-3xl font-semibold text-poppy-600">a new way to send crypto to everyone, anyone!</p>
+
+
+				<div class="mt-8 p-8">
+					
+					<div class="w-full grid grid-cols-2 justify-center items-center">
+						<div class="w-full flex justify-center items-center">
+							<a data-ph-capture-attribute-link-type="cta_new_angpao" href="/new" target="_blank"  class="sm:p-4 sm:px-12 p-2 px-4 h-auto btn sm:text-3xl text-xl bg-poppy-500 text-white rounded-full border-none hover:bg-poppy-700 hover:text-white">New Angpao</a>
+						</div>
+
+						<div class="w-full flex justify-center items-center">
+							<a data-ph-capture-attribute-link-type="cta_contact" target="_blank" href="https://app.ens.domains/junyaoc.eth" class="sm:p-4 sm:px-12 p-2 px-4 h-auto btn sm:text-3xl text-xl bg-white text-poppy rounded-full border-none hover:bg-poppy-700 hover:text-white">Contact Us</a>
+						</div>
+						
+
+					</div>
+
+
+					<div class="w-full text-center mt-8 text-lg font-medium  text-black"><p>Free ENS subdomain name <span class="text-poppy">(.angpow.money)</span> when you send your first angpao.</p></div>
+				</div>
 			</div>
-		</div>
+
+		</section>
+
+		<section class="w-full bg-gradient-to-b from-poppy-100 to-poppy-50 flex justify-center items-center p-12 text-lg sm:text-4xl text-center font-medium flex-col">
+
+			angpao.money is a magic-link utility to make receiving crypto as intuitive as handing over cash in an envelope.<br><br>
+			Absolute zero dependency: install nothing and gas-free, Angpao.money hyper-charge onboarding by bridging the UX gap, making every transfer fun, personal and memorable.
+
+
+			<div class="w-full flex justify-center items-center p-8 space-x-2">
+				<a data-ph-capture-attribute-link-type="read_more" href="https://ethglobal.com/showcase/angpao-money-1mn7c" class="btn bg-black text-white rounded-full"> <div class="w-8 h-8 bg-white rounded-full">
+					<img class="w-full h-full object-contain rounded-full" src="ethglobal.png" alt="">
+				</div> Read More on ETHGlobal</a>
+			</div>
+
+		</section>
+
+
+		<section class="w-full flex justify-center items-center flex-col bg-poppy-50 p-8">
+
+			<div class="w-full text-center mb-12">
+				<h2 class="sm:text-5xl text-3xl font-bold mb-2">Hey mom, we made it!</h2>
+			</div>
+
+
+			<div class="grid sm:grid-cols-4 grid-cols-2 justify-start items-start gap-4 text-center">
+				
+				<div class="w-full flex justify-start items-center flex-col">
+					<div class=" bg-white aspect-square rounded-xl w-36 h-36 mb-4 overflow-hidden flex justify-center items-center">
+						<img class="w-full h-full object-contain" src="ethglobal.png" alt="">
+					</div>
+					<p  class="text-xl mb-2">ETHGlobal Singapore</p>
+					<p class="text-gray-700">Finalist</p>
+				</div>
+
+				<div class="w-full flex justify-start items-center flex-col">
+					<div class=" bg-white aspect-square rounded-xl w-36 h-36 mb-4 overflow-hidden flex justify-center items-center">
+						<img class="w-full h-full object-contain" src="thegraph.png" alt="">
+					</div>
+					<p  class="text-xl mb-2">The Graph</p>
+					<p class="text-gray-700">Best Substream Grand Prize</p>
+				</div>
+
+				<div class="w-full flex justify-start items-center flex-col">
+					<div class=" bg-white aspect-square rounded-xl w-36 h-36 mb-4 overflow-hidden flex justify-center items-center">
+						<img class="w-full h-full object-contain" src="ens.png" alt="">
+					</div>
+					<p  class="text-xl mb-2">ENS</p>
+					<p class="text-gray-700">Best use of ENS 1st place</p>
+				</div>
+
+				<div class="w-full flex justify-start items-center flex-col">
+					<div class=" bg-white aspect-square rounded-xl w-36 h-36 mb-4 overflow-hidden flex justify-center items-center pl-1">
+						<img class="w-full h-full object-contain" src="worldcoin.png" alt="">
+					</div>
+					<p  class="text-xl mb-2">Worldcoin</p>
+					<p class="text-gray-700">Pool Prize</p>
+				</div>
+
+			</div>
+
+		</section>
+
+		<section class="w-full bg-gradient-to-b from-poppy-50 to-white p-12 flex flex-wrap justify-center items-center sm:text-4xl text-2xl text-center sm:gap-12 gap-4">
+
+			<p>"Zero dependency"</p>
+			<p>"No Wallet No Problem"</p>
+			<p>"No Gas Required"</p>
+			<p>"Human-readable"</p>
+			<p>"Make every transfer fun and memorable"</p>
+			<p>"Not just a hash in the explorer"</p>
+
+		</section>
+
+		
+
+		<section class="w-full bg-white flex justify-center items-center flex-col">
+
+			<div class="w-full flex justify-center items-center text-4xl pb-12">
+				<p class="font-bold">Our Live Demo</p>
+			</div>
+
+			<div class="w-full flex justify-center items-center sm:h-[500px] h-[50vh]">
+				<iframe width="100%" height="100%" src="https://www.youtube.com/embed/gbgAoZeeRHI?si=_anh7zZssOx9j5js&amp;start=1595" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+			</div>
+
+
+
+
+		</section>
+
+		<section class="w-full flex justify-center items-center bg-gradient-to-b from-white to-poppy-100 p-8 flex-col">
+
+			<p class="mt-12 sm:text-3xl text-2xl font-semibold text-center">we're from....angpao.money!</p>
+
+			<div class="bg-white rounded-xl p-2 max-w-[500px] rotate-3 my-24 shadow-2xl shadow-black hover:scale-105  duration-300">
+				<img class="rounded-xl" src="group.jpg" alt="">
+			</div>
+
+			<a target="_blank" class="text-blue-500 underline sm:text-xl text-lg text-center" href="https://x.com/NounsFair/status/1837774799491551504">thanks @NounsFair for capturing the moment</a>
+
+
+		</section>
+
+
+		<section class="w-full p-8 py-12 text-center flex justify-center items-center">
+
+			<a data-ph-capture-attribute-link-type="footer_contact" href="https://app.ens.domains/junyaoc.eth" target="_blank" class="btn bg-black text-white rounded-xl px-4 py-2">Contact Us</a>
+
+		</section>
+
 	</body>
 </html>

@@ -93,6 +93,9 @@ const donatorEnsName = ref("");
 const userEnsName = ref("");
 const angpow = ref(null);
 
+import posthog from 'posthog-js'
+
+
 const angpaoTap = () => {
     console.log('angpaoTap')
 
@@ -120,6 +123,10 @@ const connectWallet = () => {
 const wcverified = ref(false);
 const openAngpao = async () => {
 
+    posthog.capture('open_angpao_start', {
+        angpao: angpow.value
+    })
+
     console.log("angpow.value", angpow.value?.is_worldcoin_required);
 
     if(angpow.value?.is_worldcoin_required) {
@@ -136,6 +143,11 @@ const openAngpao = async () => {
     claimBusy.value = true;
     try {
       await receiveAngpow(props.id)
+
+      posthog.capture('open_angpao_complete', {
+        angpao: angpow.value
+    })
+
     } catch(err) {
 
       claimBusy.value = false;
@@ -168,6 +180,13 @@ const props = defineProps({
 })
 
 onMounted( async () => {
+
+    posthog.init('phc_aB9tQxCKVNrxkD52p1sPSrhELBgquMttk9udO9J8sGV',
+		{
+			api_host: 'https://us.i.posthog.com',
+			person_profiles: 'identified_only' // or 'always' to create profiles for anonymous users as well
+		}
+	)
 
 
   const _angpow = await fetch(`/api/angpow/${props.id}.json`).then(res => res.json())
