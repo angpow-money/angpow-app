@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import supabase from '@/supabase';
 
-export const GET: APIRoute = async ({ params, url }) => {
+export const GET: APIRoute = async ({ params }) => {
 
   const { data: event, error } = await supabase.from("event_angpow_received")
     .select("")
