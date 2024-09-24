@@ -72,7 +72,7 @@
 import { ref, onMounted  } from "vue";
 import Angpao from "./Angpao.vue";
 
-import ConnectWallet from "@/components/ConnectWallet.vue"
+import ConnectWallet from "@/components/ConnectWallet2.vue"
 import { useEventBus } from '@vueuse/core'
 const appkitBus = useEventBus('appkit')
 
