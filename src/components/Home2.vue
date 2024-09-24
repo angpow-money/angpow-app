@@ -388,13 +388,15 @@ const submitUsername = async () => {
   const ensName = await getEnsName($account.value?.address.toLowerCase())
   if (ensName === "" || !ensName) {
     await setEnsName({
-      "key": username_input.value,
+      "key": username_input.value + ".angpao.money",
       "value": {
         "addresses": {
           "60": $account.value?.address
         },
       }
     })
+
+    window.location.reload()
   }
 
   show_username_modal.value = false
