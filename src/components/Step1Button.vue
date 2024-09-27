@@ -97,7 +97,9 @@ $account.subscribe( async () => {
         balance.value = await fetch(`/api/balance.json?address=${$account.value.address}`)
             .then(res => res.json())
             .then(res => Number(res.amount))
-     }
+    } else {
+        canStart.value = false;
+    }
 })
 const walletConnected = async () => {
     // console.log('bbbbbb')
