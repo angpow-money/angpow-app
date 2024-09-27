@@ -273,7 +273,6 @@
   import { Input } from "@/components/ui/input";
   import { onMounted, defineProps } from "vue";
   import { $account } from "@/stores/wallet";
-  import ConnectWallet from "@/components/ConnectWallet.vue";
   import { formatEther } from "viem";
   
   const flip_angpao = useStore($flip_angpao)

@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 import vue from '@astrojs/vue';
+import react from '@astrojs/react';
 
 import tailwind from '@astrojs/tailwind';
 
@@ -17,7 +18,7 @@ export default defineConfig({
     },
   }),  tailwind({
     applyBaseStyles: false,
-  }),],
+  }), react()],
 
   output: "server",
   adapter: cloudflare(),

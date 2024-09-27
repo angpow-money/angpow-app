@@ -13,7 +13,7 @@ import { http, getAccount, watchAccount, reconnect, connect, watchConnections } 
 import { injected } from '@wagmi/connectors'
 import { arbitrumSepolia } from "@wagmi/core/chains";
 
-import { $account, $config } from "@/stores/wallet";
+// import { $account, $config } from "@/stores/wallet";
 
 import { useEventBus } from '@vueuse/core'
 const appkitBus = useEventBus('appkit')
@@ -61,7 +61,7 @@ onMounted(async () => {
     projectId,
     networks,
   });
-  $config.set(wagmiAdapter.wagmiConfig);
+  // $config.set(wagmiAdapter.wagmiConfig);
 
   // 4. Create modal
   createAppKit({
@@ -80,7 +80,7 @@ onMounted(async () => {
 
   const unwatch = watchAccount(wagmiAdapter.wagmiConfig, {
     onChange(data) {
-      $account.set(data);
+      // $account.set(data);
       if(data.address && data.chainId === networks[0].chainId) {
         posthog.capture('connected',{
           chainId: data.chainId,
