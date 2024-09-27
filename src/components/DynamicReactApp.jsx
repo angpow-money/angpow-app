@@ -18,10 +18,13 @@ $dynamicWallet.subscribe(() => {
 })
 
 export const config = createConfig({
-  chains: [mainnet, arbitrumSepolia],
+  chains: [
+    // mainnet, 
+    arbitrumSepolia,
+  ],
   multiInjectedProviderDiscovery: false,
   transports: {
-    [mainnet.id]: http(),
+    // [mainnet.id]: http(),
     [arbitrumSepolia.id]: http(),
   },
   
