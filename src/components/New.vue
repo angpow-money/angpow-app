@@ -771,7 +771,7 @@ const createAngpao = async () => {
 
         posthog.capture('start_create_angpao',payload)
         const id = await createAngpow(payload)
-        shareLink.value = `${window.location.href}claim/angpao/${id}`
+        shareLink.value = `${window.location.href.replace("new", "")}claim/angpao/${id}`
 
         posthog.capture('angpao_created',{
           ...payload,
