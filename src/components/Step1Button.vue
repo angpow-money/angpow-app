@@ -2,7 +2,7 @@
 
 <div class="w-full relative flex justify-end items-end">
 
-    <ConnectWallet @connected="walletConnected()"></ConnectWallet>
+    <!-- <ConnectWallet @connected="walletConnected()"></ConnectWallet> -->
     
     <div class="absolute bottom-0 flex justify-center items-center w-full">
         <div :class="[expand?'h-[80vh] ':'h-16']"  class="w-full bg-black text-white rounded-xl max-h-full m-0 text-xl font-semibold transition-all duration-500 flex flex-col justify-end items-end">
@@ -61,13 +61,13 @@
 <script setup>
 
     import { ref, watch } from "vue";
-    import ConnectWallet from "@/components/ConnectWallet.vue";
+    // import ConnectWallet from "@/components/ConnectWallet.vue";
     import { Input } from '@/components/ui/input'
     import { useStore } from "@nanostores/vue";
     import { $state, $show_titles, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $zoom_far_far, $pan_up_palette, $pan_down, $pan_up_up, $selectedColorClass, $token_up } from "@/stores/angpao";
 
     import { useEventBus } from "@vueuse/core";
-    const appkitBus = useEventBus("appkit");
+    // const appkitBus = useEventBus("appkit");
 
 
 const canStart = ref(false);
@@ -89,15 +89,29 @@ const reset = () => {
 
 const balance = new ref("0")
 import { $account } from '@/stores/wallet';
+
+$account.subscribe( async () => {
+    console.log("$account.value.address $account.value.address", $account.value?.address)
+    if($account.value?.address) {
+        canStart.value = true;
+        balance.value = await fetch(`/api/balance.json?address=${$account.value.address}`)
+            .then(res => res.json())
+            .then(res => Number(res.amount))
+    } else {
+        canStart.value = false;
+    }
+})
 const walletConnected = async () => {
     // console.log('bbbbbb')
+    return;
+    
     canStart.value = true;
     
-     if($account.value.address) {
-         balance.value = await fetch(`/api/balance.json?address=${$account.value.address}`)
-         .then(res => res.json())
-         .then(res => Number(res.amount))
-     }
+    if($account.value.address) {
+        balance.value = await fetch(`/api/balance.json?address=${$account.value.address}`)
+        .then(res => res.json())
+        .then(res => Number(res.amount))
+    }
 
 };
 
@@ -130,7 +144,9 @@ const confirmAmount = () => {
             $show_titles.set(false)
         }else{
             console.log(22222)
-            appkitBus.emit("open");
+            // appkitBus.emit("open");
+            const divs = window.document.querySelector("#dwallet");
+            if(divs) divs.click();
         }
 
     }

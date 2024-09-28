@@ -1,6 +1,7 @@
 ---
 import '@/styles/globals.css'
 import ClaimVue from '@/components/Claim.vue'
+import DynamicReactApp from '@/components/DynamicReactApp.jsx'
 ---
 
 <html lang="en">
@@ -30,6 +31,7 @@ import ClaimVue from '@/components/Claim.vue'
 		  </script>
                 <div class="w-full flex justify-center items-center bg-poppy-100">
 					<div class="w-full sm:max-w-sm">
+						<DynamicReactApp client:only="react"></DynamicReactApp>
 						<ClaimVue id={Astro.params.id} client:only="vue"></ClaimVue>
 					</div>
 				</div>

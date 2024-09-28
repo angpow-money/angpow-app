@@ -24,7 +24,7 @@
             <Angpao @click="angpaoTap()" class="pointer-events-auto"></Angpao>
         </div>
 
-        <ConnectWallet @connected="walletConnected()"></ConnectWallet>
+        <!-- <ConnectWallet @connected="walletConnected()"></ConnectWallet> -->
 
         <div class="w-full absolute bottom-0 px-4 pb-2 flex flex-col justify-center items-center">
 
@@ -72,9 +72,10 @@
 import { ref, onMounted  } from "vue";
 import Angpao from "./Angpao.vue";
 
-import ConnectWallet from "@/components/ConnectWallet.vue"
+// import ConnectWallet from "@/components/ConnectWallet.vue"
+// import ConnectWallet from "@/components/ConnectWallet2.vue"
 import { useEventBus } from '@vueuse/core'
-const appkitBus = useEventBus('appkit')
+// const appkitBus = useEventBus('appkit')
 
 
 import { useStore } from "@nanostores/vue";
@@ -102,6 +103,21 @@ const angpaoTap = () => {
     $flip_angpao.set(!flip_angpao.value);
 }
 
+$account.subscribe( async () => {
+    if($account.value?.address) {
+
+        received.value = await fetch(`/api/angpow/${props.id}/received.json?address=${$account.value.address}`)
+        .then(res => res.json())
+        .then(res => res.received)
+
+        userEnsName.value = await fetch(`/api/ensName.json?address=${$account.value.address}`)
+        .then(res => res.json())
+        .then(res => res.name)
+
+        canStart.value = true;
+    }
+})
+
 const walletConnected = async () => {
 
   received.value = await fetch(`/api/angpow/${props.id}/received.json?address=${$account.value.address}`)
@@ -117,7 +133,9 @@ const walletConnected = async () => {
 
 const connectWallet = () => {
     console.log(1111)
-    appkitBus.emit('open')
+    // appkitBus.emit('open')
+    const divs = window.document.querySelector("#dwallet");
+    if(divs) divs.click();
 }
 
 const wcverified = ref(false);
@@ -308,7 +326,9 @@ const openWallet = () => {
 //   console.log("openWallet openWallet openWallet")
 //   const walletmodal = useAppKit();
 //   walletmodal.open();
-    appkitBus.emit('open');
+    // appkitBus.emit('open');
+    const divs = window.document.querySelector("#dwallet");
+    if(divs) divs.click();
 }
 
 

@@ -1,6 +1,7 @@
 ---
 import '@/styles/globals.css'
 import Home2 from '@/components/Home2.vue'
+import DynamicReactApp from '@/components/DynamicReactApp.jsx'
 ---
 
 <html lang="en">
@@ -37,6 +38,7 @@ import Home2 from '@/components/Home2.vue'
 		<div class="w-full flex justify-center items-center relative">
 			
 			<div class="w-full">
+				<DynamicReactApp client:only="react"></DynamicReactApp>
 				<Home2 client:only="vue"></Home2>
 			</div>
 

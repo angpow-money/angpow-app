@@ -13,7 +13,7 @@ import { http, getAccount, watchAccount, reconnect, connect, watchConnections } 
 import { injected } from '@wagmi/connectors'
 import { arbitrumSepolia } from "@wagmi/core/chains";
 
-// import { $account, $config } from "@/stores/wallet";
+import { $account, $config } from "@/stores/wallet";
 
 import { useEventBus } from '@vueuse/core'
 const appkitBus = useEventBus('appkit')
@@ -37,31 +37,31 @@ onMounted(async () => {
   };
 
   const networks = [
-    // mainnet,
-    {
-      chainId: 421614,
-      chainNamespace: "eip155",
-      currency: "tETH",
-      explorerUrl: "https://sepolia.arbiscan.io",
-      id: "eip155:421614",
-      name: "ARBTestnet",
-      // rpcUrl: "https://endpoints.omniatech.io/v1/arbitrum/sepolia/public",
-      rpcUrl: "https://arb-sepolia.g.alchemy.com/v2/cOI6YkiomPgpNGs89aF2LTMS50_vpRr2"
-    },
+     mainnet,
+    //{
+    //  chainId: 421614,
+    //  chainNamespace: "eip155",
+    //  currency: "tETH",
+    //  explorerUrl: "https://sepolia.arbiscan.io",
+    //  id: "eip155:421614",
+    //  name: "ARBTestnet",
+    //  // rpcUrl: "https://endpoints.omniatech.io/v1/arbitrum/sepolia/public",
+    //  rpcUrl: "https://arb-sepolia.g.alchemy.com/v2/cOI6YkiomPgpNGs89aF2LTMS50_vpRr2"
+    //},
   ];
 
   // 3. Create Wagmi Adapter
   const wagmiAdapter = new WagmiAdapter({
     transports: {
-      [arbitrumSepolia.id]: http(),
-      // [mainnet.id]: http(),
+      //[arbitrumSepolia.id]: http(),
+      [mainnet.id]: http(),
     },
     // connectors: 
     ssr: true,
     projectId,
     networks,
   });
-  // $config.set(wagmiAdapter.wagmiConfig);
+  $config.set(wagmiAdapter.wagmiConfig);
 
   // 4. Create modal
   createAppKit({
@@ -80,7 +80,7 @@ onMounted(async () => {
 
   const unwatch = watchAccount(wagmiAdapter.wagmiConfig, {
     onChange(data) {
-      // $account.set(data);
+      $account.set(data);
       if(data.address && data.chainId === networks[0].chainId) {
         posthog.capture('connected',{
           chainId: data.chainId,

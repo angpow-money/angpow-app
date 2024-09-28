@@ -1,7 +1,7 @@
 <template>
   <div class="w-full min-h-[100dvh] relative z-10 pt-8 pb-[6rem]">
 
-    <ConnectWallet></ConnectWallet>
+    <!-- <ConnectWallet></ConnectWallet> -->
 
     <div class="w-full flex justify-center items-center p-8 flex-col">
       <div class="w-40 h-40 rounded-full shadow-xl bg-white overflow-hidden ring-[0.5rem] ring-poppy-700/50 border-4 border-white">
@@ -275,7 +275,7 @@ import { useStore } from "@nanostores/vue";
 import { Input } from "@/components/ui/input";
 import { onMounted } from "vue";
 import { $account } from "@/stores/wallet";
-import ConnectWallet from "@/components/ConnectWallet.vue";
+// import ConnectWallet from "@/components/ConnectWallet.vue";
 import { formatEther } from "viem";
 
 const flip_angpao = useStore($flip_angpao)
@@ -388,13 +388,15 @@ const submitUsername = async () => {
   const ensName = await getEnsName($account.value?.address.toLowerCase())
   if (ensName === "" || !ensName) {
     await setEnsName({
-      "key": username_input.value,
+      "key": username_input.value + ".angpao.money",
       "value": {
         "addresses": {
           "60": $account.value?.address
         },
       }
     })
+
+    window.location.reload()
   }
 
   show_username_modal.value = false

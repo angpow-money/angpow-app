@@ -8,5 +8,4 @@ export const $config = atom(null);
 
 
 
-
-
+export const $dynamicWallet = atom(null);

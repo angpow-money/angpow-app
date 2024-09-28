@@ -301,7 +301,7 @@
               <button class="btn w-full border-2 border-black/10 bg-white text-black rounded-xl p-4 max-h-full m-0 h-auto text-xl font-semibold mb-2 pointer-events-auto">Copy</button>
             </div> -->
 
-            <button class="btn w-full bg-black text-white rounded-3xl p-4 max-h-full m-0 h-auto text-xl font-medium mb-2 pointer-events-auto">View All Angpao</button>
+            <button @click="viewAllAngpao()" class="btn w-full bg-black text-white rounded-3xl p-4 max-h-full m-0 h-auto text-xl font-medium mb-2 pointer-events-auto">View All Angpao</button>
           </template>
         </div>
       </div>
@@ -412,7 +412,7 @@ import Flicking from "@egjs/vue3-flicking";
 import "@egjs/vue3-flicking/dist/flicking.css";
 
 import { useEventBus } from "@vueuse/core";
-const appkitBus = useEventBus("appkit");
+// const appkitBus = useEventBus("appkit");
 
 import { useStore } from "@nanostores/vue";
 import { $state, $show_palette, $zoom_close, $zoom_far, $flip_angpao, $open_angpao, $pan_up, $zoom_far_far, $pan_up_palette, $pan_down, $pan_up_up, $selectedColorClass, $show_titles, $token_up, $angpao_design, $angpao_message, $selectedBgColor, $angpao_eth_amount } from "@/stores/angpao";
@@ -771,7 +771,7 @@ const createAngpao = async () => {
 
         posthog.capture('start_create_angpao',payload)
         const id = await createAngpow(payload)
-        shareLink.value = `${window.location.href}claim/angpao/${id}`
+        shareLink.value = `${window.location.href.replace("new", "")}claim/angpao/${id}`
 
         posthog.capture('angpao_created',{
           ...payload,
@@ -1038,7 +1038,10 @@ const openWallet = () => {
   // const walletmodal = useAppKit();
   // walletmodal.open();
   posthog.capture('open_wallet')
-  appkitBus.emit('open');
+
+  // appkitBus.emit('open');
+  const divs = window.document.querySelector("#dwallet");
+  if(divs) divs.click();
 }
 
 
@@ -1056,6 +1059,16 @@ function startShare() {
     url: shareLink.value
   })
 }
+
+
+
+const viewAllAngpao = () => {
+
+  window.location.href = window.location.origin + "/home"
+
+}
+
+
 </script>
 
 <style>
